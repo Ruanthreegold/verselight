@@ -1,9 +1,10 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import path from 'path';
+import { i18nPlugin } from './scripts/i18n-vite-plugin.js';
 
 export default defineConfig({
-  plugins: [react()],
+  plugins: [i18nPlugin(), react()],
   base: '/',
   build: {
     outDir: 'dist',

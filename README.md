@@ -1,14 +1,20 @@
 <p align="center">
-  <img src="public/logos/LyricDisplay%20logo.png" alt="LyricDisplay" width="360">
+  <img src="public/logos/VerseLight%20logo.png" alt="VerseLight" width="360">
 </p>
 
-# LyricDisplay
+# VerseLight
+
+**中文说明见 [README.zh-CN.md](README.zh-CN.md) — Chinese documentation is available [here](README.zh-CN.md).**
+
+This repository is a personal fork of [LyricDisplay](https://github.com/PeterAlaks/lyric-display-app):
+the UI is localized (Chinese by default, English switchable), the brand is renamed to **VerseLight**, and
+automatic updates are disabled (`UPDATES_DISABLED` in `main/updater.js`). Everything else follows upstream 7.0.1.
 
 Real-time lyric control and multi-output display for live events, worship services, streaming, and production environments.
 
 **Version:** 7.0.1 · **License:** GPL-3.0-or-later
 
-[Download LyricDisplay](https://github.com/PeterAlaks/lyric-display-app/releases/latest) · [Installation guide](INSTALLATION.md) · [Contributing](CONTRIBUTING.md) · [Architecture map](docs/PROJECT_STRUCTURE.md)
+[Building from source](README.zh-CN.md#三安装与运行) · [Installation guide](INSTALLATION.md) · [Contributing](CONTRIBUTING.md) · [Architecture map](docs/PROJECT_STRUCTURE.md)
 
 ## What LyricDisplay Does
 

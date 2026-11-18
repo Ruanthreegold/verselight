@@ -19,6 +19,7 @@ import useLyricsStore from '../context/LyricsStore';
 import { listToastSoundOutputDevices, setToastSoundOutputDevice } from '../utils/toastSounds';
 import useModal from '../hooks/useModal';
 import { useLiveSafetyBridge } from '../hooks/useLiveSafetyBridge';
+import { useLocale, setLocale } from '@/i18n';
 import {
   DEFAULT_SETLIST_ITEMS,
   MAX_SETLIST_ITEMS,
@@ -79,6 +80,7 @@ const CATEGORIES = [
 ];
 
 const UserPreferencesModal = ({ darkMode, onClose, initialCategory }) => {
+  const locale = useLocale();
   const [activeCategory, setActiveCategory] = useState(initialCategory || 'general');
   const [appearancePage, setAppearancePage] = useState('main');
   const [parsingPage, setParsingPage] = useState('main');
@@ -537,15 +539,30 @@ const UserPreferencesModal = ({ darkMode, onClose, initialCategory }) => {
 
             <div className={preferenceToggleRowClass}>
               <div className={preferenceToggleTextClass}>
-                <label className={`text-sm font-medium ${labelClass}`}>Auto-check for updates on startup</label>
-                <p className={`text-xs ${mutedClass}`}>Automatically check for all available updates</p>
+                <label className={`text-sm font-medium ${labelClass}`}>Language / 界面语言</label>
+                <p className={`text-xs ${mutedClass}`}>
+                  默认中文，可切换为英文 — Chinese is the default; switch to English here.
+                </p>
               </div>
-              <Switch
-                checked={preferences.general?.autoCheckForUpdates ?? true}
-                onCheckedChange={(checked) => updatePreference('general', 'autoCheckForUpdates', checked)}
-                size="medium"
-                variant="control"
-              />
+              <div className="inline-flex overflow-hidden rounded-md border border-slate-600">
+                {[
+                  { id: 'zh-CN', label: '中文' },
+                  { id: 'en', label: 'English' },
+                ].map((item) => (
+                  <button
+                    key={item.id}
+                    type="button"
+                    onClick={() => setLocale(item.id)}
+                    className={`px-3 py-1.5 text-xs font-medium transition-colors ${
+                      locale === item.id
+                        ? 'bg-blue-600 text-white'
+                        : 'bg-transparent text-slate-300 hover:bg-slate-700/60'
+                    }`}
+                  >
+                    {item.label}
+                  </button>
+                ))}
+              </div>
             </div>
 
             <div className={preferenceToggleRowClass}>

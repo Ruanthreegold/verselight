@@ -56,3 +56,9 @@ release/
 
 # NDI Companion App (separate repository, cloned here for development)
 lyricdisplay-ndi/
+
+# 构建期 i18n 覆盖率统计
+.i18n-keys.json
+.tmpdata/
+.dom*.html
+.edge*/
