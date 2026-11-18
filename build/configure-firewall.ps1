@@ -6,7 +6,7 @@ param(
     [switch]$NoElevation
 )
 
-function Get-LyricDisplayFirewallRuleNames {
+function Get-VerseLightFirewallRuleNames {
     param([string]$Executable)
 
     # Each installation owns its rules, including installs under other accounts.
@@ -17,26 +17,26 @@ function Get-LyricDisplayFirewallRuleNames {
     } finally {
         $sha.Dispose()
     }
-    @("LyricDisplay-$id-TCP", "LyricDisplay-$id-UDP")
+    @("VerseLight-$id-TCP", "VerseLight-$id-UDP")
 }
 
-function Get-LyricDisplayFirewallRules {
+function Get-VerseLightFirewallRules {
     param([string]$Executable)
-    $names = @(Get-LyricDisplayFirewallRuleNames -Executable $Executable)
+    $names = @(Get-VerseLightFirewallRuleNames -Executable $Executable)
     Get-NetFirewallRule -PolicyStore PersistentStore -ErrorAction Stop |
         Where-Object { $_.Name -in $names }
 }
 
-function Set-LyricDisplayFirewall {
+function Set-VerseLightFirewall {
     param([string]$Operation, [string]$Executable)
 
-    $existing = @(Get-LyricDisplayFirewallRules -Executable $Executable)
+    $existing = @(Get-VerseLightFirewallRules -Executable $Executable)
     if ($Operation -eq 'Remove') {
         $existing | Remove-NetFirewallRule -ErrorAction Stop
         return
     }
 
-    $names = @(Get-LyricDisplayFirewallRuleNames -Executable $Executable)
+    $names = @(Get-VerseLightFirewallRuleNames -Executable $Executable)
     foreach ($protocol in @('TCP', 'UDP')) {
         $name = $names | Where-Object { $_.EndsWith("-$protocol") }
         $settings = @{
@@ -53,7 +53,7 @@ function Set-LyricDisplayFirewall {
         if ($existing.Name -contains $name) {
             Set-NetFirewallRule -Name $name @settings | Out-Null
         } else {
-            New-NetFirewallRule -Name $name -DisplayName "LyricDisplay ($protocol inbound)" @settings | Out-Null
+            New-NetFirewallRule -Name $name -DisplayName "VerseLight ($protocol inbound)" @settings | Out-Null
         }
     }
 }
@@ -70,7 +70,7 @@ try {
     if ($Action -eq 'Add' -and -not (Test-Path -LiteralPath $Program -PathType Leaf)) {
         throw 'The installed executable was not found.'
     }
-    if ($Action -eq 'Remove' -and @(Get-LyricDisplayFirewallRules -Executable $Program).Count -eq 0) {
+    if ($Action -eq 'Remove' -and @(Get-VerseLightFirewallRules -Executable $Program).Count -eq 0) {
         exit 0
     }
     $identity = [Security.Principal.WindowsIdentity]::GetCurrent()
@@ -87,7 +87,7 @@ try {
             -ArgumentList @('-NoLogo', '-NoProfile', '-NonInteractive', '-ExecutionPolicy', 'Bypass', '-EncodedCommand', $encoded)
         exit $process.ExitCode
     }
-    Set-LyricDisplayFirewall -Operation $Action -Executable $Program
+    Set-VerseLightFirewall -Operation $Action -Executable $Program
     exit 0
 } catch {
     Write-Output "Windows Firewall: $($_.Exception.Message)"

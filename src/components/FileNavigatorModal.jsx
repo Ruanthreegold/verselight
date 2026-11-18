@@ -749,8 +749,8 @@ export default function FileNavigatorModal() {
       showToast({
         title: result.folderCreated ? 'Lyrics folder created' : 'Lyrics folder ready',
         message: result.folderCreated
-          ? 'Documents/LyricDisplay/Lyrics was created and indexed.'
-          : 'The existing Documents/LyricDisplay/Lyrics folder is now indexed.',
+          ? 'Documents/VerseLight/Lyrics was created and indexed.'
+          : 'The existing Documents/VerseLight/Lyrics folder is now indexed.',
         variant: 'success',
       });
     } catch (nextError) {
@@ -774,7 +774,7 @@ export default function FileNavigatorModal() {
     setRemovalConfirmationOpen(true);
     const confirmation = await showModal({
       title: `Remove ${root.name || 'this folder'}?`,
-      description: 'LyricDisplay will stop indexing this folder. No files will be moved or deleted.',
+      description: 'VerseLight will stop indexing this folder. No files will be moved or deleted.',
       variant: 'warning',
       size: 'sm',
       actions: [

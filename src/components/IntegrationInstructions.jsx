@@ -166,11 +166,11 @@ function FirewallSteps({ darkMode, platform, serverPort }) {
         return (
             <>
                 <Step number={3} darkMode={darkMode}>
-                    Allow LyricDisplay through your firewall:
+                    Allow VerseLight through your firewall:
                     <SubSteps darkMode={darkMode}>
                         <SubStep darkMode={darkMode}>Open <Strong>System Settings</Strong> → <Strong>Network</Strong> → <Strong>Firewall</Strong></SubStep>
                         <SubStep darkMode={darkMode}>If the firewall is on, click <Strong>Options…</Strong></SubStep>
-                        <SubStep darkMode={darkMode}>Click <Strong>+</Strong> and add <Strong>LyricDisplay</Strong> from your Applications folder</SubStep>
+                        <SubStep darkMode={darkMode}>Click <Strong>+</Strong> and add <Strong>VerseLight</Strong> from your Applications folder</SubStep>
                         <SubStep darkMode={darkMode}>Set it to <Strong>Allow incoming connections</Strong></SubStep>
                     </SubSteps>
                     <Hint darkMode={darkMode}>If the firewall is off, you can skip this step — connections are already allowed</Hint>
@@ -182,13 +182,13 @@ function FirewallSteps({ darkMode, platform, serverPort }) {
         return (
             <>
                 <Step number={3} darkMode={darkMode}>
-                    Allow LyricDisplay through your firewall:
+                    Allow VerseLight through your firewall:
                     <SubSteps darkMode={darkMode}>
                         <SubStep darkMode={darkMode}>If using <Strong>ufw</Strong> (Ubuntu/Debian): run <InlineCode darkMode={darkMode}>sudo ufw allow {serverPort}/tcp</InlineCode></SubStep>
                         <SubStep darkMode={darkMode}>If using <Strong>firewalld</Strong> (Fedora/RHEL): run <InlineCode darkMode={darkMode}>sudo firewall-cmd --add-port={serverPort}/tcp --permanent && sudo firewall-cmd --reload</InlineCode></SubStep>
                         <SubStep darkMode={darkMode}>If you have no firewall configured, you can skip this step</SubStep>
                     </SubSteps>
-                    <Hint darkMode={darkMode}>This lets other computers on your network talk to LyricDisplay</Hint>
+                    <Hint darkMode={darkMode}>This lets other computers on your network talk to VerseLight</Hint>
                 </Step>
             </>
         );
@@ -197,16 +197,16 @@ function FirewallSteps({ darkMode, platform, serverPort }) {
     return (
         <>
             <Step number={3} darkMode={darkMode}>
-                Allow LyricDisplay through your firewall:
+                Allow VerseLight through your firewall:
                 <SubSteps darkMode={darkMode}>
                     <SubStep darkMode={darkMode}>Search "Windows Defender Firewall" in Start menu</SubStep>
                     <SubStep darkMode={darkMode}>Click "Allow an app through firewall"</SubStep>
                     <SubStep darkMode={darkMode}>Click "Change settings" then "Allow another app"</SubStep>
-                    <SubStep darkMode={darkMode}>Browse to: <InlineCode darkMode={darkMode}>C:\Program Files\LyricDisplay\LyricDisplay.exe</InlineCode></SubStep>
+                    <SubStep darkMode={darkMode}>Browse to: <InlineCode darkMode={darkMode}>C:\Program Files\VerseLight\VerseLight.exe</InlineCode></SubStep>
                     <SubStep darkMode={darkMode}>Check both "Private" and "Public" boxes</SubStep>
                     <SubStep darkMode={darkMode}>Click Add</SubStep>
                 </SubSteps>
-                <Hint darkMode={darkMode}>This lets other computers talk to LyricDisplay</Hint>
+                <Hint darkMode={darkMode}>This lets other computers talk to VerseLight</Hint>
             </Step>
         </>
     );
@@ -256,7 +256,7 @@ function CompactFirewallSteps({ darkMode, platform, serverPort }) {
         return (
             <SubSteps darkMode={darkMode}>
                 <SubStep darkMode={darkMode}>System Settings → Network → Firewall → Options</SubStep>
-                <SubStep darkMode={darkMode}>Add LyricDisplay and allow incoming connections</SubStep>
+                <SubStep darkMode={darkMode}>Add VerseLight and allow incoming connections</SubStep>
                 <SubStep darkMode={darkMode}>(Skip if firewall is off)</SubStep>
             </SubSteps>
         );
@@ -275,7 +275,7 @@ function CompactFirewallSteps({ darkMode, platform, serverPort }) {
         <SubSteps darkMode={darkMode}>
             <SubStep darkMode={darkMode}>Search "Windows Defender Firewall"</SubStep>
             <SubStep darkMode={darkMode}>Allow an app → Change settings → Allow another app</SubStep>
-            <SubStep darkMode={darkMode}>Add LyricDisplay.exe from Program Files</SubStep>
+            <SubStep darkMode={darkMode}>Add VerseLight.exe from Program Files</SubStep>
             <SubStep darkMode={darkMode}>Check Private and Public boxes</SubStep>
         </SubSteps>
     );
@@ -291,7 +291,7 @@ function OBSInstructions({ darkMode, localIP, platform, serverPort, onRequestClo
     return (
         <div className="space-y-6 pb-4">
             <IntroSection darkMode={darkMode}>
-                LyricDisplay works with OBS Studio through a browser source. Think of it as a transparent window that displays your lyrics over your video feed.
+                VerseLight works with OBS Studio through a browser source. Think of it as a transparent window that displays your lyrics over your video feed.
             </IntroSection>
 
             <SourceCreatorCallout darkMode={darkMode} localIP={localIP} serverPort={serverPort} onRequestClose={onRequestClose} />
@@ -304,7 +304,7 @@ function OBSInstructions({ darkMode, localIP, platform, serverPort, onRequestClo
                 darkMode={darkMode}
             >
                 <SetupDescription darkMode={darkMode}>
-                    Both LyricDisplay and OBS running on one computer. Perfect for most streaming setups.
+                    Both VerseLight and OBS running on one computer. Perfect for most streaming setups.
                 </SetupDescription>
 
                 <StepsList>
@@ -347,7 +347,7 @@ function OBSInstructions({ darkMode, localIP, platform, serverPort, onRequestClo
                 </StepsList>
 
                 <TestingBox darkMode={darkMode}>
-                    <Strong>Testing:</Strong> Load lyrics in LyricDisplay ({modKey}+O), click any line, and it appears in OBS!
+                    <Strong>Testing:</Strong> Load lyrics in VerseLight ({modKey}+O), click any line, and it appears in OBS!
                 </TestingBox>
             </SetupOption>
 
@@ -359,10 +359,10 @@ function OBSInstructions({ darkMode, localIP, platform, serverPort, onRequestClo
                 darkMode={darkMode}
             >
                 <SetupDescription darkMode={darkMode}>
-                    LyricDisplay on one computer, OBS on another. Both must be on the same network (connected to the same router/WiFi).
+                    VerseLight on one computer, OBS on another. Both must be on the same network (connected to the same router/WiFi).
                 </SetupDescription>
 
-                <SectionHeader darkMode={darkMode}>On the LyricDisplay Computer:</SectionHeader>
+                <SectionHeader darkMode={darkMode}>On the VerseLight Computer:</SectionHeader>
                 <StepsList>
                     <Step number={1} darkMode={darkMode}>
                         Your computer's network address is:
@@ -420,7 +420,7 @@ function VMixInstructions({ darkMode, localIP, platform, serverPort }) {
     return (
         <div className="space-y-6 pb-4">
             <IntroSection darkMode={darkMode}>
-                LyricDisplay connects to vMix using a Web Browser input. This creates a transparent overlay layer that sits on top of your video production.
+                VerseLight connects to vMix using a Web Browser input. This creates a transparent overlay layer that sits on top of your video production.
             </IntroSection>
 
             <SetupOption
@@ -431,7 +431,7 @@ function VMixInstructions({ darkMode, localIP, platform, serverPort }) {
                 darkMode={darkMode}
             >
                 <SetupDescription darkMode={darkMode}>
-                    Both LyricDisplay and vMix on the same computer. Great for single-computer production setups.
+                    Both VerseLight and vMix on the same computer. Great for single-computer production setups.
                 </SetupDescription>
 
                 <StepsList>
@@ -466,7 +466,7 @@ function VMixInstructions({ darkMode, localIP, platform, serverPort }) {
                 </StepsList>
 
                 <TestingBox darkMode={darkMode}>
-                    <Strong>Testing:</Strong> Load lyrics in LyricDisplay, click a line, and watch it appear in your vMix overlay!
+                    <Strong>Testing:</Strong> Load lyrics in VerseLight, click a line, and watch it appear in your vMix overlay!
                 </TestingBox>
             </SetupOption>
 
@@ -481,7 +481,7 @@ function VMixInstructions({ darkMode, localIP, platform, serverPort }) {
                     Control lyrics from one computer while vMix runs on another. Both computers must be connected to the same network.
                 </SetupDescription>
 
-                <SectionHeader darkMode={darkMode}>On the LyricDisplay Computer:</SectionHeader>
+                <SectionHeader darkMode={darkMode}>On the VerseLight Computer:</SectionHeader>
                 <StepsList>
                     <Step number={1} darkMode={darkMode}>
                         Your network address is:
@@ -541,7 +541,7 @@ function WirecastInstructions({ darkMode, localIP, platform, serverPort }) {
     return (
         <div className="space-y-6 pb-4">
             <IntroSection darkMode={darkMode}>
-                LyricDisplay integrates with Wirecast using a Web Page source. This adds lyrics as a transparent layer that can appear across all shots or specific ones.
+                VerseLight integrates with Wirecast using a Web Page source. This adds lyrics as a transparent layer that can appear across all shots or specific ones.
             </IntroSection>
 
             <SetupOption
@@ -552,7 +552,7 @@ function WirecastInstructions({ darkMode, localIP, platform, serverPort }) {
                 darkMode={darkMode}
             >
                 <SetupDescription darkMode={darkMode}>
-                    Run both LyricDisplay and Wirecast on one computer. Ideal for smaller productions and streaming.
+                    Run both VerseLight and Wirecast on one computer. Ideal for smaller productions and streaming.
                 </SetupDescription>
 
                 <StepsList>
@@ -599,7 +599,7 @@ function WirecastInstructions({ darkMode, localIP, platform, serverPort }) {
                 </StepsList>
 
                 <TestingBox darkMode={darkMode}>
-                    <Strong>Testing:</Strong> Load lyrics in LyricDisplay, click any line, and see it in Wirecast preview and program!
+                    <Strong>Testing:</Strong> Load lyrics in VerseLight, click any line, and see it in Wirecast preview and program!
                 </TestingBox>
             </SetupOption>
 
@@ -614,7 +614,7 @@ function WirecastInstructions({ darkMode, localIP, platform, serverPort }) {
                     Control lyrics from a separate computer. Perfect for larger productions with dedicated operators.
                 </SetupDescription>
 
-                <SectionHeader darkMode={darkMode}>On the LyricDisplay Computer:</SectionHeader>
+                <SectionHeader darkMode={darkMode}>On the VerseLight Computer:</SectionHeader>
                 <StepsList>
                     <Step number={1} darkMode={darkMode}>
                         Your network address:

@@ -58,7 +58,7 @@ export function formatOutputLabel(outputId = '') {
 }
 
 export function formatSourceName(outputId = 'output1') {
-  return `LyricDisplay ${formatOutputLabel(outputId)}`;
+  return `VerseLight ${formatOutputLabel(outputId)}`;
 }
 
 export function getTransparentBrowserCss() {

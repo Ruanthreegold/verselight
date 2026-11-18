@@ -12,7 +12,7 @@ try {
   keytar = null;
 }
 
-const BASE_SERVICE_NAME = 'LyricDisplay';
+const BASE_SERVICE_NAME = 'VerseLight';
 const ACCOUNT_NAME = 'server-secrets';
 const ENC_FILE_NAME = 'secrets.json';
 const KEY_FILE_NAME = 'secrets.key';

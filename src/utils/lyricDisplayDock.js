@@ -3,8 +3,8 @@ export const launchHeadlessActionClass = 'border-transparent! bg-blue-600! text-
 export async function confirmAndLaunchHeadlessMode({ showModal, showToast } = {}) {
   const confirmation = await showModal?.({
     title: 'Switch to Dock Mode?',
-    description: 'LyricDisplay will keep running for the OBS dock without the desktop window.',
-    body: 'Save any unsaved work before continuing. After the switch, use LyricDisplay Dock in OBS to control lyrics and output settings.',
+    description: 'VerseLight will keep running for the OBS dock without the desktop window.',
+    body: 'Save any unsaved work before continuing. After the switch, use VerseLight Dock in OBS to control lyrics and output settings.',
     variant: 'warn',
     size: 'sm',
     actions: [
@@ -20,7 +20,7 @@ export async function confirmAndLaunchHeadlessMode({ showModal, showToast } = {}
     if (result?.success === false) {
       showToast?.({
         title: 'Dock Mode Could Not Start',
-        message: result.error || 'LyricDisplay could not switch to Dock Mode.',
+        message: result.error || 'VerseLight could not switch to Dock Mode.',
         variant: 'error',
       });
       return false;
@@ -29,14 +29,14 @@ export async function confirmAndLaunchHeadlessMode({ showModal, showToast } = {}
   } catch (error) {
     showToast?.({
       title: 'Dock Mode Could Not Start',
-      message: error.message || 'LyricDisplay could not switch to Dock Mode.',
+      message: error.message || 'VerseLight could not switch to Dock Mode.',
       variant: 'error',
     });
     return false;
   }
 }
 
-export function createLyricDisplayDockSetupActions(onLaunchHeadlessMode) {
+export function createVerseLightDockSetupActions(onLaunchHeadlessMode) {
   return [
     { label: 'Close', variant: 'outline' },
     {

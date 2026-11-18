@@ -4,7 +4,7 @@ import useModal from '@/hooks/useModal';
 import useToast from '@/hooks/useToast';
 import { useDarkModeState } from '@/hooks/useStoreSelectors';
 import useLyricsStore from '@/context/LyricsStore';
-import { confirmAndLaunchHeadlessMode, createLyricDisplayDockSetupActions } from '@/utils/lyricDisplayDock';
+import { confirmAndLaunchHeadlessMode, createVerseLightDockSetupActions } from '@/utils/lyricDisplayDock';
 import { openFileNavigator } from '@/utils/fileNavigatorEvents';
 import { CHECK_APP_ANNOUNCEMENTS_EVENT } from '@/constants/modalEvents';
 
@@ -425,7 +425,7 @@ const useMenuHandlers = (closeMenu) => {
   const handleObsDockSetup = useCallback(() => {
     closeMenu();
     showModal({
-      title: 'LyricDisplay Dock Setup',
+      title: 'VerseLight Dock Setup',
       headerDescription: 'Copy the OBS dock URL and review Dock Mode startup options',
       component: 'ObsDockInfo',
       variant: 'info',
@@ -433,7 +433,7 @@ const useMenuHandlers = (closeMenu) => {
       scrollBehavior: 'scroll',
       actions: isDevMode
         ? [{ label: 'Close', variant: 'outline' }]
-        : createLyricDisplayDockSetupActions(handleLaunchHeadlessMode),
+        : createVerseLightDockSetupActions(handleLaunchHeadlessMode),
     });
   }, [closeMenu, handleLaunchHeadlessMode, isDevMode, showModal]);
 
@@ -480,7 +480,7 @@ const useMenuHandlers = (closeMenu) => {
     closeMenu();
     showModal({
       title: 'Streaming Software Integration',
-      headerDescription: 'Connect LyricDisplay to OBS, vMix or Wirecast',
+      headerDescription: 'Connect VerseLight to OBS, vMix or Wirecast',
       component: 'IntegrationInstructions',
       variant: 'info',
       size: 'lg',
@@ -506,7 +506,14 @@ const useMenuHandlers = (closeMenu) => {
   const handleCheckUpdates = useCallback(async () => {
     closeMenu();
     const result = await window.electronAPI?.checkForUpdates?.(true);
-    if (result?.state?.updateMode === 'store') {
+    if (result?.state?.updateMode === 'disabled') {
+      showToast({
+        title: 'Updates are disabled',
+        message: 'This is a private VerseLight build; update checks are turned off.',
+        variant: 'info',
+        dedupeKey: 'app-update-disabled',
+      });
+    } else if (result?.state?.updateMode === 'store') {
       showToast({
         title: 'Updates managed by Microsoft Store',
         message: 'Open Microsoft Store and select Library > Get updates to check manually.',
@@ -516,7 +523,7 @@ const useMenuHandlers = (closeMenu) => {
     } else if (result?.deferred) {
       showToast({
         title: 'Update check deferred',
-        message: 'LyricDisplay will check for updates when Live Safety is turned off.',
+        message: 'VerseLight will check for updates when Live Safety is turned off.',
         variant: 'info',
         dedupeKey: 'app-update-check-deferred',
       });
@@ -526,7 +533,7 @@ const useMenuHandlers = (closeMenu) => {
   const handleAbout = useCallback(async (appVersion) => {
     closeMenu();
     const result = await showModal({
-      title: 'About LyricDisplay',
+      title: 'About VerseLight',
       component: 'AboutApp',
       variant: 'info',
       size: 'md',

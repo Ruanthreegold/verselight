@@ -222,18 +222,18 @@ export function parseScheduleDocument(raw) {
     try {
       value = JSON.parse(raw.replace(/^\uFEFF/, ''));
     } catch {
-      throw new Error('This is not a valid LyricDisplay schedule file');
+      throw new Error('This is not a valid VerseLight schedule file');
     }
   }
   if (!isPlainObject(value)) throw new Error('Schedule file must contain an object');
-  if (value.format && value.format !== LDSCH_FORMAT) throw new Error('This file is not a LyricDisplay schedule');
+  if (value.format && value.format !== LDSCH_FORMAT) throw new Error('This file is not a VerseLight schedule');
   if (value.version !== null && value.version !== undefined) {
     const sourceVersion = Number(value.version);
     if (!Number.isInteger(sourceVersion) || sourceVersion < 0) {
       throw new Error('Schedule file has an invalid format version');
     }
     if (sourceVersion > LDSCH_VERSION) {
-      throw new Error(`Schedule version ${sourceVersion} requires a newer LyricDisplay version`);
+      throw new Error(`Schedule version ${sourceVersion} requires a newer VerseLight version`);
     }
   }
   const schedule = normalizeScheduleDocument(value);

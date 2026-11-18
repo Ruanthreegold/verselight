@@ -7,7 +7,7 @@ import { useDarkModeState, useIsDesktopApp } from '@/hooks/useStoreSelectors';
 const dragRegion = { WebkitAppRegion: 'drag' };
 const noDrag = { WebkitAppRegion: 'no-drag' };
 
-const CompactTitleBar = ({ darkMode, title = 'LyricDisplay' }) => {
+const CompactTitleBar = ({ darkMode, title = 'VerseLight' }) => {
   const [windowState, setWindowState] = React.useState({ isMaximized: false });
 
   React.useEffect(() => {
@@ -32,7 +32,7 @@ const CompactTitleBar = ({ darkMode, title = 'LyricDisplay' }) => {
       style={dragRegion}
     >
       <div className="flex items-center gap-2 px-3 min-w-0">
-        <img src="/LyricDisplay-icon.png" alt="" className="h-5 w-5 shrink-0" draggable={false} />
+        <img src="/VerseLight-icon.png" alt="" className="h-5 w-5 shrink-0" draggable={false} />
         <span className="text-xs font-semibold truncate">{title}</span>
       </div>
       <div className="flex items-center" style={noDrag}>
@@ -68,10 +68,10 @@ const DesktopShell = ({ children }) => {
   const isTimerControl = location.pathname === '/timer-control';
   const isObsSetup = location.pathname === '/obs-setup';
   const compactTitle = isTimerControl
-    ? 'LyricDisplay Timer'
+    ? 'VerseLight Timer'
     : isObsSetup
-      ? 'LyricDisplay OBS Source Creator'
-      : 'LyricDisplay';
+      ? 'VerseLight OBS Source Creator'
+      : 'VerseLight';
 
   useEffect(() => {
     if (!isDesktopApp || typeof document === 'undefined') return;

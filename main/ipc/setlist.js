@@ -27,7 +27,7 @@ export function registerSetlistHandlers({ getMainWindow }) {
       const userHome = os.homedir();
       const platform = process.platform;
       const separator = platform === 'win32' ? '\\' : '/';
-      const defaultPath = `${userHome}${separator}Documents${separator}LyricDisplay${separator}Setlists`;
+      const defaultPath = `${userHome}${separator}Documents${separator}VerseLight${separator}Setlists`;
 
       try {
         await fs.mkdir(defaultPath, { recursive: true });
@@ -40,7 +40,7 @@ export function registerSetlistHandlers({ getMainWindow }) {
         title: 'Save Setlist',
         defaultPath: path.join(defaultPath, safeDefaultName),
         filters: [
-          { name: 'LyricDisplay Setlist', extensions: ['ldset'] }
+          { name: 'VerseLight Setlist', extensions: ['ldset'] }
         ],
         properties: ['createDirectory', 'showOverwriteConfirmation']
       });
@@ -74,13 +74,13 @@ export function registerSetlistHandlers({ getMainWindow }) {
       const userHome = os.homedir();
       const platform = process.platform;
       const separator = platform === 'win32' ? '\\' : '/';
-      const defaultPath = `${userHome}${separator}Documents${separator}LyricDisplay${separator}Setlists`;
+      const defaultPath = `${userHome}${separator}Documents${separator}VerseLight${separator}Setlists`;
 
       const result = await dialog.showOpenDialog(win || undefined, {
         title: 'Load Setlist',
         defaultPath: defaultPath,
         filters: [
-          { name: 'LyricDisplay Setlist', extensions: ['ldset'] }
+          { name: 'VerseLight Setlist', extensions: ['ldset'] }
         ],
         properties: ['openFile']
       });
@@ -179,7 +179,7 @@ export function registerSetlistHandlers({ getMainWindow }) {
       const userHome = os.homedir();
       const platform = process.platform;
       const separator = platform === 'win32' ? '\\' : '/';
-      const defaultPath = `${userHome}${separator}Documents${separator}LyricDisplay${separator}Setlists`;
+      const defaultPath = `${userHome}${separator}Documents${separator}VerseLight${separator}Setlists`;
 
       try {
         const fs = await import('fs/promises');

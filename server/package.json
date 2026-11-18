@@ -1,7 +1,7 @@
 {
   "name": "lyric-display-backend",
   "version": "1.0.0",
-  "description": "Backend for LyricDisplay with Simple Authentication",
+  "description": "Backend for VerseLight with Simple Authentication",
   "main": "index.js",
   "type": "module",
   "scripts": {

@@ -46,7 +46,7 @@ export function createLoadingWindow() {
     }
   });
 
-  const logoPath = path.join(appRoot, 'public', 'logos', 'LyricDisplay logo-white.png');
+  const logoPath = path.join(appRoot, 'public', 'logos', 'VerseLight logo-white.png');
   const photoPath = path.join(appRoot, 'public', 'images', 'elianna-gill-d5mw4DMHPBI-unsplash.jpg');
   let logoUrl = '';
   let photoUrl = '';
@@ -72,7 +72,7 @@ export function createLoadingWindow() {
     <html>
     <head>
       <meta charset="UTF-8">
-      <title>Loading LyricDisplay</title>
+      <title>Loading VerseLight</title>
       <style>
         @font-face {
           font-family: 'Space Grotesk';
@@ -283,7 +283,7 @@ export function createLoadingWindow() {
         <div class="content-panel">
           <div class="center-content">
             <div class="logo-group">
-              <img src="${logoUrl}" alt="LyricDisplay Logo" class="logo">
+              <img src="${logoUrl}" alt="VerseLight Logo" class="logo">
               <div class="tagline">Powering worship experiences worldwide...</div>
             </div>
             

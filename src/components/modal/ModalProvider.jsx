@@ -743,7 +743,7 @@ export function ModalProvider({ children, isDark = false }) {
                             closeModal(modal.id, { action: 'open-integration-guide' });
                             showModal({
                               title: 'Streaming Software Integration',
-                              headerDescription: 'Connect LyricDisplay to OBS, vMix, Wirecast and more',
+                              headerDescription: 'Connect VerseLight to OBS, vMix, Wirecast and more',
                               component: 'IntegrationInstructions',
                               variant: 'info',
                               size: 'lg',

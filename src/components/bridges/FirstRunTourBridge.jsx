@@ -69,7 +69,7 @@ export default function FirstRunTourBridge() {
 
   const saveTelemetryDecision = useCallback(async (accepted) => {
     const preferences = window.electronAPI?.preferences;
-    if (!preferences?.set) throw new Error('Preferences are unavailable. Please restart LyricDisplay.');
+    if (!preferences?.set) throw new Error('Preferences are unavailable. Please restart VerseLight.');
 
     const sharingResult = await preferences.set('advanced.shareAnonymousUsageData', accepted);
     if (!sharingResult?.success) throw new Error(sharingResult?.error || 'Your data-sharing choice could not be saved.');

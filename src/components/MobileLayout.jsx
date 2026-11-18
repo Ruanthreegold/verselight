@@ -261,15 +261,15 @@ const MobileLayout = () => {
           <div className="flex items-center justify-between mb-5 short-screen:mb-3">
             <div className="flex items-center gap-3">
               <img
-                src="/LyricDisplay-icon.png"
-                alt="LyricDisplay"
+                src="/VerseLight-icon.png"
+                alt="VerseLight"
                 className="h-8 w-8"
               />
               <div>
                 <h1
                   className={`text-lg font-bold ${darkMode ? 'text-white' : 'text-gray-900'}`}
                 >
-                  LyricDisplay
+                  VerseLight
                 </h1>
                 {lastSyncTime && (
                   <p className={`text-[10px] ${darkMode ? 'text-gray-500' : 'text-gray-400'}`}>
@@ -629,7 +629,7 @@ const MobileLayout = () => {
               : 'text-gray-600 bg-gray-50 border-gray-200'
               }`}
           >
-            © {new Date().getFullYear()} LyricDisplay. Designed and developed by Peter Alakembi and David Okaliwe, among other contributors.
+            © {new Date().getFullYear()} VerseLight. Designed and developed by Peter Alakembi and David Okaliwe, among other contributors.
           </div>
         )}
 

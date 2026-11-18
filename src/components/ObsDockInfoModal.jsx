@@ -6,13 +6,13 @@ const fallbackInfo = {
   isDev: import.meta.env.MODE === 'development',
   dockFilePath: import.meta.env.MODE === 'development'
     ? 'D:\\path\\to\\lyric-display-app\\obs-dock.html'
-    : 'C:\\Program Files\\LyricDisplay\\obs-dock.html',
+    : 'C:\\Program Files\\VerseLight\\obs-dock.html',
   dockFileUrl: import.meta.env.MODE === 'development'
     ? 'file:///D:/path/to/lyric-display-app/obs-dock.html?mode=dev'
-    : 'file:///C:/Program Files/LyricDisplay/obs-dock.html',
+    : 'file:///C:/Program Files/VerseLight/obs-dock.html',
   headlessCommand: import.meta.env.MODE === 'development'
     ? 'npm run electron-dev:headless'
-    : 'LyricDisplay.exe --headless --obs-dock',
+    : 'VerseLight.exe --headless --obs-dock',
 };
 
 function CopyField({ label, value, darkMode }) {
@@ -36,7 +36,7 @@ function CopyField({ label, value, darkMode }) {
       setCopied(true);
       window.setTimeout(() => setCopied(false), 1400);
     } catch (error) {
-      console.warn('Failed to copy LyricDisplay Dock value:', error);
+      console.warn('Failed to copy VerseLight Dock value:', error);
     }
   };
 
@@ -90,7 +90,7 @@ function CopyDisplayField({ label, displayValue, copyValue, darkMode, hint }) {
       setCopied(true);
       window.setTimeout(() => setCopied(false), 1400);
     } catch (error) {
-      console.warn('Failed to copy LyricDisplay Dock value:', error);
+      console.warn('Failed to copy VerseLight Dock value:', error);
     }
   };
 
@@ -156,7 +156,7 @@ export default function ObsDockInfoModal({ darkMode }) {
         const result = await window.electronAPI?.obsDock?.getInfo?.();
         if (active) setInfo(result?.success === false ? fallbackInfo : (result || fallbackInfo));
       } catch (error) {
-        console.warn('Failed to load LyricDisplay Dock setup info:', error);
+        console.warn('Failed to load VerseLight Dock setup info:', error);
         if (active) setInfo(fallbackInfo);
       } finally {
         if (active) setLoading(false);
@@ -182,17 +182,17 @@ export default function ObsDockInfoModal({ darkMode }) {
   const commandLabel = info?.isDev ? 'Development Command' : 'Dock Mode Command';
   const isWindowsPlatform = /win/i.test(`${navigator.platform || ''} ${navigator.userAgent || ''}`);
   const productionStartStep = isWindowsPlatform
-    ? 'If Dock Mode is not already running, start LyricDisplay Dock Mode from the Start menu or switch from the desktop app.'
-    : 'If Dock Mode is not already running, open LyricDisplay and switch from the desktop app.';
+    ? 'If Dock Mode is not already running, start VerseLight Dock Mode from the Start menu or switch from the desktop app.'
+    : 'If Dock Mode is not already running, open VerseLight and switch from the desktop app.';
 
   return (
     <div className="space-y-5">
       <div className="flex items-center gap-2">
-        <span className={`text-sm font-semibold ${darkMode ? 'text-gray-100' : 'text-gray-900'}`}>LyricDisplay Dock</span>
+        <span className={`text-sm font-semibold ${darkMode ? 'text-gray-100' : 'text-gray-900'}`}>VerseLight Dock</span>
         <BetaBadge darkMode={darkMode} />
       </div>
       <CopyDisplayField
-        label="LyricDisplay Dock URL"
+        label="VerseLight Dock URL"
         displayValue={dockFileDisplay}
         copyValue={dockFileUrl}
         darkMode={darkMode}
@@ -208,16 +208,16 @@ export default function ObsDockInfoModal({ darkMode }) {
               <li>Stop the normal development session if it is running.</li>
               <li>Run the development command shown above.</li>
               <li>In OBS, open Docks, then Custom Browser Docks.</li>
-              <li>Paste the LyricDisplay Dock URL above.</li>
+              <li>Paste the VerseLight Dock URL above.</li>
               <li>Click Open Controller after the dock page says Dock Mode is ready.</li>
             </>
           ) : (
             <>
               <li>In OBS, open Docks, then Custom Browser Docks.</li>
-              <li>Paste the LyricDisplay Dock URL above.</li>
+              <li>Paste the VerseLight Dock URL above.</li>
               <li>{productionStartStep}</li>
-              <li>Click Open Controller after the dock page says LyricDisplay is ready.</li>
-              <li>Enable Start at Sign-In if you want LyricDisplay Dock to be ready automatically after signing in.</li>
+              <li>Click Open Controller after the dock page says VerseLight is ready.</li>
+              <li>Enable Start at Sign-In if you want VerseLight Dock to be ready automatically after signing in.</li>
             </>
           )}
         </ol>
@@ -226,7 +226,7 @@ export default function ObsDockInfoModal({ darkMode }) {
       <div className={`flex items-start gap-2 rounded-lg border p-3 text-xs ${darkMode ? 'border-blue-400/20 bg-blue-500/10 text-blue-100' : 'border-gray-200 bg-gray-50 text-gray-500'}`}>
         <ExternalLink className="mt-0.5 h-4 w-4 shrink-0" />
         <p>
-          Use one LyricDisplay Dock entry in OBS. The setup page stays as the home page and opens the controller only after LyricDisplay is ready.
+          Use one VerseLight Dock entry in OBS. The setup page stays as the home page and opens the controller only after VerseLight is ready.
         </p>
       </div>
     </div>

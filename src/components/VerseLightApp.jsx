@@ -13,42 +13,42 @@ import DraftApprovalModal from './DraftApprovalModal';
 import OutputSettingsPanel from './OutputSettingsPanel';
 import { Switch } from "@/components/ui/switch";
 import useDarkModeSync from '../hooks/useDarkModeSync';
-import useMenuShortcuts from '../hooks/LyricDisplayApp/useMenuShortcuts';
+import useMenuShortcuts from '../hooks/VerseLightApp/useMenuShortcuts';
 import useSearch from '../hooks/useSearch';
-import useOutputSettings from '../hooks/LyricDisplayApp/useOutputSettings';
-import useSetlistActions from '../hooks/LyricDisplayApp/useSetlistActions';
+import useOutputSettings from '../hooks/VerseLightApp/useOutputSettings';
+import useSetlistActions from '../hooks/VerseLightApp/useSetlistActions';
 import useToast from '../hooks/useToast';
 import useModal from '../hooks/useModal';
 import { Tooltip } from '@/components/ui/tooltip';
 import { DEFAULT_OUTPUT_IDS, MAX_CUSTOM_OUTPUTS } from '../../shared/outputRegistry.js';
 import { useAutoplayManager } from '../hooks/useAutoplayManager';
 import { useRegisterCustomOutputs, useSyncOutputs } from '../hooks/useSyncOutputs';
-import { useLyricsLoader, usePendingLyricsLoad } from '../hooks/LyricDisplayApp/useLyricsLoader';
-import { useKeyboardShortcuts } from '../hooks/LyricDisplayApp/useKeyboardShortcuts';
-import { useElectronListeners } from '../hooks/LyricDisplayApp/useElectronListeners';
-import { useResponsiveWidth } from '../hooks/LyricDisplayApp/useResponsiveWidth';
-import { useDragAndDrop } from '../hooks/LyricDisplayApp/useDragAndDrop';
-import { useQuickParserControls } from '../hooks/LyricDisplayApp/useQuickParserControls';
+import { useLyricsLoader, usePendingLyricsLoad } from '../hooks/VerseLightApp/useLyricsLoader';
+import { useKeyboardShortcuts } from '../hooks/VerseLightApp/useKeyboardShortcuts';
+import { useElectronListeners } from '../hooks/VerseLightApp/useElectronListeners';
+import { useResponsiveWidth } from '../hooks/VerseLightApp/useResponsiveWidth';
+import { useDragAndDrop } from '../hooks/VerseLightApp/useDragAndDrop';
+import { useQuickParserControls } from '../hooks/VerseLightApp/useQuickParserControls';
 import { useExternalControl } from '../hooks/useExternalControl';
-import { useControlPanelFileActions } from '../hooks/LyricDisplayApp/useControlPanelFileActions';
-import { useCustomOutputActions } from '../hooks/LyricDisplayApp/useCustomOutputActions';
-import { useLineCounterText } from '../hooks/LyricDisplayApp/useLineCounterText';
-import { useLrcTimestampHydration } from '../hooks/LyricDisplayApp/useLrcTimestampHydration';
-import { useOutputControlActions } from '../hooks/LyricDisplayApp/useOutputControlActions';
-import { usePendingSavedVersionPrompt } from '../hooks/LyricDisplayApp/usePendingSavedVersionPrompt';
+import { useControlPanelFileActions } from '../hooks/VerseLightApp/useControlPanelFileActions';
+import { useCustomOutputActions } from '../hooks/VerseLightApp/useCustomOutputActions';
+import { useLineCounterText } from '../hooks/VerseLightApp/useLineCounterText';
+import { useLrcTimestampHydration } from '../hooks/VerseLightApp/useLrcTimestampHydration';
+import { useOutputControlActions } from '../hooks/VerseLightApp/useOutputControlActions';
+import { usePendingSavedVersionPrompt } from '../hooks/VerseLightApp/usePendingSavedVersionPrompt';
 import {
   useArmLyricsScrollRestoreOnUnmount,
   useLyricsScrollRestoration,
   useResetLyricsScroll,
-} from '../hooks/LyricDisplayApp/useLyricsScrollRestoration';
-import { useSetlistNavigation } from '../hooks/LyricDisplayApp/useSetlistNavigation';
+} from '../hooks/VerseLightApp/useLyricsScrollRestoration';
+import { useSetlistNavigation } from '../hooks/VerseLightApp/useSetlistNavigation';
 import { getLyricsAcceptAttribute } from '../../shared/lyricImportRegistry.js';
 import { createLyricsScrollKey } from '../utils/lyricsScrollMemory.js';
 import { VIRTUALIZATION_THRESHOLD } from '../hooks/LyricsList/useLyricsListRows';
-import ControlPanelHeaderActions from './LyricDisplayApp/ControlPanelHeaderActions';
-import ControlPanelModals from './LyricDisplayApp/ControlPanelModals';
-import LyricsWorkspace from './LyricDisplayApp/LyricsWorkspace';
-import ConnectedOutputsStrip from './LyricDisplayApp/ConnectedOutputsStrip';
+import ControlPanelHeaderActions from './VerseLightApp/ControlPanelHeaderActions';
+import ControlPanelModals from './VerseLightApp/ControlPanelModals';
+import LyricsWorkspace from './VerseLightApp/LyricsWorkspace';
+import ConnectedOutputsStrip from './VerseLightApp/ConnectedOutputsStrip';
 import useLyricsStore from '../context/LyricsStore';
 
 const DesktopControlPanel = () => {
@@ -563,7 +563,7 @@ const DesktopControlPanel = () => {
                     onClick={() => {
                       showModal({
                         title: 'Control Panel Help',
-                        headerDescription: 'Master your LyricDisplay workflow with these essential tools',
+                        headerDescription: 'Master your VerseLight workflow with these essential tools',
                         component: 'ControlPanelHelp',
                         variant: 'info',
                         size: 'large',
@@ -722,6 +722,6 @@ const DesktopControlPanel = () => {
 
 // The browser controller has its own layout. The desktop panel's shortcuts, file handling, and
 // Electron listeners must never run underneath it, so it is only mounted in the desktop app.
-const LyricDisplayApp = () => (useIsDesktopApp() ? <DesktopControlPanel /> : <MobileLayout />);
+const VerseLightApp = () => (useIsDesktopApp() ? <DesktopControlPanel /> : <MobileLayout />);
 
-export default LyricDisplayApp;
+export default VerseLightApp;

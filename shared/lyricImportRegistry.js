@@ -2,7 +2,7 @@ export const LYRIC_IMPORT_FORMATS = [
   {
     fileType: 'ldsong',
     parserType: 'ldsong',
-    label: 'LyricDisplay Song',
+    label: 'VerseLight Song',
     extensions: ['ldsong'],
   },
   {
@@ -126,7 +126,7 @@ export function getLyricsAcceptAttribute({ includeSetlist = false } = {}) {
 export function getLyricOpenDialogFilters() {
   return [
     { name: 'Lyric Files', extensions: LYRIC_IMPORT_EXTENSIONS },
-    { name: 'LyricDisplay Songs', extensions: ['ldsong'] },
+    { name: 'VerseLight Songs', extensions: ['ldsong'] },
     { name: 'Text and LRC', extensions: ['txt', 'lrc'] },
     { name: 'Documents', extensions: ['docx', 'rtf', 'md', 'markdown'] },
   ];

@@ -72,7 +72,7 @@ export const useOscPreferences = ({ oscStatus, setOscStatus, updateNestedPrefere
       updateNestedPreference('externalControl', 'osc', 'remoteAccessEnabled', enabled);
       showToast?.({
         title: 'OSC network setting updated',
-        message: 'Restart LyricDisplay for the listening interface change to take effect.',
+        message: 'Restart VerseLight for the listening interface change to take effect.',
         variant: 'info',
       });
     } catch (error) {

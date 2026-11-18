@@ -109,7 +109,7 @@ export async function readValidatedSetlistFile(fs, filePath) {
       filePath: normalizedPath,
       backupPath,
       recoveredFromBackup: true,
-      recoveryWarning: `The setlist could not be read (${primaryError.message}). LyricDisplay loaded its last-known-good backup. Save it again to repair the primary file.`,
+      recoveryWarning: `The setlist could not be read (${primaryError.message}). VerseLight loaded its last-known-good backup. Save it again to repair the primary file.`,
     };
   } catch (backupError) {
     const backupDetail = backupError?.code === 'ENOENT'

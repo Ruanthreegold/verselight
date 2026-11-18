@@ -27,7 +27,7 @@ const HEADER_FIELD_BY_KEY = new Map([
   ['year', 'year'],
 ]);
 
-// Provenance headers written by LyricDisplay importers. They are stripped from the
+// Provenance headers written by VerseLight importers. They are stripped from the
 // lyrics but carry nothing worth showing.
 const PROVENANCE_KEY_REGEX = /^(imported from\b.*|source file)$/;
 

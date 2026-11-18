@@ -5,7 +5,7 @@ import { Input } from '@/components/ui/input';
 import { Switch } from '@/components/ui/switch';
 import useIsPackagedApp from '../../hooks/useIsPackagedApp';
 import { setDebugLogging } from '../../utils/logger';
-import { confirmAndLaunchHeadlessMode, createLyricDisplayDockSetupActions } from '../../utils/lyricDisplayDock';
+import { confirmAndLaunchHeadlessMode, createVerseLightDockSetupActions } from '../../utils/lyricDisplayDock';
 
 const AdvancedPreferencesSection = ({
   darkMode,
@@ -47,7 +47,7 @@ const AdvancedPreferencesSection = ({
     if (result?.success === false) {
       showToast?.({
         title: 'Restart Failed',
-        message: result.error || 'LyricDisplay could not restart. Your port change is still saved.',
+        message: result.error || 'VerseLight could not restart. Your port change is still saved.',
         variant: 'error',
       });
     }
@@ -61,7 +61,7 @@ const AdvancedPreferencesSection = ({
 
   useEffect(() => {
     loadObsDockStartup().catch((error) => {
-      console.warn('Failed to load LyricDisplay Dock startup status:', error);
+      console.warn('Failed to load VerseLight Dock startup status:', error);
     });
   }, []);
 
@@ -75,14 +75,14 @@ const AdvancedPreferencesSection = ({
       showToast?.({
         title: checked ? 'Dock Mode Will Start at Sign-In' : 'Dock Mode Sign-In Start Disabled',
         message: checked
-          ? 'LyricDisplay Dock will be ready after you sign in, without opening the desktop window.'
-          : 'LyricDisplay Dock will no longer start automatically when you sign in.',
+          ? 'VerseLight Dock will be ready after you sign in, without opening the desktop window.'
+          : 'VerseLight Dock will no longer start automatically when you sign in.',
         variant: status?.success === false ? 'error' : 'success',
       });
     } catch (error) {
       showToast?.({
         title: 'Startup Setting Failed',
-        message: error.message || 'Could not update Start at Sign-In for LyricDisplay Dock.',
+        message: error.message || 'Could not update Start at Sign-In for VerseLight Dock.',
         variant: 'error',
       });
     } finally {
@@ -94,7 +94,7 @@ const AdvancedPreferencesSection = ({
 
   const openObsDockInfo = () => {
     showModal?.({
-      title: 'LyricDisplay Dock Setup',
+      title: 'VerseLight Dock Setup',
       headerDescription: 'Copy the OBS dock URL and review Dock Mode startup options',
       component: 'ObsDockInfo',
       variant: 'info',
@@ -102,14 +102,14 @@ const AdvancedPreferencesSection = ({
       scrollBehavior: 'scroll',
       actions: isDevMode
         ? [{ label: 'Close', variant: 'outline' }]
-        : createLyricDisplayDockSetupActions(handleLaunchHeadlessMode),
+        : createVerseLightDockSetupActions(handleLaunchHeadlessMode),
     });
   };
 
   const handleClearSystemLogs = async () => {
     const confirmation = await showModal?.({
       title: 'Clear All System Logs?',
-      description: 'This permanently deletes all troubleshooting logs stored in LyricDisplay’s user-data logs folder.',
+      description: 'This permanently deletes all troubleshooting logs stored in VerseLight’s user-data logs folder.',
       body: 'The current session will continue with a fresh, empty log. This action cannot be undone.',
       variant: 'warning',
       size: 'sm',
@@ -153,9 +153,9 @@ const AdvancedPreferencesSection = ({
 
   const handleResetApp = async () => {
     const confirmation = await showModal?.({
-      title: 'Reset LyricDisplay?',
-      description: 'This permanently deletes the entire LyricDisplay user-data folder.',
-      body: 'All preferences, templates, indexes, cached data, local app content, and logs will be removed. Lyric files and other documents stored outside the user-data folder will not be deleted. LyricDisplay will restart as a fresh installation. This action cannot be undone.',
+      title: 'Reset VerseLight?',
+      description: 'This permanently deletes the entire VerseLight user-data folder.',
+      body: 'All preferences, templates, indexes, cached data, local app content, and logs will be removed. Lyric files and other documents stored outside the user-data folder will not be deleted. VerseLight will restart as a fresh installation. This action cannot be undone.',
       variant: 'warning',
       size: 'sm',
       dismissible: false,
@@ -185,7 +185,7 @@ const AdvancedPreferencesSection = ({
       setResettingApp(false);
       showToast?.({
         title: 'App Reset Failed',
-        message: error?.message || 'Could not reset LyricDisplay.',
+        message: error?.message || 'Could not reset VerseLight.',
         variant: 'error',
       });
     }
@@ -238,7 +238,7 @@ const AdvancedPreferencesSection = ({
       />
       {serverPortPendingRestart ? (
         <p className={`text-xs ${darkMode ? 'text-amber-300' : 'text-amber-700'}`}>
-          Port {configuredServerPort} is saved, but LyricDisplay is still using port {runningServerPort}.{' '}
+          Port {configuredServerPort} is saved, but VerseLight is still using port {runningServerPort}.{' '}
           <button
             type="button"
             className="font-medium underline underline-offset-2 hover:no-underline"
@@ -250,7 +250,7 @@ const AdvancedPreferencesSection = ({
       ) : (
         <p className={`text-xs ${mutedClass}`}>
           {isPackagedApp
-            ? 'Port 4000 is the default. Changes apply to every LyricDisplay URL after restart.'
+            ? 'Port 4000 is the default. Changes apply to every VerseLight URL after restart.'
             : 'Production port changes are disabled in Electron development.'}
         </p>
       )}
@@ -261,13 +261,13 @@ const AdvancedPreferencesSection = ({
         <Monitor className={`mt-0.5 w-4 h-4 ${darkMode ? 'text-blue-300' : 'text-blue-600'}`} />
         <div className="min-w-0">
           <div className="flex items-center gap-2">
-            <label className={`text-sm font-medium ${labelClass}`}>LyricDisplay Dock</label>
+            <label className={`text-sm font-medium ${labelClass}`}>VerseLight Dock</label>
             <span className={`rounded-full border px-1.5 py-0.5 text-[10px] font-bold uppercase leading-none ${darkMode ? 'border-blue-400/40 bg-blue-500/15 text-blue-200' : 'border-blue-200 bg-blue-50 text-blue-700'}`}>
               Beta
             </span>
           </div>
           <p className={`mt-1 text-xs ${mutedClass}`}>
-            Control LyricDisplay from an OBS dock while it runs quietly in the background.
+            Control VerseLight from an OBS dock while it runs quietly in the background.
           </p>
         </div>
       </div>
@@ -278,7 +278,7 @@ const AdvancedPreferencesSection = ({
             <div className="min-w-0">
               <label className={`text-sm font-medium ${labelClass}`}>Start at Sign In</label>
               <p className={`mt-1 text-xs ${mutedClass}`}>
-                Make LyricDisplay Dock ready automatically after you sign in.
+                Make VerseLight Dock ready automatically after you sign in.
               </p>
               {obsDockStartup?.success === false && (
                 <p className={`mt-2 text-xs ${darkMode ? 'text-red-300' : 'text-red-600'}`}>
@@ -545,7 +545,7 @@ const AdvancedPreferencesSection = ({
         })}
         className={inputClass}
       />
-      <p className={`text-xs ${mutedClass}`}>After each cycle, LyricDisplay waits briefly and continues retrying so long outages recover automatically.</p>
+      <p className={`text-xs ${mutedClass}`}>After each cycle, VerseLight waits briefly and continues retrying so long outages recover automatically.</p>
     </div>
 
     <Button
@@ -584,7 +584,7 @@ const AdvancedPreferencesSection = ({
       <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <div className="min-w-0 flex-1">
           <label className={`text-sm font-medium ${darkMode ? 'text-red-200' : 'text-red-800'}`}>Reset App</label>
-          <p className={`mt-1 text-xs ${mutedClass}`}>Delete the entire user-data folder and restart LyricDisplay as a fresh installation</p>
+          <p className={`mt-1 text-xs ${mutedClass}`}>Delete the entire user-data folder and restart VerseLight as a fresh installation</p>
         </div>
         <Button
           type="button"

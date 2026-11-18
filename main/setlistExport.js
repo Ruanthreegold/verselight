@@ -137,7 +137,7 @@ export async function exportSetlistToPDF(filePath, setlistData, options = {}) {
       }
 
       try {
-        const logoPath = path.join(appRoot, 'public', 'logos', 'LyricDisplay logo.png');
+        const logoPath = path.join(appRoot, 'public', 'logos', 'VerseLight logo.png');
         const logoBuffer = readFileSync(logoPath);
 
         const pageHeight = doc.page.height;
@@ -163,7 +163,7 @@ export async function exportSetlistToPDF(filePath, setlistData, options = {}) {
         doc.fontSize(fontSize)
           .font('Helvetica')
           .fillColor('#6B7280')
-          .text('Prepared by the LyricDisplay App', 180, textY, {
+          .text('Prepared by the VerseLight App', 180, textY, {
             align: 'left',
             link: 'https://lyricdisplay.app'
           });
@@ -238,7 +238,7 @@ export async function exportSetlistToTXT(filePath, setlistData, options = {}) {
     }
 
     content += '\n' + '-'.repeat(60) + '\n';
-    content += 'Prepared by the LyricDisplay App | Download at: https://lyricdisplay.app\n';
+    content += 'Prepared by the VerseLight App | Download at: https://lyricdisplay.app\n';
 
     await fs.writeFile(filePath, content, 'utf8');
 

@@ -218,7 +218,7 @@ function showRendererRecoveryFallback(parent, route, details, attemptCount) {
     height: 360,
     minWidth: 460,
     minHeight: 300,
-    title: 'LyricDisplay Recovery',
+    title: 'VerseLight Recovery',
     parent: parent && !parent.isDestroyed() ? parent : undefined,
     modal: false,
     autoHideMenuBar: true,
@@ -240,7 +240,7 @@ function showRendererRecoveryFallback(parent, route, details, attemptCount) {
 <html>
 <head>
   <meta charset="utf-8">
-  <title>LyricDisplay Recovery</title>
+  <title>VerseLight Recovery</title>
   <style>
     body {
       margin: 0;
@@ -280,9 +280,9 @@ function showRendererRecoveryFallback(parent, route, details, attemptCount) {
 </head>
 <body>
   <main>
-    <h1>LyricDisplay stopped auto-reloading this window</h1>
-    <p>The <strong>${escapeHtml(route || 'unknown')}</strong> window renderer crashed repeatedly, so LyricDisplay stopped automatic reloads to avoid a crash loop.</p>
-    <p>This can happen under severe memory or GPU pressure. If OBS, capture devices, or recording are active, reduce the load or restart LyricDisplay before continuing the workflow.</p>
+    <h1>VerseLight stopped auto-reloading this window</h1>
+    <p>The <strong>${escapeHtml(route || 'unknown')}</strong> window renderer crashed repeatedly, so VerseLight stopped automatic reloads to avoid a crash loop.</p>
+    <p>This can happen under severe memory or GPU pressure. If OBS, capture devices, or recording are active, reduce the load or restart VerseLight before continuing the workflow.</p>
     <p>The timer/projection windows may still be running if their renderer processes are healthy.</p>
     <div class="meta">
       Reason: ${escapeHtml(details?.reason || 'unknown')}<br>
@@ -436,7 +436,7 @@ export function createWindow(route = '/', options = {}) {
   const isObsSetupWindow = route.startsWith('/obs-setup');
   const preloadRole = getWindowPreloadRole(route);
   const isControlWindow = route === '/' || route.startsWith('/new-song') || isTimerControlWindow || isObsSetupWindow;
-  const windowTitle = title || (isTimerControlWindow ? 'LyricDisplay Timer' : isObsSetupWindow ? 'LyricDisplay OBS Source Creator' : 'LyricDisplay');
+  const windowTitle = title || (isTimerControlWindow ? 'VerseLight Timer' : isObsSetupWindow ? 'VerseLight OBS Source Creator' : 'VerseLight');
   const defaultBackground = resolveWindowBackgroundColor(route, {
     projection,
     backgroundColor,

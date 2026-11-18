@@ -23,7 +23,7 @@ if (process.env.LYRICDISPLAY_DISABLE_KEYTAR !== '1') {
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const BASE_SERVICE_NAME = 'LyricDisplay';
+const BASE_SERVICE_NAME = 'VerseLight';
 const ACCOUNT_NAME = 'server-secrets';
 const DEFAULT_ROTATION_MAX_AGE_DAYS = 180;
 const DEFAULT_TOKEN_EXPIRY = '24h';

@@ -17,7 +17,7 @@ const ObsDockRoute = React.lazy(() => import('./components/routes/ObsDockRoute')
 const ObsSetupRoute = React.lazy(() => import('./components/routes/ObsSetupRoute'));
 const TimerControlRoute = React.lazy(() => import('./components/routes/TimerControlRoute'));
 
-const LyricDisplayApp = React.lazy(() => import('./components/LyricDisplayApp'));
+const VerseLightApp = React.lazy(() => import('./components/VerseLightApp'));
 const Stage = React.lazy(() => import('./pages/Stage'));
 const TimeDisplay = React.lazy(() => import('./pages/TimeDisplay'));
 const OutputPage = React.lazy(() => import('./pages/OutputPage'));
@@ -78,7 +78,7 @@ function AppRoutes() {
             path="/"
             element={isObsDockEntry ? <ObsDockRoute /> : (
               <div className="w-full h-full text-black font-grotesk">
-                <LyricDisplayApp />
+                <VerseLightApp />
               </div>
             )}
           />

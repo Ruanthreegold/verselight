@@ -2,7 +2,7 @@ import electron from 'electron';
 
 const { app } = electron || {};
 
-const APP_NAME = 'LyricDisplay';
+const APP_NAME = 'VerseLight';
 const APP_WEBSITE = 'https://lyricdisplay.app';
 
 const getAppVersion = () => {

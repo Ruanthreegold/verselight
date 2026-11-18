@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useDarkModeState } from '@/hooks/useStoreSelectors';
-import useSupportDevModal from '@/hooks/LyricDisplayApp/useSupportDevModal';
+import useSupportDevModal from '@/hooks/VerseLightApp/useSupportDevModal';
 import SupportDevelopmentModal from '../SupportDevelopmentModal';
 
 export default function SupportDevelopmentBridge() {

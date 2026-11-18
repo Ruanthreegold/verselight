@@ -568,7 +568,7 @@ test('app-owned grouping plans round-trip editor group and ungroup boundaries wi
   assert.equal(groupedReload.processedLines[0].type, 'normal-group');
   assert.deepEqual(groupedReload.processedLines[0].lines, ['First line', 'Second line', 'Third line']);
   assert.equal(groupedReload.processedLines[1], 'Standalone line');
-  assert.equal(groupedPayload.includes('LyricDisplay grouping=explicit'), false);
+  assert.equal(groupedPayload.includes('VerseLight grouping=explicit'), false);
   assert.equal(groupedReload.groupingPlanApplied, true);
 
   const manuallyUngrouped = ['First line', 'Second line'];
@@ -593,7 +593,7 @@ test('grouping plans are ignored safely when lyric content no longer matches', (
 });
 
 test('legacy grouping directives remain readable but are removable during migration', () => {
-  const legacy = '[#:LyricDisplay grouping=explicit]\nFirst line\n\nSecond line';
+  const legacy = '[#:VerseLight grouping=explicit]\nFirst line\n\nSecond line';
   const extracted = extractExplicitGroupingDirective(legacy);
   const parsed = parseTxtContent(legacy, { enableSplitting: false });
 

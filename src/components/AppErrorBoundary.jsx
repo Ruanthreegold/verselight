@@ -24,9 +24,9 @@ export default class AppErrorBoundary extends React.Component {
   render() {
     if (this.state.hasError) {
       const isChunkError = isChunkLoadError(this.state.error);
-      const title = isChunkError ? 'LyricDisplay needs to reload' : 'Something went wrong';
+      const title = isChunkError ? 'VerseLight needs to reload' : 'Something went wrong';
       const message = this.state.recovering
-        ? 'A production bundle file could not be loaded. LyricDisplay is reloading this window.'
+        ? 'A production bundle file could not be loaded. VerseLight is reloading this window.'
         : String(this.state.error?.message || this.state.error || 'Unknown error');
 
       return (

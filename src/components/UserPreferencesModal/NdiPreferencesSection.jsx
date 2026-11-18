@@ -267,8 +267,8 @@ const NdiPreferencesSection = ({
 
           <div className="flex items-center justify-between">
             <div>
-              <label className={`text-sm font-medium ${labelClass}`}>Start with LyricDisplay</label>
-              <p className={`text-xs ${mutedClass}`}>Launch NDI companion when LyricDisplay opens</p>
+              <label className={`text-sm font-medium ${labelClass}`}>Start with VerseLight</label>
+              <p className={`text-xs ${mutedClass}`}>Launch NDI companion when VerseLight opens</p>
             </div>
             <Switch
               checked={ndiAutoLaunch}
@@ -292,7 +292,7 @@ const NdiPreferencesSection = ({
             {ndiStatus.installed ? 'Install or update from downloaded ZIP' : 'Install from downloaded ZIP'}
           </Button>
           <p className={`text-xs ${mutedClass}`}>
-            Select the latest official platform ZIP from the LyricDisplay NDI GitHub release.
+            Select the latest official platform ZIP from the VerseLight NDI GitHub release.
           </p>
         </div>
       )}

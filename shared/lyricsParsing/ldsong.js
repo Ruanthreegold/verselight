@@ -1,4 +1,4 @@
-// LyricDisplay Song (.ldsong): plain UTF-8 text whose structure is explicit, so a song
+// VerseLight Song (.ldsong): plain UTF-8 text whose structure is explicit, so a song
 // produces the same slides on every computer regardless of parsing preferences.
 // The format is specified in docs/LDSONG_FORMAT.md.
 
@@ -74,7 +74,7 @@ export function parseLdsongDocument(text) {
     return {
       document: null,
       warnings,
-      error: `This song was saved by a newer version of LyricDisplay (song format ${version}). Update LyricDisplay to open it.`,
+      error: `This song was saved by a newer version of VerseLight (song format ${version}). Update VerseLight to open it.`,
     };
   }
 
@@ -302,7 +302,7 @@ export function ldsongDocumentToLyrics(document) {
 
 /**
  * Parse .ldsong text into the same result shape as the TXT and LRC parsers.
- * Throws when the song needs a newer LyricDisplay.
+ * Throws when the song needs a newer VerseLight.
  */
 export function parseLdsongContent(text) {
   const { document, warnings, error } = parseLdsongDocument(text);
@@ -400,7 +400,7 @@ export function documentFromProcessedLines(processedLines, { songMetadata = null
 }
 
 /**
- * Plain lyric text for sharing outside LyricDisplay. Sections play in arrangement order,
+ * Plain lyric text for sharing outside VerseLight. Sections play in arrangement order,
  * translations are bracketed, and stage notes keep their // prefix.
  */
 export function ldsongDocumentToPlainText(document) {

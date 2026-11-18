@@ -22,8 +22,8 @@ const TOUR_STEPS = [
   {
     id: 'welcome',
     kind: 'welcome',
-    logoSrc: '/LyricDisplay-icon.png',
-    eyebrow: 'Welcome to LyricDisplay',
+    logoSrc: '/VerseLight-icon.png',
+    eyebrow: 'Welcome to VerseLight',
     title: 'Your lyrics, live in minutes',
     description: 'Let’s walk through the essentials for preparing lyrics, styling an output, and presenting with confidence.',
   },
@@ -33,7 +33,7 @@ const TOUR_STEPS = [
     icon: FolderOpen,
     eyebrow: 'Bring in a song',
     title: 'Start with your lyrics',
-    description: 'Search your indexed lyric folders, drag a file into the workspace, or create a song from scratch. LyricDisplay also supports online search from the globe button above.',
+    description: 'Search your indexed lyric folders, drag a file into the workspace, or create a song from scratch. VerseLight also supports online search from the globe button above.',
     tip: 'Shortcut: Ctrl/Cmd + O',
     placement: 'right',
   },
@@ -53,7 +53,7 @@ const TOUR_STEPS = [
     icon: ListMusic,
     eyebrow: 'Plan the whole event',
     title: 'Build and run a setlist',
-    description: 'Collect songs in service order, switch between them quickly, and export a setlist for another LyricDisplay operator.',
+    description: 'Collect songs in service order, switch between them quickly, and export a setlist for another VerseLight operator.',
     tip: 'Shortcut: Ctrl/Cmd + Shift + S',
     placement: 'bottom',
   },
@@ -528,7 +528,7 @@ export default function FirstRunTour({ darkMode = false, onFinish, onSkip }) {
                       data-tour-primary="true"
                       className="inline-flex items-center gap-2 rounded-xl bg-linear-to-r from-blue-600 to-violet-600 px-4 py-2.5 text-sm font-semibold text-white shadow-lg shadow-blue-600/20 transition hover:from-blue-500 hover:to-violet-500 focus-visible:ring-2 focus-visible:ring-blue-400 focus-visible:ring-offset-2"
                     >
-                      {isLast ? 'Start using LyricDisplay' : isFirst ? 'Take the tour' : 'Next'}
+                      {isLast ? 'Start using VerseLight' : isFirst ? 'Take the tour' : 'Next'}
                       {!isLast && <ArrowRight className="h-4 w-4" />}
                     </button>
                   </div>

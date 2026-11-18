@@ -135,7 +135,7 @@ function normalizeSetlistSchemaVersion(version) {
   if (!match) {
     return {
       valid: false,
-      error: `Unsupported setlist schema version "${versionText}". Open a valid .ldset file or re-save it with LyricDisplay.`,
+      error: `Unsupported setlist schema version "${versionText}". Open a valid .ldset file or re-save it with VerseLight.`,
     };
   }
 
@@ -145,13 +145,13 @@ function normalizeSetlistSchemaVersion(version) {
   if (major > currentMajor || (major === currentMajor && minor > currentMinor)) {
     return {
       valid: false,
-      error: `This setlist uses schema ${versionText}, which requires a newer LyricDisplay version. Update LyricDisplay before opening it.`,
+      error: `This setlist uses schema ${versionText}, which requires a newer VerseLight version. Update VerseLight before opening it.`,
     };
   }
   if (major !== currentMajor) {
     return {
       valid: false,
-      error: `Setlist schema ${versionText} is no longer supported. Open and re-save it with a compatible LyricDisplay version first.`,
+      error: `Setlist schema ${versionText} is no longer supported. Open and re-save it with a compatible VerseLight version first.`,
     };
   }
 

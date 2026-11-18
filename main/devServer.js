@@ -36,7 +36,7 @@ export async function ensureObsDockDevServer() {
   }
 
   const npmCommand = process.platform === 'win32' ? 'npm.cmd' : 'npm';
-  console.log('[DevServer] Starting Vite for LyricDisplay Dock dev launcher');
+  console.log('[DevServer] Starting Vite for VerseLight Dock dev launcher');
 
   obsDockDevServerProcess = spawn(npmCommand, ['run', 'dev'], {
     cwd: appRoot,

@@ -178,7 +178,7 @@ const NdiOutputSettingsModal = ({ darkMode, outputKey, onClose }) => {
             <Input
               value={settings.sourceName || ''}
               onChange={(e) => updateSetting('sourceName', e.target.value)}
-              placeholder={`LyricDisplay ${outputLabel}`}
+              placeholder={`VerseLight ${outputLabel}`}
               className={inputClass}
             />
             <p className={`text-xs ${mutedClass}`}>This name appears in NDI receivers (OBS, vMix, etc.)</p>

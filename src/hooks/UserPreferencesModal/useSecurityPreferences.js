@@ -92,7 +92,7 @@ export const useSecurityPreferences = ({ activeCategory, showModal, showToast })
 
       showToast({
         title: 'Restarting App',
-        message: 'The security token key was rotated. LyricDisplay will restart now.',
+        message: 'The security token key was rotated. VerseLight will restart now.',
         variant: 'success',
       });
     } catch (error) {

@@ -110,7 +110,7 @@ export function prepareRendererPersistentStorageForPortChange() {
     return {
       success: false,
       code: 'RENDERER_STORAGE_UNAVAILABLE',
-      error: 'LyricDisplay could not secure your current workspace before changing ports. Restart the app and try again.',
+      error: 'VerseLight could not secure your current workspace before changing ports. Restart the app and try again.',
     };
   }
 

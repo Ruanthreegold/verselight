@@ -64,7 +64,7 @@ const IMPORT_OPTIONS = {
 
 const IMPORT_METHODS = [
   { value: 'create', label: 'Create schedule', description: 'Start with a blank item', icon: Plus },
-  { value: 'ldsch', label: 'LyricDisplay file', description: '.ldsch schedule', icon: CalendarClock },
+  { value: 'ldsch', label: 'VerseLight file', description: '.ldsch schedule', icon: CalendarClock },
   { value: 'document', label: 'Document', description: 'Text, Word, or Markdown', icon: FileText },
   { value: 'paste', label: 'Paste text', description: 'Type or paste a list', icon: ClipboardPaste },
 ];

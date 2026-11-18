@@ -10,7 +10,7 @@ using System;
 using System.Runtime.InteropServices;
 
 [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Unicode)]
-public struct LyricDisplayCredential
+public struct VerseLightCredential
 {
     public UInt32 Flags;
     public UInt32 Type;
@@ -26,7 +26,7 @@ public struct LyricDisplayCredential
     [MarshalAs(UnmanagedType.LPWStr)] public string UserName;
 }
 
-public static class LyricDisplayCredentialManager
+public static class VerseLightCredentialManager
 {
     [DllImport("advapi32.dll", EntryPoint = "CredEnumerateW", CharSet = CharSet.Unicode, SetLastError = true)]
     public static extern bool CredEnumerate(
@@ -53,14 +53,14 @@ if ($ValidateOnly) {
 $credentialTypeGeneric = [UInt32]1
 $notFoundError = 1168
 $servicePrefixes = @(
-    'LyricDisplay/',
-    'LyricDisplayAuthTokens/',
-    'LyricDisplayProviderKeys/'
+    'VerseLight/',
+    'VerseLightAuthTokens/',
+    'VerseLightProviderKeys/'
 )
 
 [UInt32]$credentialCount = 0
 [IntPtr]$credentialPointers = [IntPtr]::Zero
-$enumerated = [LyricDisplayCredentialManager]::CredEnumerate(
+$enumerated = [VerseLightCredentialManager]::CredEnumerate(
     $null,
     0,
     [ref]$credentialCount,
@@ -70,7 +70,7 @@ $enumerated = [LyricDisplayCredentialManager]::CredEnumerate(
 if (-not $enumerated) {
     $errorCode = [Runtime.InteropServices.Marshal]::GetLastWin32Error()
     if ($errorCode -eq $notFoundError) {
-        Write-Output 'No LyricDisplay credentials were found.'
+        Write-Output 'No VerseLight credentials were found.'
         exit 0
     }
 
@@ -89,22 +89,22 @@ try {
         )
         $credential = [Runtime.InteropServices.Marshal]::PtrToStructure(
             $credentialPointer,
-            [type][LyricDisplayCredential]
+            [type][VerseLightCredential]
         )
 
-        $isLyricDisplayCredential = $false
+        $isVerseLightCredential = $false
         foreach ($prefix in $servicePrefixes) {
             if ($credential.TargetName.StartsWith($prefix, [StringComparison]::Ordinal)) {
-                $isLyricDisplayCredential = $true
+                $isVerseLightCredential = $true
                 break
             }
         }
 
-        if (-not $isLyricDisplayCredential) {
+        if (-not $isVerseLightCredential) {
             continue
         }
 
-        if ([LyricDisplayCredentialManager]::CredDelete(
+        if ([VerseLightCredentialManager]::CredDelete(
             $credential.TargetName,
             $credentialTypeGeneric,
             0
@@ -116,10 +116,10 @@ try {
         }
     }
 } finally {
-    [LyricDisplayCredentialManager]::CredFree($credentialPointers)
+    [VerseLightCredentialManager]::CredFree($credentialPointers)
 }
 
-Write-Output "Removed $removedCount LyricDisplay credential(s)."
+Write-Output "Removed $removedCount VerseLight credential(s)."
 
 if ($failedTargets.Count -gt 0) {
     Write-Error "Could not remove: $($failedTargets -join ', ')"

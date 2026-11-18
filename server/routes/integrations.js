@@ -79,7 +79,7 @@ export function registerIntegrationRoutes(app, { getOutputRegistry, port = DEFAU
 
     res.json({
       success: true,
-      appName: 'LyricDisplay',
+      appName: 'VerseLight',
       baseUrls: {
         local: `http://127.0.0.1:${port}`,
         network: lanAddress ? `http://${lanAddress}:${port}` : null,

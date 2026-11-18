@@ -10,7 +10,7 @@ import useLyricsListHistory from '../hooks/LyricsList/useLyricsListHistory';
 import useLyricsListSelection from '../hooks/LyricsList/useLyricsListSelection';
 import useLyricsListGrouping from '../hooks/LyricsList/useLyricsListGrouping';
 import useLyricsListRows, { HORIZONTAL_PADDING_PX, VIRTUALIZATION_THRESHOLD } from '../hooks/LyricsList/useLyricsListRows';
-import { useLyricsScrollRestoration } from '../hooks/LyricDisplayApp/useLyricsScrollRestoration';
+import { useLyricsScrollRestoration } from '../hooks/VerseLightApp/useLyricsScrollRestoration';
 import LyricRow from './LyricsList/LyricRow';
 import SectionChips from './LyricsList/SectionChips';
 import LyricsListContextMenu from './LyricsList/LyricsListContextMenu';

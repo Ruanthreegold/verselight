@@ -60,7 +60,7 @@ function getOutputDefaults(outputKey) {
     customWidth: 1920,
     customHeight: 1080,
     framerate: 30,
-    sourceName: `LyricDisplay ${label}`,
+    sourceName: `VerseLight ${label}`,
   };
 }
 

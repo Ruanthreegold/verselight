@@ -116,7 +116,7 @@ const IndexedLyricsFoldersPreferencesPage = ({
     if (navigatorState.status.scanning || removingPath) return;
     const confirmation = await showModal({
       title: `Remove ${root.name || 'this folder'}?`,
-      description: 'LyricDisplay will stop indexing this folder. No files will be moved or deleted.',
+      description: 'VerseLight will stop indexing this folder. No files will be moved or deleted.',
       variant: 'warning',
       size: 'sm',
       actions: [
@@ -158,8 +158,8 @@ const IndexedLyricsFoldersPreferencesPage = ({
       showToast?.({
         title: result.folderCreated ? 'Lyrics folder created' : 'Lyrics folder ready',
         message: result.folderCreated
-          ? 'Documents/LyricDisplay/Lyrics was created and indexed.'
-          : 'The existing Documents/LyricDisplay/Lyrics folder is now indexed.',
+          ? 'Documents/VerseLight/Lyrics was created and indexed.'
+          : 'The existing Documents/VerseLight/Lyrics folder is now indexed.',
         variant: 'success',
       });
       onPersistenceChange?.('success');
@@ -194,7 +194,7 @@ const IndexedLyricsFoldersPreferencesPage = ({
     if (convertingSongs || navigatorState.status.scanning) return;
     const confirmation = await showModal({
       title: 'Convert TXT songs to .ldsong?',
-      description: 'LyricDisplay will lay out every .txt song in your indexed folders once, using your current parsing settings, and save it as a structured .ldsong beside the original. Your .txt files stay where they are, existing .ldsong files are not overwritten, and .lrc files are skipped so their timing is kept.',
+      description: 'VerseLight will lay out every .txt song in your indexed folders once, using your current parsing settings, and save it as a structured .ldsong beside the original. Your .txt files stay where they are, existing .ldsong files are not overwritten, and .lrc files are skipped so their timing is kept.',
       variant: 'info',
       size: 'sm',
       actions: [
@@ -248,7 +248,7 @@ const IndexedLyricsFoldersPreferencesPage = ({
               <AlwaysInfoButton
                 side="left"
                 ariaLabel="About indexed lyrics folders"
-                content={`LyricDisplay searches these folders without moving or managing your files. TXT and LRC contents are indexed for lyric search; Markdown, RTF, and DOCX files are indexed by name and location. Up to ${maxRoots} focused folders and ${maxRootSizeMb} MB of supported files per folder can be indexed.`}
+                content={`VerseLight searches these folders without moving or managing your files. TXT and LRC contents are indexed for lyric search; Markdown, RTF, and DOCX files are indexed by name and location. Up to ${maxRoots} focused folders and ${maxRootSizeMb} MB of supported files per folder can be indexed.`}
               />
             </div>
             <p className={`text-[11px] ${mutedClass}`}>

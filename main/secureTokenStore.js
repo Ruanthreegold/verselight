@@ -9,7 +9,7 @@ import {
   getRuntimeProfile,
 } from '../shared/runtimeProfile.js';
 
-const BASE_SERVICE_NAME = 'LyricDisplayAuthTokens';
+const BASE_SERVICE_NAME = 'VerseLightAuthTokens';
 const CACHE = new Map();
 let keytarModule;
 let keytarLoadErrorLogged = false;
@@ -34,16 +34,16 @@ const resolveConfigDir = () => {
 
   if (process.platform === 'win32') {
     const base = process.env.LOCALAPPDATA || path.join(homeDir, 'AppData', 'Local');
-    return path.join(base, getProfiledName('LyricDisplay'), 'auth');
+    return path.join(base, getProfiledName('VerseLight'), 'auth');
   }
 
   if (process.platform === 'darwin') {
     const base = path.join(homeDir, 'Library', 'Application Support');
-    return path.join(base, getProfiledName('LyricDisplay'), 'auth');
+    return path.join(base, getProfiledName('VerseLight'), 'auth');
   }
 
   const base = process.env.XDG_CONFIG_HOME || path.join(homeDir, '.config');
-  return path.join(base, getProfiledName('LyricDisplay').toLowerCase(), 'auth');
+  return path.join(base, getProfiledName('VerseLight').toLowerCase(), 'auth');
 };
 
 const ensureDirectory = async (dirPath) => {

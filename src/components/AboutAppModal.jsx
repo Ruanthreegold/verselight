@@ -47,13 +47,13 @@ export function AboutAppModal({ version = '1.0.0', onClose }) {
           >
             <div className="flex min-w-0 flex-col items-start">
               <img
-                src="/logos/LyricDisplay logo-white.png"
-                alt="LyricDisplay Logo"
+                src="/logos/VerseLight logo-white.png"
+                alt="VerseLight Logo"
                 className="mb-2 h-8 w-auto max-w-full object-contain"
               />
               <p className="text-xs text-slate-400">Version {version}</p>
               <p className="mt-3 inline-flex items-center rounded-full border border-amber-300/30 bg-amber-300/10 px-2 py-0.5 text-[9px] font-semibold uppercase tracking-[0.14em] text-amber-200">
-                One year of LyricDisplay
+                One year of VerseLight
               </p>
             </div>
 
@@ -61,14 +61,14 @@ export function AboutAppModal({ version = '1.0.0', onClose }) {
 
             <div className="min-w-0 space-y-1.5">
               <p className="text-xs font-medium text-slate-100">
-                &copy; {new Date().getFullYear()} LyricDisplay Technologies. Trademarks reserved.
+                &copy; {new Date().getFullYear()} VerseLight Technologies. Trademarks reserved.
               </p>
               <p className="text-[10px] leading-relaxed text-slate-400">
                 Designed and developed by <span className="font-medium text-slate-300">Peter Alakembi</span> and{' '}
                 <span className="font-medium text-slate-300">David Okaliwe</span>, among other contributors.
               </p>
               <p className="text-[10px] leading-relaxed text-slate-400">
-                Thank you to every church, studio, and volunteer who has run LyricDisplay through its first year.
+                Thank you to every church, studio, and volunteer who has run VerseLight through its first year.
               </p>
               <p className="text-xs leading-relaxed text-slate-400">
                 <Link href="https://lyricdisplay.app">Our Website</Link>
@@ -86,16 +86,16 @@ export function AboutAppModal({ version = '1.0.0', onClose }) {
               and content obtained through these services remain the property of their respective copyright holders.
               Logos and brand marks of providers are used for identification and attribution only and do not imply
               endorsement or affiliation. This feature is offered &quot;as is&quot; for convenience and educational purposes.
-              LyricDisplay and its developers are not affiliated with these content providers.
+              VerseLight and its developers are not affiliated with these content providers.
             </p>
           </CreditBlock>
 
           <div className="space-y-4">
             <CreditBlock title="NDI Companion">
               <p>
-                The NDI Companion is an optional, separate download that enables LyricDisplay outputs
+                The NDI Companion is an optional, separate download that enables VerseLight outputs
                 to be broadcast as NDI video sources. It is not included with or installed automatically
-                alongside the LyricDisplay app. NDI is a registered trademark of Vizrt NDI AB; LyricDisplay
+                alongside the VerseLight app. NDI is a registered trademark of Vizrt NDI AB; VerseLight
                 is not affiliated with or endorsed by Vizrt NDI AB. Learn more at{' '}
                 <Link href="https://ndi.video">ndi.video</Link>.
               </p>

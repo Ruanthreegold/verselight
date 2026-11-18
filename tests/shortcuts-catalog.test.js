@@ -121,13 +121,13 @@ test('keyboard shortcut catalog documents clicker and section controls', () => {
 });
 
 test('desktop shortcuts never run underneath the browser controller', () => {
-  const appSource = readFileSync(new URL('../src/components/LyricDisplayApp.jsx', import.meta.url), 'utf8');
-  const menuSource = readFileSync(new URL('../src/hooks/LyricDisplayApp/useMenuShortcuts.js', import.meta.url), 'utf8');
+  const appSource = readFileSync(new URL('../src/components/VerseLightApp.jsx', import.meta.url), 'utf8');
+  const menuSource = readFileSync(new URL('../src/hooks/VerseLightApp/useMenuShortcuts.js', import.meta.url), 'utf8');
 
   // The browser controller renders its own layout without mounting the desktop panel's hooks,
   // so Ctrl+I, Ctrl+O, and similar desktop commands are not bound there.
-  assert.match(appSource, /const LyricDisplayApp = \(\) => \(useIsDesktopApp\(\) \? <DesktopControlPanel \/> : <MobileLayout \/>\);/);
-  const desktopPanel = appSource.slice(appSource.indexOf('const DesktopControlPanel = () =>'), appSource.indexOf('const LyricDisplayApp = () =>'));
+  assert.match(appSource, /const VerseLightApp = \(\) => \(useIsDesktopApp\(\) \? <DesktopControlPanel \/> : <MobileLayout \/>\);/);
+  const desktopPanel = appSource.slice(appSource.indexOf('const DesktopControlPanel = () =>'), appSource.indexOf('const VerseLightApp = () =>'));
   assert.match(desktopPanel, /useMenuShortcuts\(/);
   assert.match(desktopPanel, /useKeyboardShortcuts\(/);
   assert.doesNotMatch(desktopPanel, /<MobileLayout/);
@@ -136,10 +136,10 @@ test('desktop shortcuts never run underneath the browser controller', () => {
   assert.match(menuSource, /if \(!window\.electronAPI\) return;\s*const handleKeyDown = \(event\) =>/);
 });
 
-test('the LyricDisplay Dock shares the control panel keyboard shortcuts and lists them in the catalog', () => {
+test('the VerseLight Dock shares the control panel keyboard shortcuts and lists them in the catalog', () => {
   const dockSource = readFileSync(new URL('../src/components/ObsDockLayout.jsx', import.meta.url), 'utf8');
 
-  assert.match(dockSource, /import \{ useKeyboardShortcuts \} from '\.\.\/hooks\/LyricDisplayApp\/useKeyboardShortcuts';/);
+  assert.match(dockSource, /import \{ useKeyboardShortcuts \} from '\.\.\/hooks\/VerseLightApp\/useKeyboardShortcuts';/);
   assert.match(dockSource, /useKeyboardShortcuts\(\{[\s\S]*handleLineSelect,[\s\S]*handleToggle: handleToggleOutput,[\s\S]*handleNavigateSetlistNext: whenDockFocused\(handleNavigateSetlistNext\),/);
   // Shortcuts pause while a dock overlay (editor, setlist, output settings) owns the keyboard.
   assert.match(dockSource, /const dockOverlayOpen = Boolean\(editorState\) \|\| setlistOpen \|\| settingsOpen;/);
@@ -153,7 +153,7 @@ test('the LyricDisplay Dock shares the control panel keyboard shortcuts and list
     ['Open setlist', 'Ctrl/Cmd + Shift + S'],
   ]) {
     assert.equal(
-      entries.some((entry) => entry.category === 'LyricDisplay Dock' && entry.label === label && entry.combo === combo),
+      entries.some((entry) => entry.category === 'VerseLight Dock' && entry.label === label && entry.combo === combo),
       true,
       `${label}: ${combo}`,
     );

@@ -22,7 +22,7 @@ import { findAvailableBackendPort } from './portAvailability.js';
 const isOutputRoute = (url) => /(?:#\/|\/)(stage|time|output\d+)(?:\?|$)/i.test(String(url || ''));
 
 export async function handleMissingAdminKey() {
-  const message = 'LyricDisplay requires the administrative key to unlock local access.';
+  const message = 'VerseLight requires the administrative key to unlock local access.';
   console.error('[Startup] Admin key unavailable after retries; keeping renderer hidden.');
 
   try {
@@ -119,7 +119,7 @@ export async function handleBackendStartupError(error, requestRendererModal, { h
     if (!app.isPackaged) {
       dialog.showErrorBox(
         'Server Port Unavailable',
-        `LyricDisplay could not start because port ${occupiedPort} is already in use. Close the application or service using that port, then restart LyricDisplay.`,
+        `VerseLight could not start because port ${occupiedPort} is already in use. Close the application or service using that port, then restart VerseLight.`,
       );
       app.quit();
       return null;
@@ -132,7 +132,7 @@ export async function handleBackendStartupError(error, requestRendererModal, { h
     if (!recovery.success) {
       dialog.showErrorBox(
         'Server Port Unavailable',
-        `LyricDisplay could not start because port ${occupiedPort} is already in use, and an available recovery port could not be found. Close the conflicting application or service, then restart LyricDisplay.`,
+        `VerseLight could not start because port ${occupiedPort} is already in use, and an available recovery port could not be found. Close the conflicting application or service, then restart VerseLight.`,
       );
       app.quit();
       return null;
@@ -143,7 +143,7 @@ export async function handleBackendStartupError(error, requestRendererModal, { h
       type: 'warning',
       title: 'Configured Port Unavailable',
       message: `Port ${occupiedPort} is already in use.`,
-      detail: `LyricDisplay has not removed any of your data. Close the other application or service and try again, or switch LyricDisplay to the available port ${recoveryPort}.`,
+      detail: `VerseLight has not removed any of your data. Close the other application or service and try again, or switch VerseLight to the available port ${recoveryPort}.`,
       buttons: ['Quit', `Switch to Port ${recoveryPort} and Restart`],
       defaultId: 1,
       cancelId: 0,
@@ -155,7 +155,7 @@ export async function handleBackendStartupError(error, requestRendererModal, { h
       if (!saveResult.success) {
         dialog.showErrorBox(
           'Port Recovery Failed',
-          saveResult.error || `LyricDisplay could not save recovery port ${recoveryPort}.`,
+          saveResult.error || `VerseLight could not save recovery port ${recoveryPort}.`,
         );
         app.quit();
         return null;
@@ -170,7 +170,7 @@ export async function handleBackendStartupError(error, requestRendererModal, { h
     try {
       dialog.showErrorBox(
         'Startup Error',
-        'LyricDisplay could not start its backend service in headless mode. Check the application logs and restart LyricDisplay.'
+        'VerseLight could not start its backend service in headless mode. Check the application logs and restart VerseLight.'
       );
     } catch {
     }

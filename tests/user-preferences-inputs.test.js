@@ -166,7 +166,7 @@ test('toast sounds play on the chosen output device so stream capture of the def
   }
 });
 
-test('the LyricDisplay Dock never plays toast sounds because it runs inside OBS', async () => {
+test('the VerseLight Dock never plays toast sounds because it runs inside OBS', async () => {
   const [providersSource, toastProviderSource] = await Promise.all([
     readFile(new URL('../src/components/AppProviders.jsx', import.meta.url), 'utf8'),
     readFile(new URL('../src/components/toast/ToastProvider.jsx', import.meta.url), 'utf8'),

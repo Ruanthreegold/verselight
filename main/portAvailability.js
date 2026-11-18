@@ -87,6 +87,6 @@ export async function findAvailableBackendPort({
   return {
     success: false,
     code: 'NO_AVAILABLE_PORT',
-    error: 'LyricDisplay could not find an available recovery port.',
+    error: 'VerseLight could not find an available recovery port.',
   };
 }

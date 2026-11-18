@@ -396,8 +396,8 @@ const TopMenuBar = () => {
         <div className="flex items-center gap-2 pr-2" style={noDrag}>
           {showFallbackIcon && <div className="h-3.5 w-3.5 rounded-sm bg-linear-to-br from-blue-500 to-indigo-600" aria-hidden />}
           <img
-            src="/LyricDisplay-icon.png"
-            alt="LyricDisplay"
+            src="/VerseLight-icon.png"
+            alt="VerseLight"
             className="h-3.5 w-3.5"
             onLoad={() => setShowFallbackIcon(false)}
             onError={() => setShowFallbackIcon(true)}
@@ -699,7 +699,7 @@ const TopMenuBar = () => {
                 <MenuItem ref={(el) => registerItemRef('tools', 0, el)} label="Setlist Manager" shortcut="Ctrl/Cmd + Shift + S" onClick={menuHandlers.handleOpenSetlist} disabled={!isControlPanelRoute} active={openMenu === 'tools' && activeIndex === 0} title={!isControlPanelRoute ? controlPanelOnlyTitle : undefined} />
                 <MenuItem ref={(el) => registerItemRef('tools', 1, el)} label="Timer Control" shortcut="Ctrl/Cmd + Shift + T" onClick={menuHandlers.handleOpenTimerControl} active={openMenu === 'tools' && activeIndex === 1} />
                 <MenuItem ref={(el) => registerItemRef('tools', 2, el)} label="Connect Mobile Controller" onClick={menuHandlers.handleConnectMobile} disabled={!isControlPanelRoute} active={openMenu === 'tools' && activeIndex === 2} title={!isControlPanelRoute ? controlPanelOnlyTitle : undefined} />
-                <MenuItem ref={(el) => registerItemRef('tools', 3, el)} label="LyricDisplay Dock Setup" onClick={menuHandlers.handleObsDockSetup} active={openMenu === 'tools' && activeIndex === 3} />
+                <MenuItem ref={(el) => registerItemRef('tools', 3, el)} label="VerseLight Dock Setup" onClick={menuHandlers.handleObsDockSetup} active={openMenu === 'tools' && activeIndex === 3} />
                 <MenuItem ref={(el) => registerItemRef('tools', 4, el)} label="Lyric Video Studio" onClick={menuHandlers.handleOpenLyricVideoStudio} active={openMenu === 'tools' && activeIndex === 4} />
                 <Separator />
                 <MenuItem ref={(el) => registerItemRef('tools', 5, el)} label="Connection Diagnostics" onClick={menuHandlers.handleConnectionDiagnostics} active={openMenu === 'tools' && activeIndex === 5} />
@@ -768,7 +768,7 @@ const TopMenuBar = () => {
                 <Separator />
                 <MenuItem ref={(el) => registerItemRef('help', 5, el)} label="Notifications" onClick={menuHandlers.handleCheckAnnouncements} active={openMenu === 'help' && activeIndex === 5} />
                 <MenuItem ref={(el) => registerItemRef('help', 6, el)} label="More About Author" onClick={() => window.open('https://peteralakembi.design', '_blank', 'noopener,noreferrer')} active={openMenu === 'help' && activeIndex === 6} />
-                <MenuItem ref={(el) => registerItemRef('help', 7, el)} label="About LyricDisplay" onClick={handleAbout} active={openMenu === 'help' && activeIndex === 7} />
+                <MenuItem ref={(el) => registerItemRef('help', 7, el)} label="About VerseLight" onClick={handleAbout} active={openMenu === 'help' && activeIndex === 7} />
                 <MenuItem ref={(el) => registerItemRef('help', 8, el)} label="Support Development" onClick={menuHandlers.handleSupportDev} active={openMenu === 'help' && activeIndex === 8} />
                 <MenuItem ref={(el) => registerItemRef('help', 9, el)} label="Check for Updates" onClick={menuHandlers.handleCheckUpdates} active={openMenu === 'help' && activeIndex === 9} />
               </div>

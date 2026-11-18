@@ -81,7 +81,7 @@ function OlderReleaseNotes({ releases, isDark }) {
               >
                 <span className="min-w-0 flex-1">
                   <span className={`block text-sm font-semibold ${isDark ? 'text-gray-100' : 'text-gray-900'}`}>
-                    LyricDisplay v{normalizeVersionText(release.version)}
+                    VerseLight v{normalizeVersionText(release.version)}
                   </span>
                   {(displayName || releaseDate) && (
                     <span className={`mt-0.5 block truncate text-xs ${isDark ? 'text-gray-400' : 'text-gray-500'}`}>
@@ -188,7 +188,7 @@ function UpdateAvailableBody({ info, formattedNotes, isDark }) {
 
       <p className={`text-sm ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
         {isManualMacUpdate
-          ? 'macOS updates currently need to be installed manually because this build is unsigned. Download the DMG, quit LyricDisplay, open the DMG, and replace the app in Applications.'
+          ? 'macOS updates currently need to be installed manually because this build is unsigned. Download the DMG, quit VerseLight, open the DMG, and replace the app in Applications.'
           : 'Would you like to download and install this update now?'}
       </p>
       {isManualMacUpdate && hasMacDmgAsset && (
@@ -241,7 +241,7 @@ export default function UpdaterBridge() {
     };
 
     const showInstallError = (result) => {
-      const message = result?.error || 'The update could not be installed. Please restart LyricDisplay and try again.';
+      const message = result?.error || 'The update could not be installed. Please restart VerseLight and try again.';
       showToast({
         title: 'Unable to install update',
         message,
@@ -265,7 +265,7 @@ export default function UpdaterBridge() {
       const result = await showModal({
         dedupeKey: 'app-update-install',
         title: 'Install Update?',
-        description: 'LyricDisplay will restart to finish installing the downloaded update.',
+        description: 'VerseLight will restart to finish installing the downloaded update.',
         body: 'Save any unsaved work before continuing. Output and stage windows will close during the restart.',
         variant: 'warn',
         size: 'sm',
@@ -287,7 +287,7 @@ export default function UpdaterBridge() {
       if (liveSafetyEnabledRef.current) return;
       readyToastIdRef.current = showToast({
         title: 'Update ready to install',
-        message: 'Restart LyricDisplay when you are ready to finish the update.',
+        message: 'Restart VerseLight when you are ready to finish the update.',
         variant: 'success',
         duration: 0,
         dedupeKey: 'app-update-ready',
@@ -312,7 +312,7 @@ export default function UpdaterBridge() {
       const descriptionParts = [];
 
       if (version) {
-        descriptionParts.push(`LyricDisplay v${normalizeVersionText(version)} is available.`);
+        descriptionParts.push(`VerseLight v${normalizeVersionText(version)} is available.`);
       } else {
         descriptionParts.push('A new version is available.');
       }
@@ -369,7 +369,7 @@ export default function UpdaterBridge() {
                   } else if (result?.manualDownload) {
                     showToast({
                       title: 'Update download opened',
-                      message: 'After the DMG downloads, quit LyricDisplay and replace the app in Applications.',
+                      message: 'After the DMG downloads, quit VerseLight and replace the app in Applications.',
                       variant: 'info',
                       duration: 8000,
                       dedupeKey: 'app-update-manual-download-opened',
@@ -416,7 +416,7 @@ export default function UpdaterBridge() {
             ? 'Unable to download update'
             : 'Unable to check for updates',
         message: isInstall
-          ? 'The update could not be installed. Please restart LyricDisplay and try again.'
+          ? 'The update could not be installed. Please restart VerseLight and try again.'
           : isDownload
             ? 'The update download failed. You can retry from the update download window.'
             : 'We could not reach the update service. Please check your internet connection and try again later.',

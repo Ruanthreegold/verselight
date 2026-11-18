@@ -50,7 +50,7 @@ export const SHORTCUTS = [
       { label: 'Zoom out', combo: 'Ctrl/Cmd + -' },
       { label: 'Reset zoom', combo: 'Ctrl/Cmd + 0' },
       { label: 'Toggle fullscreen', combo: 'F11' },
-      { label: 'Quit LyricDisplay', combo: 'Alt + F4' },
+      { label: 'Quit VerseLight', combo: 'Alt + F4' },
     ],
   },
   {
@@ -102,7 +102,7 @@ export const SHORTCUTS = [
     ],
   },
   {
-    category: 'LyricDisplay Dock',
+    category: 'VerseLight Dock',
     items: [
       { label: 'Previous / next lyric line', combo: '↑ / ↓ or ← / →' },
       { label: 'Previous / next lyric line (presentation clickers)', combo: 'Page Up / Page Down' },

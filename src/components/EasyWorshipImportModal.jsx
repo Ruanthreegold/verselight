@@ -77,7 +77,7 @@ export default function EasyWorshipImportModal({ isOpen, onClose, darkMode }) {
                         const separator = platform === 'win32' ? '\\' : '/';
                         const documentsPath = result.documentsPath || `${result.homedir}${separator}Documents`;
                         // New imports land in the song library so they are indexed and searchable immediately.
-                        const docsPath = `${documentsPath}${separator}LyricDisplay${separator}Lyrics${separator}Imported from EasyWorship`;
+                        const docsPath = `${documentsPath}${separator}VerseLight${separator}Lyrics${separator}Imported from EasyWorship`;
                         setDestinationPath(docsPath);
                     }
                 }).catch(err => {
@@ -364,7 +364,7 @@ export default function EasyWorshipImportModal({ isOpen, onClose, darkMode }) {
                             <div>
                                 <h3 className="text-lg font-semibold mb-2">Welcome to EasyWorship Song Import</h3>
                                 <p className={cn('text-sm', darkMode ? 'text-gray-400' : 'text-gray-600')}>
-                                    This wizard will help you import songs from your EasyWorship library. Each song is saved as a LyricDisplay Song (.ldsong) with its sections, slides, writers, copyright, and CCLI number, so it shows the same way on every computer.
+                                    This wizard will help you import songs from your EasyWorship library. Each song is saved as a VerseLight Song (.ldsong) with its sections, slides, writers, copyright, and CCLI number, so it shows the same way on every computer.
                                 </p>
                             </div>
 
@@ -665,7 +665,7 @@ export default function EasyWorshipImportModal({ isOpen, onClose, darkMode }) {
                                 </h3>
                                 <p className={cn('text-sm', darkMode ? 'text-gray-400' : 'text-gray-600')}>
                                     {importResults.failed === 0
-                                        ? 'Your selected songs are ready to use in LyricDisplay.'
+                                        ? 'Your selected songs are ready to use in VerseLight.'
                                         : availableImportCount > 0
                                             ? 'Some songs are ready, but one or more imports failed. Review the errors below.'
                                             : 'No songs were imported. Review the errors below and try again.'}

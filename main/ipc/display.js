@@ -283,7 +283,7 @@ const openRegularOutputWindow = async (outputKey) => {
       height: 900,
       minWidth: 1100,
       minHeight: 620,
-      title: 'LyricDisplay Time',
+      title: 'VerseLight Time',
     });
     return { success: true, route, reused: false };
   }
@@ -314,7 +314,7 @@ const openTimerControlWindow = async () => {
     height: 760,
     minWidth: 1100,
     minHeight: 620,
-    title: 'LyricDisplay Timer',
+    title: 'VerseLight Timer',
   });
   return { success: true, route: '/timer-control', reused: false };
 };
@@ -341,7 +341,7 @@ const openObsSourceCreatorWindow = async () => {
     height: 700,
     minWidth: 1100,
     minHeight: 560,
-    title: 'LyricDisplay OBS Source Creator',
+    title: 'VerseLight OBS Source Creator',
   });
   return { success: true, route: '/obs-setup', reused: false };
 };

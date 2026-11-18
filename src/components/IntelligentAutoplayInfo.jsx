@@ -63,7 +63,7 @@ const IntelligentAutoplayInfo = ({ darkMode, onStart, onClose, setDontShowAgain 
               Intelligent Autoplay detected
             </h3>
             <p className={`text-sm leading-relaxed ${d ? 'text-gray-400' : 'text-gray-500'}`}>
-              Your lyrics contain timing data. Let LyricDisplay advance slides automatically in sync with the song.
+              Your lyrics contain timing data. Let VerseLight advance slides automatically in sync with the song.
             </p>
           </div>
         </div>

@@ -611,5 +611,5 @@ test('local template route rejects non-local browser origins', async () => {
   }));
 
   assert.equal(res.statusCode, 403);
-  assert.match(res.body.error, /local LyricDisplay page/i);
+  assert.match(res.body.error, /local VerseLight page/i);
 });

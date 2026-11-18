@@ -110,7 +110,7 @@ export default function PresentationImportModal({ isOpen, onClose, darkMode }) {
           const separator = platform === 'win32' ? '\\' : '/';
           const documentsPath = result.documentsPath || `${result.homedir}${separator}Documents`;
           // New imports land in the song library so they are indexed and searchable immediately.
-          setDestinationPath(`${documentsPath}${separator}LyricDisplay${separator}Lyrics${separator}Imported from Presentations`);
+          setDestinationPath(`${documentsPath}${separator}VerseLight${separator}Lyrics${separator}Imported from Presentations`);
         }
       }).catch((err) => {
         console.error('Failed to get user home directory:', err);
@@ -466,7 +466,7 @@ export default function PresentationImportModal({ isOpen, onClose, darkMode }) {
               <div>
                 <h3 className="text-lg font-semibold mb-2">Select Presentations to Import</h3>
                 <p className={cn('text-xs', darkMode ? 'text-gray-400' : 'text-gray-600')}>
-                  Choose one or more presentation files to convert into LyricDisplay Songs (.ldsong). Each PowerPoint slide becomes one lyric slide.
+                  Choose one or more presentation files to convert into VerseLight Songs (.ldsong). Each PowerPoint slide becomes one lyric slide.
                 </p>
               </div>
 
@@ -650,7 +650,7 @@ export default function PresentationImportModal({ isOpen, onClose, darkMode }) {
                 </h3>
                 <p className={cn('text-sm', darkMode ? 'text-gray-400' : 'text-gray-600')}>
                   {importResults.failed === 0
-                    ? 'Your converted presentation lyrics are ready to use in LyricDisplay.'
+                    ? 'Your converted presentation lyrics are ready to use in VerseLight.'
                     : availableImportCount > 0
                       ? 'Some presentation lyrics are ready, but one or more imports failed. Review the errors below.'
                       : 'No presentation lyrics were imported. Review the errors below and try again.'}

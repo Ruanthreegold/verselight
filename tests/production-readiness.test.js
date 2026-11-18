@@ -120,7 +120,7 @@ test('production SPA fallback safely serves clean projection routes from package
     /requestText\(port,\s*['"]\/output1\?projection=1&escapeHint=1['"]\)/,
   );
 
-  const hiddenMountRoot = fs.mkdtempSync(path.join(os.tmpdir(), '.mount_LyricDisplay-'));
+  const hiddenMountRoot = fs.mkdtempSync(path.join(os.tmpdir(), '.mount_VerseLight-'));
   const frontendPath = path.join(hiddenMountRoot, 'resources', 'app.asar', 'dist');
   const indexHtml = '<!doctype html><html><body><div id="root"></div></body></html>';
   const app = express();

@@ -25,7 +25,7 @@ export default function TelemetryConsentModal({ darkMode = false, onDecision, on
           <ChartNoAxesCombined className="h-7 w-7" aria-hidden />
         </div>
         <h3 className="text-base font-semibold leading-snug text-gray-900 dark:text-gray-100">
-          Help improve LyricDisplay by sharing minor usage data.
+          Help improve VerseLight by sharing minor usage data.
         </h3>
         <p>
           The payload does <strong className="font-semibold text-gray-700 dark:text-gray-100">not</strong>{' '}

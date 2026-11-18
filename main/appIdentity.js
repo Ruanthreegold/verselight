@@ -15,7 +15,7 @@ import {
 
 const { app } = typeof electron === 'object' && electron ? electron : {};
 
-export const APP_NAME = 'LyricDisplay';
+export const APP_NAME = 'VerseLight';
 export const DEV_APP_NAME = getProfiledName(APP_NAME, DEVELOPMENT_RUNTIME_PROFILE);
 export const LEGACY_APP_NAME = 'lyric-display-app';
 export const NDI_FOLDER_NAME = 'NDI';

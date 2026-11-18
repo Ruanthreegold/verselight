@@ -162,7 +162,7 @@ const OnlineLyricsWelcomeSplash = ({ isOpen, onClose, darkMode }) => {
                         <h1 className={`text-3xl font-bold text-center mb-2 ${darkMode ? 'text-white' : 'text-gray-900'}`}>
                             Welcome to Online Lyrics Search
                         </h1>
-                        <p className={`text-center text-sm ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>by LyricDisplay</p>
+                        <p className={`text-center text-sm ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>by VerseLight</p>
                     </div>
 
                     {/* How It Works Section */}

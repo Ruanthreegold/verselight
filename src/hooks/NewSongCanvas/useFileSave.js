@@ -108,7 +108,7 @@ const useFileSave = ({
     if (originalIsLrc) {
       return 'The loaded file is .lrc. Keep timestamps intact by saving as LRC, or switch to text if you prefer.';
     }
-    return 'LyricDisplay supports loading LRC files for intelligent lyric operations.';
+    return 'VerseLight supports loading LRC files for intelligent lyric operations.';
   }, [getExistingTarget, lrcEligibility.eligible, lrcEligibility.reason]);
 
   const promptForFileFormat = useCallback(async (preferredExtension) => {

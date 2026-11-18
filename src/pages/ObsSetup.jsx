@@ -124,7 +124,7 @@ function HelpButton({ darkMode, showModal }) {
       onClick={() => {
         showModal({
           title: 'OBS WebSocket Help',
-          headerDescription: 'Steps to connect LyricDisplay to OBS',
+          headerDescription: 'Steps to connect VerseLight to OBS',
           component: 'ObsWebSocketHelp',
           variant: 'info',
           size: 'large',
@@ -248,7 +248,7 @@ export default function ObsSetup() {
           : getCurrentLanOrigin() || current || getInitialSourceBaseUrl(data)
       ));
     } catch (error) {
-      setMetadataError(error.message || 'Failed to load LyricDisplay source metadata.');
+      setMetadataError(error.message || 'Failed to load VerseLight source metadata.');
     } finally {
       setIsLoadingMetadata(false);
     }
@@ -438,7 +438,7 @@ export default function ObsSetup() {
             <div>
               <h1 className="text-xl font-semibold">OBS Source Creator</h1>
               <p className="text-xs text-gray-500 dark:text-gray-400">
-                Create or update a LyricDisplay Browser Source in OBS.
+                Create or update a VerseLight Browser Source in OBS.
               </p>
             </div>
           </div>
@@ -527,8 +527,8 @@ export default function ObsSetup() {
               </div>
               <p className="text-gray-600 dark:text-gray-400">
                 {isNetworkSetup
-                  ? 'This page is using a LAN LyricDisplay URL for the OBS Browser Source. OBS WebSocket should stay local to this computer.'
-                  : 'This page is using a local LyricDisplay URL for the OBS Browser Source.'}
+                  ? 'This page is using a LAN VerseLight URL for the OBS Browser Source. OBS WebSocket should stay local to this computer.'
+                  : 'This page is using a local VerseLight URL for the OBS Browser Source.'}
               </p>
             </div>
           </section>
@@ -547,7 +547,7 @@ export default function ObsSetup() {
 
             <fieldset disabled={!isObsConnected} className={!isObsConnected ? 'opacity-50' : ''}>
             <div className="grid gap-3 sm:grid-cols-2">
-              <Field label="LyricDisplay Output">
+              <Field label="VerseLight Output">
                 <Select value={selectedOutput} onValueChange={handleOutputChange}>
                   <SelectTrigger className={obsSelectTriggerClass}>
                     <SelectValue placeholder="Select output" />

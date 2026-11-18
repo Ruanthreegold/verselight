@@ -193,7 +193,7 @@ export default function PreServiceHealthModal({ darkMode }) {
         id: 'version',
         label: 'App Version',
         status: 'pass',
-        detail: version?.version ? `LyricDisplay ${version.version}` : 'Version unavailable',
+        detail: version?.version ? `VerseLight ${version.version}` : 'Version unavailable',
       });
     } catch (error) {
       nextChecks.push({ id: 'version', label: 'App Version', status: 'warn', detail: error.message });

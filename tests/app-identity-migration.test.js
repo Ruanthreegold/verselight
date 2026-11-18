@@ -9,7 +9,7 @@ import {
 } from '../main/appIdentity.js';
 
 const LEGACY_APP_NAME = 'lyric-display-app';
-const APP_NAME = 'LyricDisplay';
+const APP_NAME = 'VerseLight';
 const LEGACY_NDI_NAME = 'lyricdisplay-ndi';
 const NDI_NAME = 'NDI';
 const NDI_INSTALL_NAME = 'Companion';
@@ -24,12 +24,12 @@ const ORIGINAL_MIGRATED_AT = '2025-01-02T03:04:05.000Z';
 test('development and packaged builds resolve to separate application profiles', () => {
   assert.deepEqual(resolveAppIdentityProfile(false), {
     runtimeProfile: 'development',
-    profileName: 'LyricDisplay-Dev',
+    profileName: 'VerseLight-Dev',
     shouldMigrateProductionData: false,
   });
   assert.deepEqual(resolveAppIdentityProfile(true), {
     runtimeProfile: 'production',
-    profileName: 'LyricDisplay',
+    profileName: 'VerseLight',
     shouldMigrateProductionData: true,
   });
 });
@@ -143,14 +143,14 @@ test('moves a nested legacy companion install into the managed Companion directo
   const managedInstallPath = path.join(targetPath, NDI_NAME, NDI_INSTALL_NAME);
 
   fs.mkdirSync(legacyInstallPath, { recursive: true });
-  fs.writeFileSync(path.join(legacyInstallPath, 'LyricDisplay NDI.exe'), 'legacy-binary', 'utf8');
+  fs.writeFileSync(path.join(legacyInstallPath, 'VerseLight NDI.exe'), 'legacy-binary', 'utf8');
 
   const result = migrateUserDataForTests(appDataPath);
 
   assert.equal(result.legacyUserDataNdi.deletedLegacy, true);
   assert.equal(fs.existsSync(legacyInstallPath), false);
   assert.equal(
-    fs.readFileSync(path.join(managedInstallPath, 'LyricDisplay NDI.exe'), 'utf8'),
+    fs.readFileSync(path.join(managedInstallPath, 'VerseLight NDI.exe'), 'utf8'),
     'legacy-binary'
   );
 });
@@ -163,7 +163,7 @@ test('splits a flat NDI directory into companion binaries and user data', () => 
 
   fs.mkdirSync(path.join(ndiRootPath, 'resources'), { recursive: true });
   fs.mkdirSync(path.join(ndiRootPath, 'Cache'), { recursive: true });
-  fs.writeFileSync(path.join(ndiRootPath, 'LyricDisplay NDI.exe'), 'flat-binary', 'utf8');
+  fs.writeFileSync(path.join(ndiRootPath, 'VerseLight NDI.exe'), 'flat-binary', 'utf8');
   fs.writeFileSync(path.join(ndiRootPath, 'resources', 'app.asar'), 'flat-resources', 'utf8');
   fs.writeFileSync(path.join(ndiRootPath, 'ndi-companion-settings.json'), '{"flat":true}', 'utf8');
   fs.writeFileSync(path.join(ndiRootPath, 'future-electron-state.json'), '{"preserve":true}', 'utf8');
@@ -172,7 +172,7 @@ test('splits a flat NDI directory into companion binaries and user data', () => 
   const result = migrateUserDataForTests(appDataPath);
 
   assert.equal(result.flatNdiInstall.deletedLegacy, true);
-  assert.equal(fs.readFileSync(path.join(managedInstallPath, 'LyricDisplay NDI.exe'), 'utf8'), 'flat-binary');
+  assert.equal(fs.readFileSync(path.join(managedInstallPath, 'VerseLight NDI.exe'), 'utf8'), 'flat-binary');
   assert.equal(fs.readFileSync(path.join(managedInstallPath, 'resources', 'app.asar'), 'utf8'), 'flat-resources');
   assert.equal(
     fs.readFileSync(path.join(managedRuntimePath, 'ndi-companion-settings.json'), 'utf8'),
@@ -223,7 +223,7 @@ test('prefers newly migrated runtime data over an older flat snapshot', () => {
   fs.mkdirSync(ndiRootPath, { recursive: true });
   fs.writeFileSync(path.join(legacyRuntimePath, 'ndi-companion-settings.json'), '{"version":"new"}', 'utf8');
   fs.writeFileSync(path.join(ndiRootPath, 'ndi-companion-settings.json'), '{"version":"old"}', 'utf8');
-  fs.writeFileSync(path.join(ndiRootPath, 'LyricDisplay NDI.exe'), 'flat-binary', 'utf8');
+  fs.writeFileSync(path.join(ndiRootPath, 'VerseLight NDI.exe'), 'flat-binary', 'utf8');
 
   const result = migrateUserDataForTests(appDataPath);
 
@@ -247,9 +247,9 @@ test('removes superseded flat install artifacts after a managed install complete
   fs.mkdirSync(path.join(managedInstallPath, 'resources'), { recursive: true });
   fs.mkdirSync(path.join(ndiRootPath, 'resources'), { recursive: true });
   fs.writeFileSync(path.join(managedInstallPath, NDI_MANAGED_INSTALL_MARKER), '{}', 'utf8');
-  fs.writeFileSync(path.join(managedInstallPath, 'LyricDisplay NDI.exe'), 'current-binary', 'utf8');
+  fs.writeFileSync(path.join(managedInstallPath, 'VerseLight NDI.exe'), 'current-binary', 'utf8');
   fs.writeFileSync(path.join(managedInstallPath, 'resources', 'app.asar'), 'current-resources', 'utf8');
-  fs.writeFileSync(path.join(ndiRootPath, 'LyricDisplay NDI.exe'), 'superseded-binary', 'utf8');
+  fs.writeFileSync(path.join(ndiRootPath, 'VerseLight NDI.exe'), 'superseded-binary', 'utf8');
   fs.writeFileSync(path.join(ndiRootPath, 'resources', 'app.asar'), 'superseded-resources', 'utf8');
   fs.writeFileSync(path.join(ndiRootPath, 'future-runtime-state.json'), '{"keep":true}', 'utf8');
 
@@ -257,7 +257,7 @@ test('removes superseded flat install artifacts after a managed install complete
 
   assert.equal(result.flatNdiInstall.deletedLegacy, true);
   assert.equal(result.flatNdiInstall.supersededEntries, 2);
-  assert.equal(fs.readFileSync(path.join(managedInstallPath, 'LyricDisplay NDI.exe'), 'utf8'), 'current-binary');
+  assert.equal(fs.readFileSync(path.join(managedInstallPath, 'VerseLight NDI.exe'), 'utf8'), 'current-binary');
   assert.equal(fs.readFileSync(path.join(managedInstallPath, 'resources', 'app.asar'), 'utf8'), 'current-resources');
   assert.equal(
     fs.readFileSync(path.join(managedRuntimePath, 'future-runtime-state.json'), 'utf8'),
@@ -269,7 +269,7 @@ test('removes superseded flat install artifacts after a managed install complete
   );
 });
 
-test('moves legacy EasyWorship imports under the LyricDisplay documents folder', () => {
+test('moves legacy EasyWorship imports under the VerseLight documents folder', () => {
   const appDataPath = makeTempAppData();
   const documentsPath = path.join(appDataPath, 'Documents');
   const sourcePath = path.join(documentsPath, EASYWORSHIP_IMPORT_FOLDER_NAME);
@@ -291,7 +291,7 @@ test('moves legacy EasyWorship imports under the LyricDisplay documents folder',
   assert.equal(marker.legacyEasyWorshipSongs.targetPath, targetPath);
 });
 
-test('moves current EasyWorship and presentation import folders into LyricDisplay documents', () => {
+test('moves current EasyWorship and presentation import folders into VerseLight documents', () => {
   const appDataPath = makeTempAppData();
   const documentsPath = path.join(appDataPath, 'Documents');
   const userDataPath = path.join(appDataPath, APP_NAME);

@@ -1,7 +1,7 @@
 {
-  "name": "lyric-display-app",
+  "name": "verselight",
   "version": "7.0.1",
-  "description": "Real-time lyric display app with control panel and multiple output displays",
+  "description": "VerseLight 鈥?personal fork of VerseLight with Chinese UI and disabled auto-update",
   "license": "GPL-3.0-or-later",
   "author": {
     "name": "Peter Alakembi",
@@ -101,8 +101,8 @@
     "zustand": "^5.0.16"
   },
   "build": {
-    "appId": "com.lyricdisplay",
-    "productName": "LyricDisplay",
+    "appId": "com.verselight",
+    "productName": "VerseLight",
     "directories": {
       "output": "release"
     },
@@ -144,8 +144,8 @@
         "to": "obs-dock.html"
       },
       {
-        "from": "public/LyricDisplay-icon.png",
-        "to": "LyricDisplay-icon.png"
+        "from": "public/VerseLight-icon.png",
+        "to": "VerseLight-icon.png"
       }
     ],
     "win": {
@@ -160,15 +160,15 @@
       "artifactName": "${productName}-${version}-Windows-Setup.${ext}",
       "extraFiles": [
         {
-          "from": "build/Start LyricDisplay Dock Mode.cmd",
-          "to": "Start LyricDisplay Dock Mode.cmd"
+          "from": "build/Start VerseLight Dock Mode.cmd",
+          "to": "Start VerseLight Dock Mode.cmd"
         }
       ],
       "fileAssociations": [
         {
           "ext": "ldsong",
-          "name": "LyricDisplay Song",
-          "description": "LyricDisplay structured song file",
+          "name": "VerseLight Song",
+          "description": "VerseLight structured song file",
           "icon": "public/favicon.ico",
           "role": "Editor"
         },
@@ -216,15 +216,15 @@
         },
         {
           "ext": "ldset",
-          "name": "LyricDisplay Setlist",
-          "description": "LyricDisplay setlist file",
+          "name": "VerseLight Setlist",
+          "description": "VerseLight setlist file",
           "icon": "public/favicon.ico",
           "role": "Editor"
         },
         {
           "ext": "ldsch",
-          "name": "LyricDisplay Schedule",
-          "description": "LyricDisplay timer schedule file",
+          "name": "VerseLight Schedule",
+          "description": "VerseLight timer schedule file",
           "icon": "public/favicon.ico",
           "role": "Editor"
         }
@@ -239,14 +239,14 @@
       "include": "build/installer.nsh",
       "createDesktopShortcut": true,
       "createStartMenuShortcut": true,
-      "shortcutName": "LyricDisplay"
+      "shortcutName": "VerseLight"
     },
     "appx": {
-      "applicationId": "LyricDisplay",
-      "identityName": "PeterAlakembi.LyricDisplay",
+      "applicationId": "VerseLight",
+      "identityName": "Ruanthreegold.VerseLight",
       "publisher": "CN=F3E198CD-5990-44B7-B90F-ED1EB321A87D",
-      "publisherDisplayName": "Peter Alakembi",
-      "displayName": "LyricDisplay",
+      "publisherDisplayName": "Ruanthreegold",
+      "displayName": "VerseLight",
       "backgroundColor": "transparent",
       "artifactName": "${productName}-${version}-Microsoft-Store-${arch}.${ext}",
       "languages": [
@@ -285,8 +285,8 @@
       "fileAssociations": [
         {
           "ext": "ldsong",
-          "name": "LyricDisplay Song",
-          "description": "LyricDisplay structured song file",
+          "name": "VerseLight Song",
+          "description": "VerseLight structured song file",
           "role": "Editor"
         },
         {
@@ -327,14 +327,14 @@
         },
         {
           "ext": "ldset",
-          "name": "LyricDisplay Setlist",
-          "description": "LyricDisplay setlist file",
+          "name": "VerseLight Setlist",
+          "description": "VerseLight setlist file",
           "role": "Editor"
         },
         {
           "ext": "ldsch",
-          "name": "LyricDisplay Schedule",
-          "description": "LyricDisplay timer schedule file",
+          "name": "VerseLight Schedule",
+          "description": "VerseLight timer schedule file",
           "role": "Editor"
         }
       ]
@@ -370,8 +370,8 @@
       "fileAssociations": [
         {
           "ext": "ldsong",
-          "name": "LyricDisplay Song",
-          "description": "LyricDisplay structured song file",
+          "name": "VerseLight Song",
+          "description": "VerseLight structured song file",
           "mimeType": "application/x-ldsong"
         },
         {
@@ -412,32 +412,24 @@
         },
         {
           "ext": "ldset",
-          "name": "LyricDisplay Setlist",
-          "description": "LyricDisplay setlist file",
+          "name": "VerseLight Setlist",
+          "description": "VerseLight setlist file",
           "mimeType": "application/x-ldset"
         },
         {
           "ext": "ldsch",
-          "name": "LyricDisplay Schedule",
-          "description": "LyricDisplay timer schedule file",
+          "name": "VerseLight Schedule",
+          "description": "VerseLight timer schedule file",
           "mimeType": "application/x-lyricdisplay-schedule"
         }
       ]
     },
     "protocols": {
-      "name": "LyricDisplay",
+      "name": "VerseLight",
       "schemes": [
         "lyricdisplay"
       ]
-    },
-    "publish": [
-      {
-        "provider": "github",
-        "owner": "PeterAlaks",
-        "repo": "lyric-display-app",
-        "releaseType": "release"
-      }
-    ]
+    }
   },
   "overrides": {
     "mammoth": {

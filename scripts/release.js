@@ -5,7 +5,7 @@ import fs from 'fs';
 import path from 'path';
 import { updateVersionNumbers, updateGitHubReleaseLinks } from './update-version.js';
 
-const RELEASE_ARTIFACT_PATTERN = /^LyricDisplay-(\d+\.\d+\.\d+)-/;
+const RELEASE_ARTIFACT_PATTERN = /^VerseLight-(\d+\.\d+\.\d+)-/;
 const MAX_LOCAL_RELEASE_VERSIONS = 3;
 
 function getNextVersions(version) {
@@ -157,7 +157,7 @@ async function waitForGitHubActions(commitSha) {
 }
 
 async function main() {
-    console.log(chalk.cyan.bold('\nLyricDisplay Release Assistant\n'));
+    console.log(chalk.cyan.bold('\nVerseLight Release Assistant\n'));
 
     if (!checkGhCli()) {
         console.log(chalk.red('ERROR: GitHub CLI (gh) is not installed or not authenticated.'));

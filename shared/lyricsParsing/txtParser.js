@@ -5,7 +5,7 @@ import { applyGroupingPlan, createGroupingPlan } from './groupingPlan.js';
 import { extractSongMetadataHeader } from './songMetadata.js';
 import { isLdsongContent, parseLdsongContent } from './ldsong.js';
 
-export const EXPLICIT_GROUPING_DIRECTIVE = '[#:LyricDisplay grouping=explicit]';
+export const EXPLICIT_GROUPING_DIRECTIVE = '[#:VerseLight grouping=explicit]';
 
 const ESCAPED_DIRECTIVE = EXPLICIT_GROUPING_DIRECTIVE.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 const DIRECTIVE_LINE_REGEX = new RegExp(`^\\s*${ESCAPED_DIRECTIVE}\\s*(?:\\r?\\n|$)`, 'i');

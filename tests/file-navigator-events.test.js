@@ -26,7 +26,7 @@ test('default Lyrics folder creation is exposed across every navigator empty sta
 
   assert.match(ipcSource, /file-navigator:create-lyrics-folder/);
   assert.match(engineSource, /const documentsPath = app\.getPath\('documents'\)/);
-  assert.match(engineSource, /path\.join\(documentsPath, 'LyricDisplay'\)/);
+  assert.match(engineSource, /path\.join\(documentsPath, 'VerseLight'\)/);
   assert.match(engineSource, /path\.join\(appDocumentsPath, 'Lyrics'\)/);
   assert.match(engineSource, /ensureNavigatorDirectory\(lyricsFolderPath, 'The Lyrics folder'\)/);
   assert.match(preloadSource, /createLyricsFolder:\s*\(\)\s*=>\s*ipcRenderer\.invoke\('file-navigator:create-lyrics-folder'\)/);
@@ -172,6 +172,6 @@ test('the song library is set up on first launch, always indexed, and the defaul
   for (const source of [navigatorSource, preferencesSource]) {
     assert.match(source, /root\.library/);
   }
-  assert.match(easyWorshipSource, /LyricDisplay\$\{separator\}Lyrics\$\{separator\}Imported from EasyWorship/);
-  assert.match(presentationSource, /LyricDisplay\$\{separator\}Lyrics\$\{separator\}Imported from Presentations/);
+  assert.match(easyWorshipSource, /VerseLight\$\{separator\}Lyrics\$\{separator\}Imported from EasyWorship/);
+  assert.match(presentationSource, /VerseLight\$\{separator\}Lyrics\$\{separator\}Imported from Presentations/);
 });

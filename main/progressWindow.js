@@ -10,7 +10,7 @@ const getProgressHTML = ({ initialState = null } = {}) => `
   <!DOCTYPE html>
   <html>
   <head>
-    <title>LyricDisplay Update</title>
+    <title>VerseLight Update</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
@@ -307,7 +307,7 @@ const getProgressHTML = ({ initialState = null } = {}) => `
             </div>
             <div>
               <h1 id="title">Preparing update</h1>
-              <div class="subtitle" id="subtitle">LyricDisplay is preparing the download.</div>
+              <div class="subtitle" id="subtitle">VerseLight is preparing the download.</div>
             </div>
           </div>
 
@@ -324,7 +324,7 @@ const getProgressHTML = ({ initialState = null } = {}) => `
         </section>
 
         <footer class="footer">
-          <p class="footer-hint" id="footerHint">You can keep using LyricDisplay while the update downloads.</p>
+          <p class="footer-hint" id="footerHint">You can keep using VerseLight while the update downloads.</p>
           <div class="actions">
             <button type="button" id="hideBtn">Hide</button>
             <button type="button" id="retryBtn" class="primary" hidden>Try again</button>
@@ -364,7 +364,7 @@ const getProgressHTML = ({ initialState = null } = {}) => `
 
       const versionLabel = (state) => {
         const version = state && state.updateInfo && state.updateInfo.version;
-        return version ? 'LyricDisplay v' + version : 'LyricDisplay update';
+        return version ? 'VerseLight v' + version : 'VerseLight update';
       };
 
       const setProgress = (percent, tone) => {
@@ -394,7 +394,7 @@ const getProgressHTML = ({ initialState = null } = {}) => `
         if (status === 'downloading') {
           els.title.textContent = 'Downloading update';
           els.subtitle.textContent = updateName;
-          els.footerHint.textContent = 'You can keep using LyricDisplay while the update downloads.';
+          els.footerHint.textContent = 'You can keep using VerseLight while the update downloads.';
           setProgress(percent, 'active');
           const total = Number(progress.total) || 0;
           const transferred = Number(progress.transferred) || 0;
@@ -410,7 +410,7 @@ const getProgressHTML = ({ initialState = null } = {}) => `
           els.subtitle.textContent = updateName + ' has finished downloading.';
           setTone('success');
           setProgress(100, 'success');
-          els.details.textContent = 'Install when you are ready to restart LyricDisplay.';
+          els.details.textContent = 'Install when you are ready to restart VerseLight.';
           els.footerHint.textContent = 'Save any open work before restarting the app.';
           els.installBtn.hidden = false;
           return;
@@ -421,8 +421,8 @@ const getProgressHTML = ({ initialState = null } = {}) => `
           els.subtitle.textContent = updateName;
           setTone('success');
           setProgress(100, 'success');
-          els.details.textContent = 'LyricDisplay is closing and installing the update.';
-          els.footerHint.textContent = 'Keep LyricDisplay open while installation begins.';
+          els.details.textContent = 'VerseLight is closing and installing the update.';
+          els.footerHint.textContent = 'Keep VerseLight open while installation begins.';
           els.hideBtn.disabled = true;
           return;
         }
@@ -443,7 +443,7 @@ const getProgressHTML = ({ initialState = null } = {}) => `
         els.subtitle.textContent = updateName;
         setProgress(percent, 'active');
         els.details.textContent = 'Waiting for download progress…';
-        els.footerHint.textContent = 'You can keep using LyricDisplay while the update downloads.';
+        els.footerHint.textContent = 'You can keep using VerseLight while the update downloads.';
       };
 
       window.addEventListener('DOMContentLoaded', () => {
@@ -509,7 +509,7 @@ const getProgressWindowState = (state) => {
 
 const createUpdaterBrowserWindow = ({ parent, initialState }) => {
   const win = new BrowserWindow({
-    title: 'LyricDisplay Update',
+    title: 'VerseLight Update',
     width: 560,
     height: 260,
     useContentSize: true,

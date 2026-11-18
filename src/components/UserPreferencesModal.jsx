@@ -345,7 +345,7 @@ const UserPreferencesModal = ({ darkMode, onClose, initialCategory }) => {
     const confirmation = await showModal({
       title: 'Restore All Default Settings?',
       description: 'Every category in User Preferences will be restored to its original defaults.',
-      body: 'Your lyric files, indexed folders, setlists, and system logs will not be removed. Settings marked as requiring a restart will take full effect after restarting LyricDisplay.',
+      body: 'Your lyric files, indexed folders, setlists, and system logs will not be removed. Settings marked as requiring a restart will take full effect after restarting VerseLight.',
       variant: 'warning',
       size: 'sm',
       actions: [

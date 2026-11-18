@@ -12,7 +12,7 @@ const createLocationHarness = ({ isDevelopment, existingInstallPaths }) => {
   const developmentEntryPath = path.join(developmentInstallPath, 'src', 'main.js');
   const managedInstallPath = path.resolve('user data', 'NDI', 'Companion');
   const legacyInstallPath = path.resolve('user data', 'lyricdisplay-ndi');
-  const resolveEntryPath = (installPath) => path.join(installPath, 'LyricDisplay NDI.exe');
+  const resolveEntryPath = (installPath) => path.join(installPath, 'VerseLight NDI.exe');
   const existingEntries = new Set(existingInstallPaths.map((installPath) => resolveEntryPath(installPath)));
 
   return {

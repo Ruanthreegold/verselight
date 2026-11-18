@@ -11,11 +11,11 @@ import {
 } from '../main/fileHandler.js';
 import { serializeScheduleDocument } from '../shared/scheduleUtils.js';
 
-test('operating-system file routing recognizes LyricDisplay schedules', () => {
+test('operating-system file routing recognizes VerseLight schedules', () => {
   assert.equal(isSupportedScheduleFile('C:\\Schedules\\Sunday.LDSCH'), true);
   assert.equal(isSupportedFile('/schedules/service.ldsch'), true);
   assert.equal(
-    extractFilePathFromArgs(['LyricDisplay', '--flag', 'C:\\Schedules\\Sunday.ldsch']),
+    extractFilePathFromArgs(['VerseLight', '--flag', 'C:\\Schedules\\Sunday.ldsch']),
     'C:\\Schedules\\Sunday.ldsch'
   );
 });
@@ -54,7 +54,7 @@ test('opening an associated schedule validates it and sends it to the renderer',
 test('structured songs are routed from the OS and associated on every platform installer', async () => {
   assert.equal(isSupportedFile('C:\Songs\Amazing Grace.LDSONG'), true);
   assert.equal(
-    extractFilePathFromArgs(['LyricDisplay', 'C:\Songs\Amazing Grace.ldsong']),
+    extractFilePathFromArgs(['VerseLight', 'C:\Songs\Amazing Grace.ldsong']),
     'C:\Songs\Amazing Grace.ldsong'
   );
 

@@ -6,7 +6,7 @@ const OPTIONS = [
     value: 'structured',
     label: 'Structured',
     icon: LayoutList,
-    hint: 'Sections, slides, and line roles, saved as a LyricDisplay Song (.ldsong)',
+    hint: 'Sections, slides, and line roles, saved as a VerseLight Song (.ldsong)',
   },
   {
     value: 'classic',

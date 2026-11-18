@@ -127,7 +127,7 @@ export const migrateSessionSnapshot = (snapshot) => {
     return {
       valid: false,
       futureVersion: true,
-      error: `Realtime session schema ${sourceVersion} requires a newer LyricDisplay version`,
+      error: `Realtime session schema ${sourceVersion} requires a newer VerseLight version`,
     };
   }
 

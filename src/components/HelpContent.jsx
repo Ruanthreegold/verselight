@@ -51,7 +51,7 @@ export const ControlPanelHelp = ({ darkMode }) => (
         <HelpSection
             icon={FolderOpen}
             title="Load Lyrics"
-            description="Search your song library (Documents/LyricDisplay/Lyrics, indexed automatically) and any folders you add for LyricDisplay Songs (.ldsong), .txt, .lrc, Markdown, RTF, or DOCX files. LDSONG, TXT, and LRC files support lyric-content search and previews; document formats are converted when loaded."
+            description="Search your song library (Documents/VerseLight/Lyrics, indexed automatically) and any folders you add for VerseLight Songs (.ldsong), .txt, .lrc, Markdown, RTF, or DOCX files. LDSONG, TXT, and LRC files support lyric-content search and previews; document formats are converted when loaded."
             darkMode={darkMode}
         />
 
@@ -148,7 +148,7 @@ export const SongCanvasHelp = ({ darkMode }) => (
         <HelpSection
             icon={FileText}
             title="Structured and Classic Editors"
-            description="New songs open in the Structured editor, which saves a LyricDisplay Song (.ldsong) with explicit sections, slides, translations, and stage notes, so every computer shows it the same way. The Classic canvas edits free-form text saved as .txt or .lrc. Switch between them with the Structured / Classic control in the header; your lyrics come with you, and LyricDisplay remembers which one you prefer for new songs."
+            description="New songs open in the Structured editor, which saves a VerseLight Song (.ldsong) with explicit sections, slides, translations, and stage notes, so every computer shows it the same way. The Classic canvas edits free-form text saved as .txt or .lrc. Switch between them with the Structured / Classic control in the header; your lyrics come with you, and VerseLight remembers which one you prefer for new songs."
             darkMode={darkMode}
         />
 
@@ -270,7 +270,7 @@ export const LyricVideoStudioHelp = ({ darkMode }) => (
         <HelpSection
             icon={Shield}
             title="Local Files and Rights"
-            description="LyricDisplay does not provide the song audio or lyric file for this workflow. Export only content you supplied locally and have the right to use, publish, or distribute."
+            description="VerseLight does not provide the song audio or lyric file for this workflow. Export only content you supplied locally and have the right to use, publish, or distribute."
             darkMode={darkMode}
         />
 
@@ -360,7 +360,7 @@ export const MobileControllerHelp = ({ darkMode }) => (
         <HelpSection
             icon={List}
             title="Control Desktop Lyrics"
-            description="Select any lyric line to display it on all connected outputs, or use the large Previous and Next buttons at the bottom of the screen. A Bluetooth presentation clicker paired with your phone or tablet also works (Page Up/Down or arrow keys; B or . blanks the output). LyricDisplay keeps the screen awake where the browser allows it; on a local network address, set your device's auto-lock to Never during the service."
+            description="Select any lyric line to display it on all connected outputs, or use the large Previous and Next buttons at the bottom of the screen. A Bluetooth presentation clicker paired with your phone or tablet also works (Page Up/Down or arrow keys; B or . blanks the output). VerseLight keeps the screen awake where the browser allows it; on a local network address, set your device's auto-lock to Never during the service."
             darkMode={darkMode}
         />
 
@@ -419,14 +419,14 @@ export const ObsWebSocketHelp = ({ darkMode }) => (
         <HelpSection
             icon={PlugZap}
             title="Enable WebSocket Server"
-            description="In OBS Studio, open Tools menu and select WebSocket Server Settings. Toggle the WebSocket server on to enable remote connections from LyricDisplay."
+            description="In OBS Studio, open Tools menu and select WebSocket Server Settings. Toggle the WebSocket server on to enable remote connections from VerseLight."
             darkMode={darkMode}
         />
 
         <HelpSection
             icon={Network}
             title="Check the Port"
-            description="The default WebSocket server port is 4455, but if you change it in OBS, make sure it matches the port number entered in the LyricDisplay OBS Source Creator."
+            description="The default WebSocket server port is 4455, but if you change it in OBS, make sure it matches the port number entered in the VerseLight OBS Source Creator."
             darkMode={darkMode}
         />
 

@@ -41,7 +41,7 @@ function ensureAppControlResponseListener() {
 
 function requestElectronAppControl(payload, timeoutMs = 4000) {
   if (!process.send) {
-    return Promise.reject(new Error('Desktop app control is only available when LyricDisplay is running under Electron'));
+    return Promise.reject(new Error('Desktop app control is only available when VerseLight is running under Electron'));
   }
 
   ensureAppControlResponseListener();
@@ -51,7 +51,7 @@ function requestElectronAppControl(payload, timeoutMs = 4000) {
   return new Promise((resolve, reject) => {
     const timeout = setTimeout(() => {
       pendingAppControlRequests.delete(requestId);
-      reject(new Error('Timed out waiting for LyricDisplay to respond'));
+      reject(new Error('Timed out waiting for VerseLight to respond'));
     }, timeoutMs);
 
     pendingAppControlRequests.set(requestId, { resolve, reject, timeout });
@@ -85,7 +85,7 @@ export function registerAppControlRoutes(app, { localhostOnly, appControlTimeout
 
     if (!process.send) {
       return res.status(503).json({
-        error: 'Desktop app control is only available when LyricDisplay is running under Electron',
+        error: 'Desktop app control is only available when VerseLight is running under Electron',
       });
     }
 
@@ -112,7 +112,7 @@ export function registerAppControlRoutes(app, { localhostOnly, appControlTimeout
 
     if (!process.send) {
       return res.status(503).json({
-        error: 'Dock Mode control is only available when LyricDisplay is running under Electron',
+        error: 'Dock Mode control is only available when VerseLight is running under Electron',
       });
     }
 
@@ -132,7 +132,7 @@ export function registerAppControlRoutes(app, { localhostOnly, appControlTimeout
 
     if (!process.send) {
       return res.status(503).json({
-        error: 'App control is only available when LyricDisplay is running under Electron',
+        error: 'App control is only available when VerseLight is running under Electron',
       });
     }
 

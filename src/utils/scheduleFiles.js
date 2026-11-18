@@ -77,9 +77,9 @@ export async function downloadScheduleFile(schedule) {
 
   if (window.electronAPI?.showSaveDialog && window.electronAPI?.writeFile) {
     const result = await window.electronAPI.showSaveDialog({
-      title: 'Save LyricDisplay Schedule',
+      title: 'Save VerseLight Schedule',
       defaultPath: fileName,
-      filters: [{ name: 'LyricDisplay Schedule', extensions: ['ldsch'] }],
+      filters: [{ name: 'VerseLight Schedule', extensions: ['ldsch'] }],
     });
     if (result?.canceled || !result?.filePath) return { canceled: true };
     const writeResult = await window.electronAPI.writeFile(result.filePath, content);

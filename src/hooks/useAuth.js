@@ -97,7 +97,7 @@ class AuthService {
         return token.trim();
       }
     } catch (error) {
-      logWarn('Failed to parse LyricDisplay Dock pairing token from URL:', error);
+      logWarn('Failed to parse VerseLight Dock pairing token from URL:', error);
     }
 
     return null;
@@ -380,12 +380,12 @@ class AuthService {
         })
       });
     } catch (error) {
-      logWarn('LyricDisplay Dock pairing token request failed:', error);
+      logWarn('VerseLight Dock pairing token request failed:', error);
       return null;
     }
 
     if (!response.ok) {
-      logWarn('LyricDisplay Dock pairing token was rejected');
+      logWarn('VerseLight Dock pairing token was rejected');
       return null;
     }
 
@@ -401,7 +401,7 @@ class AuthService {
     });
     this.serverValidated = true;
     this.clearLockout();
-    logDebug('Authentication token obtained through LyricDisplay Dock pairing');
+    logDebug('Authentication token obtained through VerseLight Dock pairing');
     return this.token;
   }
 

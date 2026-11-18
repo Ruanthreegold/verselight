@@ -1,6 +1,6 @@
 /**
  * MIDI Controller Module
- * Handles MIDI input for external hardware control of LyricDisplay
+ * Handles MIDI input for external hardware control of VerseLight
  */
 
 import { EventEmitter } from 'events';

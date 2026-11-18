@@ -79,10 +79,10 @@ function updateGitHubReleaseLinks(version) {
   }
 
   const githubLinks = {
-    windows: `https://github.com/PeterAlaks/lyric-display-app/releases/download/v${version}/LyricDisplay-${version}-Windows-Setup.exe`,
-    macosArm: `https://github.com/PeterAlaks/lyric-display-app/releases/download/v${version}/LyricDisplay-${version}-macOS-arm64.dmg`,
-    macosIntel: `https://github.com/PeterAlaks/lyric-display-app/releases/download/v${version}/LyricDisplay-${version}-macOS-x64.dmg`,
-    linux: `https://github.com/PeterAlaks/lyric-display-app/releases/download/v${version}/LyricDisplay-${version}-Linux.AppImage`
+    windows: `https://github.com/PeterAlaks/lyric-display-app/releases/download/v${version}/VerseLight-${version}-Windows-Setup.exe`,
+    macosArm: `https://github.com/PeterAlaks/lyric-display-app/releases/download/v${version}/VerseLight-${version}-macOS-arm64.dmg`,
+    macosIntel: `https://github.com/PeterAlaks/lyric-display-app/releases/download/v${version}/VerseLight-${version}-macOS-x64.dmg`,
+    linux: `https://github.com/PeterAlaks/lyric-display-app/releases/download/v${version}/VerseLight-${version}-Linux.AppImage`
   };
 
   if (fs.existsSync(guidePath)) {
@@ -90,19 +90,19 @@ function updateGitHubReleaseLinks(version) {
 
     const releaseAssetPatterns = [
       {
-        pattern: /https:\/\/github\.com\/PeterAlaks\/lyric-display-app\/releases\/download\/v[\d.]+\/LyricDisplay-[\d.]+-Windows-Setup\.exe/g,
+        pattern: /https:\/\/github\.com\/PeterAlaks\/lyric-display-app\/releases\/download\/v[\d.]+\/VerseLight-[\d.]+-Windows-Setup\.exe/g,
         replacement: githubLinks.windows,
       },
       {
-        pattern: /https:\/\/github\.com\/PeterAlaks\/lyric-display-app\/releases\/download\/v[\d.]+\/LyricDisplay-[\d.]+-macOS-arm64\.dmg/g,
+        pattern: /https:\/\/github\.com\/PeterAlaks\/lyric-display-app\/releases\/download\/v[\d.]+\/VerseLight-[\d.]+-macOS-arm64\.dmg/g,
         replacement: githubLinks.macosArm,
       },
       {
-        pattern: /https:\/\/github\.com\/PeterAlaks\/lyric-display-app\/releases\/download\/v[\d.]+\/LyricDisplay-[\d.]+-macOS-x64\.dmg/g,
+        pattern: /https:\/\/github\.com\/PeterAlaks\/lyric-display-app\/releases\/download\/v[\d.]+\/VerseLight-[\d.]+-macOS-x64\.dmg/g,
         replacement: githubLinks.macosIntel,
       },
       {
-        pattern: /https:\/\/github\.com\/PeterAlaks\/lyric-display-app\/releases\/download\/v[\d.]+\/LyricDisplay-[\d.]+-Linux\.AppImage/g,
+        pattern: /https:\/\/github\.com\/PeterAlaks\/lyric-display-app\/releases\/download\/v[\d.]+\/VerseLight-[\d.]+-Linux\.AppImage/g,
         replacement: githubLinks.linux,
       },
     ];

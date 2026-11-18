@@ -53,7 +53,7 @@ async function loadUserTemplates(type) {
 export function registerTemplateRoutes(app, { localhostOnly }) {
   app.get('/api/templates/:type', localhostOnly, async (req, res) => {
     if (!isAllowedLocalOrigin(req.get('origin'))) {
-      return res.status(403).json({ error: 'Templates are only available from a local LyricDisplay page' });
+      return res.status(403).json({ error: 'Templates are only available from a local VerseLight page' });
     }
 
     const type = String(req.params?.type || '').toLowerCase();

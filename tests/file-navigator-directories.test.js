@@ -7,7 +7,7 @@ import { arrangeRootsWithLibrary, countUserRoots, ensureNavigatorDirectory } fro
 
 test('default Lyrics directory creation reuses folders that already exist', async () => {
   const testRoot = await mkdtemp(path.join(os.tmpdir(), 'lyricdisplay-folder-'));
-  const lyricsPath = path.join(testRoot, 'LyricDisplay', 'Lyrics');
+  const lyricsPath = path.join(testRoot, 'VerseLight', 'Lyrics');
   try {
     assert.equal(await ensureNavigatorDirectory(lyricsPath, 'The Lyrics folder'), true);
     assert.equal((await stat(lyricsPath)).isDirectory(), true);
@@ -19,11 +19,11 @@ test('default Lyrics directory creation reuses folders that already exist', asyn
 
 test('default Lyrics directory creation explains files blocking either folder name', async () => {
   const testRoot = await mkdtemp(path.join(os.tmpdir(), 'lyricdisplay-folder-'));
-  const blockingPath = path.join(testRoot, 'LyricDisplay');
+  const blockingPath = path.join(testRoot, 'VerseLight');
   try {
     await writeFile(blockingPath, 'not a directory', 'utf8');
     await assert.rejects(
-      ensureNavigatorDirectory(blockingPath, 'The LyricDisplay Documents folder'),
+      ensureNavigatorDirectory(blockingPath, 'The VerseLight Documents folder'),
       /already exists but is not a folder/
     );
     await assert.rejects(
@@ -36,7 +36,7 @@ test('default Lyrics directory creation explains files blocking either folder na
 });
 
 test('the song library is always indexed first without displacing folders the user chose', () => {
-  const library = path.join('/docs', 'LyricDisplay', 'Lyrics');
+  const library = path.join('/docs', 'VerseLight', 'Lyrics');
   const songs = path.join('/music', 'Songs');
   const hymns = path.join('/music', 'Hymns');
 

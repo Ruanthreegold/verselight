@@ -46,7 +46,7 @@ test('setlist schemas migrate legacy files and reject future versions', () => {
 
   const future = validateSetlistData(setlist('Lyrics', '2.0'));
   assert.equal(future.valid, false);
-  assert.match(future.error, /newer LyricDisplay version/i);
+  assert.match(future.error, /newer VerseLight version/i);
 
   const malformed = validateSetlistData(setlist('Lyrics', 'next'));
   assert.equal(malformed.valid, false);

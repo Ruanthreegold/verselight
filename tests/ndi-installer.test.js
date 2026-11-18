@@ -42,7 +42,7 @@ function createInstallerHarness({ networkFetch, archiveBytes = Buffer.from('PK\x
   const events = [];
   let stopCount = 0;
   let extractCount = 0;
-  const entryFor = (basePath) => path.join(basePath, 'LyricDisplay NDI.exe');
+  const entryFor = (basePath) => path.join(basePath, 'VerseLight NDI.exe');
 
   const installer = createNdiInstaller({
     app: {

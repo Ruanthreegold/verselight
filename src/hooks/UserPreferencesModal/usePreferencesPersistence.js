@@ -166,7 +166,7 @@ export const usePreferencesPersistence = ({ showModal, showToast }) => {
     try {
       choice = await showModalRef.current?.({
         title: 'Server Port Saved',
-        description: `LyricDisplay will use port ${configuredPort} after it restarts.`,
+        description: `VerseLight will use port ${configuredPort} after it restarts.`,
         body: `The app is still running on port ${backendPort}. You can restart now or keep using the current port until your next restart.`,
         variant: 'info',
         size: 'sm',
@@ -185,7 +185,7 @@ export const usePreferencesPersistence = ({ showModal, showToast }) => {
     if (result?.success === false) {
       showToastRef.current?.({
         title: 'Restart Failed',
-        message: result.error || 'LyricDisplay could not restart. Your port change is still saved.',
+        message: result.error || 'VerseLight could not restart. Your port change is still saved.',
         variant: 'error',
       });
     }
@@ -233,7 +233,7 @@ export const usePreferencesPersistence = ({ showModal, showToast }) => {
           title: error?.code === 'STORAGE_FULL'
             ? 'Storage is full'
             : (error?.code === 'PORT_UNAVAILABLE' ? 'Port unavailable' : 'Preferences not saved'),
-          message: error?.message || 'LyricDisplay could not save your preferences.',
+          message: error?.message || 'VerseLight could not save your preferences.',
           variant: 'error',
           dedupeKey: 'preferences-storage-write-failed',
         });
@@ -394,7 +394,7 @@ export const usePreferencesPersistence = ({ showModal, showToast }) => {
         setSaveError(true);
         showToastRef.current?.({
           title: error?.code === 'PORT_UNAVAILABLE' ? 'Port unavailable' : 'Preferences not restored',
-          message: error?.message || 'LyricDisplay could not restore these preferences.',
+          message: error?.message || 'VerseLight could not restore these preferences.',
           variant: 'error',
           dedupeKey: 'preferences-reset-category-failed',
         });
@@ -459,7 +459,7 @@ export const usePreferencesPersistence = ({ showModal, showToast }) => {
         setSaveError(true);
         showToastRef.current?.({
           title: error?.code === 'STORAGE_FULL' ? 'Storage is full' : 'Preferences not restored',
-          message: error?.message || 'LyricDisplay could not restore the default preferences.',
+          message: error?.message || 'VerseLight could not restore the default preferences.',
           variant: 'error',
           dedupeKey: 'preferences-reset-all-failed',
         });

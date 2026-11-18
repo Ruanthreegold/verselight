@@ -315,7 +315,7 @@ const ScheduleStartReconciliationWizard = ({
 
             <div>
               <h3 className="text-sm font-semibold">Did the event begin at its scheduled time?</h3>
-              <p className={`mt-1 text-xs ${muted}`}>This establishes the event timeline before LyricDisplay joins it.</p>
+              <p className={`mt-1 text-xs ${muted}`}>This establishes the event timeline before VerseLight joins it.</p>
             </div>
 
             <div className="grid gap-2 sm:grid-cols-3">
@@ -410,7 +410,7 @@ const ScheduleStartReconciliationWizard = ({
               {[
                 ['Scheduled start', formatDateTime(scheduledStartAt)],
                 ['Actual event start', formatDateTime(actualStartAt)],
-                ['LyricDisplay joins', formatDateTime(now)],
+                ['VerseLight joins', formatDateTime(now)],
                 ['Current position', selectedChoice === 'finished' ? 'Event finished' : (selectedType === 'transition' ? `Transition to ${schedule.items[selectedIndex + 1]?.label || 'next item'}` : selectedItem?.label)],
                 ['Current phase began', selectedChoice === 'finished' ? '—' : formatDateTime(phaseStartAt)],
                 ['Timer state', selectedChoice === 'finished' ? 'Mark complete' : (Number.isFinite(phaseRemainingMs) ? (phaseRemainingMs < 0 ? `${formatDuration(Math.abs(phaseRemainingMs))} overtime` : `${formatDuration(phaseRemainingMs)} remaining`) : 'Manual count-up')],

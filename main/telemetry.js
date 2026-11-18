@@ -74,7 +74,7 @@ function sendJson(urlString, payload, redirectsRemaining = 2) {
       headers: {
         'Content-Type': 'application/json',
         'Content-Length': Buffer.byteLength(body),
-        'User-Agent': 'LyricDisplay-Desktop',
+        'User-Agent': 'VerseLight-Desktop',
       },
       timeout: REQUEST_TIMEOUT_MS,
     }, (response) => {

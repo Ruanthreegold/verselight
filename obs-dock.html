@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>LyricDisplay Dock</title>
+    <title>VerseLight Dock</title>
     <style>
       :root {
         color-scheme: dark;
@@ -167,14 +167,14 @@
   <body>
     <main>
       <div class="brand">
-        <img id="appIcon" src="./LyricDisplay-icon.png" alt="" />
+        <img id="appIcon" src="./VerseLight-icon.png" alt="" />
         <div>
-          <h1>LyricDisplay Dock <span class="beta-label">Beta</span></h1>
+          <h1>VerseLight Dock <span class="beta-label">Beta</span></h1>
           <p>Open the controller when Dock Mode is ready.</p>
         </div>
       </div>
 
-      <div id="status" class="status">Checking LyricDisplay...</div>
+      <div id="status" class="status">Checking VerseLight...</div>
 
       <div id="devPanel" class="dev-panel">
         <p>
@@ -218,8 +218,8 @@
       let devMode = params.get('mode') === 'dev' || isHttpVitePage;
 
       iconEl.addEventListener('error', () => {
-        if (!iconEl.src.endsWith('/public/LyricDisplay-icon.png')) {
-          iconEl.src = './public/LyricDisplay-icon.png';
+        if (!iconEl.src.endsWith('/public/VerseLight-icon.png')) {
+          iconEl.src = './public/VerseLight-icon.png';
         }
       });
 
@@ -230,8 +230,8 @@
 
       const getControllerUrl = () => devMode ? devDockUrl : productionDockUrl;
       const getDockModeNotRunningMessage = () => isWindowsPlatform
-        ? 'Dock Mode is not running. Start LyricDisplay Dock Mode from the Start menu, open LyricDisplay and switch to Dock Mode, or enable Start at Sign-In.'
-        : 'Dock Mode is not running. Open LyricDisplay and switch to Dock Mode, or enable Start at Sign-In.';
+        ? 'Dock Mode is not running. Start VerseLight Dock Mode from the Start menu, open VerseLight and switch to Dock Mode, or enable Start at Sign-In.'
+        : 'Dock Mode is not running. Open VerseLight and switch to Dock Mode, or enable Start at Sign-In.';
 
       const setControllerLinkReady = (ready) => {
         controllerReady = Boolean(ready);
@@ -331,18 +331,18 @@
         setControllerLinkReady(false);
         if (devMode) {
           if (result.backendReady && !result.dockAuthReady) {
-            setStatus('LyricDisplay is running in normal development mode. Stop it, then run npm run electron-dev:headless.', 'error');
+            setStatus('VerseLight is running in normal development mode. Stop it, then run npm run electron-dev:headless.', 'error');
           } else if (result.backendReady && !result.devReady) {
             setStatus('The app service is ready, but the development page is not available. Run npm run electron-dev:headless.', 'error');
           } else if (!result.backendReady && result.devReady) {
-            setStatus('The development page is available, but LyricDisplay is not ready yet. Run npm run electron-dev:headless.', 'error');
+            setStatus('The development page is available, but VerseLight is not ready yet. Run npm run electron-dev:headless.', 'error');
           } else {
             setStatus('Development Dock Mode is not ready. Run npm run electron-dev:headless, then try again.', 'error');
           }
         } else {
           startRuntimeButton.hidden = false;
           setStatus(result.backendReady && !result.dockAuthReady
-            ? 'LyricDisplay is open normally. Click Switch to Dock Mode and confirm the switch in LyricDisplay.'
+            ? 'VerseLight is open normally. Click Switch to Dock Mode and confirm the switch in VerseLight.'
             : getDockModeNotRunningMessage(),
             'error'
           );
@@ -362,9 +362,9 @@
             cache: 'no-store'
           });
           if (!response.ok) throw new Error(`HTTP ${response.status}`);
-          setStatus('LyricDisplay is restarting in desktop mode.', 'ready');
+          setStatus('VerseLight is restarting in desktop mode.', 'ready');
         } catch {
-          setStatus('Could not switch to desktop mode. Use the LyricDisplay tray menu to open or quit Dock Mode.', 'error');
+          setStatus('Could not switch to desktop mode. Use the VerseLight tray menu to open or quit Dock Mode.', 'error');
         }
       };
 
@@ -388,7 +388,7 @@
           return;
         }
 
-        setStatus('Asking LyricDisplay to switch to Dock Mode. Confirm the switch in LyricDisplay.', 'pending');
+        setStatus('Asking VerseLight to switch to Dock Mode. Confirm the switch in VerseLight.', 'pending');
         try {
           const response = await fetch(switchToDockModeUrl, {
             method: 'POST',
@@ -396,7 +396,7 @@
           });
           if (!response.ok) throw new Error(`HTTP ${response.status}`);
         } catch {
-          setStatus('Could not ask LyricDisplay to switch to Dock Mode. Open LyricDisplay and switch from there.', 'error');
+          setStatus('Could not ask VerseLight to switch to Dock Mode. Open VerseLight and switch from there.', 'error');
           return;
         }
 
@@ -411,7 +411,7 @@
         }
 
         setControllerLinkReady(false);
-        setStatus('Dock Mode is not ready yet. If LyricDisplay asked for confirmation, accept it, then try again.', 'error');
+        setStatus('Dock Mode is not ready yet. If VerseLight asked for confirmation, accept it, then try again.', 'error');
       };
 
       startLink.addEventListener('click', async (event) => {

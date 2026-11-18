@@ -182,7 +182,7 @@ const Preview = () => {
               <LayoutGrid className="h-4 w-4 text-cyan-300" />
             </div>
             <div className="min-w-0">
-              <h1 className="truncate text-sm font-semibold tracking-wide text-slate-100">LyricDisplay Preview</h1>
+              <h1 className="truncate text-sm font-semibold tracking-wide text-slate-100">VerseLight Preview</h1>
               <div className="flex items-center gap-2 text-[10px] uppercase tracking-[0.16em] text-slate-500">
                 <span className={`h-1.5 w-1.5 rounded-full ${isConnected ? 'bg-emerald-400' : 'animate-pulse bg-amber-400'}`} />
                 <span>{connectionLabel}</span>

@@ -38,7 +38,7 @@ test('Electron NDI transport exposes manual redirects without surfacing cancella
 
   const response = await networkFetch('https://github.com/companion.zip', {
     redirect: 'manual',
-    headers: { 'User-Agent': 'LyricDisplay-App' },
+    headers: { 'User-Agent': 'VerseLight-App' },
   });
 
   assert.equal(requestOptions.redirect, 'manual');

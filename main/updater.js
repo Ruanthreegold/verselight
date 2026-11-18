@@ -19,8 +19,12 @@ import {
 const { autoUpdater } = updaterPkg;
 
 const RETRYABLE_ERROR_RE = /(network|timeout|timed out|econnreset|etimedout|enotfound|eai_again|socket|download|sha512|checksum)/i;
-const GITHUB_OWNER = 'PeterAlaks';
-const GITHUB_REPO = 'lyric-display-app';
+// VerseLight（自用分支）：关闭自动更新。
+// 想恢复自动更新时把下面的开关改为 false，并恢复 package.json 里的 build.publish 配置。
+const UPDATES_DISABLED = true;
+
+const GITHUB_OWNER = 'Ruanthreegold';
+const GITHUB_REPO = 'verselight';
 const GITHUB_API_BASE = `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}`;
 const GITHUB_LATEST_RELEASE_URL = `https://github.com/${GITHUB_OWNER}/${GITHUB_REPO}/releases/latest`;
 const RELEASE_HISTORY_FETCH_LIMIT = 10;
@@ -117,17 +121,17 @@ const setState = (patch) => {
 const showNoUpdateDialog = () => {
   requestRendererModal({
     title: 'Up to date',
-    description: "You're running the latest version of LyricDisplay.",
+    description: "You're running the latest version of VerseLight.",
     variant: 'info',
     actions: [
       { label: 'OK', value: { response: 0 } },
     ],
   }, {
     fallback: () => dialog
-      .showMessageBox({ type: 'info', buttons: ['OK'], message: "You're running the latest version of LyricDisplay." })
+      .showMessageBox({ type: 'info', buttons: ['OK'], message: "You're running the latest version of VerseLight." })
       .then((res) => ({ response: res.response })),
   }).catch(() => {
-    dialog.showMessageBox({ type: 'info', buttons: ['OK'], message: "You're running the latest version of LyricDisplay." });
+    dialog.showMessageBox({ type: 'info', buttons: ['OK'], message: "You're running the latest version of VerseLight." });
   });
 };
 
@@ -136,7 +140,7 @@ const githubApiRequest = (urlPath, timeout = 10000) => new Promise((resolve, rej
 
   https.get(url, {
     headers: {
-      'User-Agent': 'LyricDisplay-App',
+      'User-Agent': 'VerseLight-App',
       Accept: 'application/vnd.github.v3+json',
     },
     timeout,
@@ -208,7 +212,7 @@ const notifyUpdateAvailable = async (updateInfo) => {
 const findMacDmgAsset = (release, version) => {
   const assets = Array.isArray(release?.assets) ? release.assets : [];
   const arch = process.arch === 'arm64' ? 'arm64' : 'x64';
-  const expectedName = `LyricDisplay-${normalizeVersionText(version)}-macOS-${arch}.dmg`;
+  const expectedName = `VerseLight-${normalizeVersionText(version)}-macOS-${arch}.dmg`;
 
   return assets.find((asset) => asset?.name === expectedName)
     || assets.find((asset) => (
@@ -462,6 +466,17 @@ const revealProgressWindow = ({ parent } = {}) => {
 };
 
 export function checkForUpdates(showNoUpdateDialogForResult = false) {
+  if (UPDATES_DISABLED) {
+    return Promise.resolve(setState({
+      status: 'disabled',
+      updateMode: 'disabled',
+      updateInfo: null,
+      progress: null,
+      error: null,
+      downloadedAt: null,
+    }));
+  }
+
   if (isWindowsStoreUpdater()) {
     const snapshot = setState({
       status: 'store-managed',
@@ -515,6 +530,10 @@ export function checkForUpdates(showNoUpdateDialogForResult = false) {
 }
 
 export async function downloadAvailableUpdate({ parent } = {}) {
+  if (UPDATES_DISABLED) {
+    return { success: false, disabled: true, error: 'Updates are disabled in this build.', state: getStateSnapshot() };
+  }
+
   if (isWindowsStoreUpdater()) {
     return {
       success: false,
@@ -614,6 +633,10 @@ export async function downloadAvailableUpdate({ parent } = {}) {
 }
 
 export function installDownloadedUpdate() {
+  if (UPDATES_DISABLED) {
+    return { success: false, disabled: true, error: 'Updates are disabled in this build.', state: getStateSnapshot() };
+  }
+
   if (isWindowsStoreUpdater()) {
     return {
       success: false,
@@ -638,7 +661,7 @@ export function installDownloadedUpdate() {
     return {
       success: false,
       deferred: true,
-      error: 'Turn off Live Safety before installing an update. LyricDisplay will keep the downloaded update ready.',
+      error: 'Turn off Live Safety before installing an update. VerseLight will keep the downloaded update ready.',
       state: getStateSnapshot()
     };
   }

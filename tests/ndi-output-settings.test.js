@@ -21,7 +21,7 @@ test('normalizes NDI output config without changing valid values', () => {
     customWidth: 2560,
     customHeight: 1440,
     framerate: 60,
-    sourceName: '  LyricDisplay   Clean Feed  ',
+    sourceName: '  VerseLight   Clean Feed  ',
   });
 
   assert.deepEqual(config, {
@@ -30,7 +30,7 @@ test('normalizes NDI output config without changing valid values', () => {
     customWidth: 2560,
     customHeight: 1440,
     framerate: 60,
-    sourceName: 'LyricDisplay Clean Feed',
+    sourceName: 'VerseLight Clean Feed',
   });
 });
 

@@ -105,7 +105,7 @@ Message`);
   assert.equal(parsed.stats.manualCount, 3);
 });
 
-test('LyricDisplay schedules round-trip through the versioned document format', () => {
+test('VerseLight schedules round-trip through the versioned document format', () => {
   const serialized = serializeScheduleDocument({
     title: 'Evening Service',
     eventStartTime: '18:00',
@@ -251,7 +251,7 @@ test('schedule documents reject unsupported future versions instead of down-conv
     format: 'lyricdisplay-schedule',
     version: 2,
     items: [{ id: 'welcome', label: 'Welcome', durationMs: 60_000 }],
-  }), /newer LyricDisplay version/i);
+  }), /newer VerseLight version/i);
 });
 
 test('schedule normalization assigns stable unique ids and safe text defaults', () => {

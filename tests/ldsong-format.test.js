@@ -224,7 +224,7 @@ test('translations inside a multi-line slide become separate cues with a warning
   assert.equal(warnings.length, 1);
 });
 
-test('songs from newer LyricDisplay versions are refused instead of guessed', () => {
+test('songs from newer VerseLight versions are refused instead of guessed', () => {
   const { error } = parseLdsongDocument('#LDSONG 2\n\nLine');
   assert.match(error, /newer version/i);
   assert.throws(() => parseLdsongContent('#LDSONG 2\n\nLine'), /newer version/i);

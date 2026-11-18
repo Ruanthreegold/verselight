@@ -23,14 +23,14 @@ import useFileUpload from '../hooks/useFileUpload';
 import useMultipleFileUpload from '../hooks/useMultipleFileUpload';
 import useSearch from '../hooks/useSearch';
 import useToast from '../hooks/useToast';
-import { useLyricsLoader } from '../hooks/LyricDisplayApp/useLyricsLoader';
-import { useQuickParserControls } from '../hooks/LyricDisplayApp/useQuickParserControls';
-import { useKeyboardShortcuts } from '../hooks/LyricDisplayApp/useKeyboardShortcuts';
-import { useSetlistNavigation } from '../hooks/LyricDisplayApp/useSetlistNavigation';
+import { useLyricsLoader } from '../hooks/VerseLightApp/useLyricsLoader';
+import { useQuickParserControls } from '../hooks/VerseLightApp/useQuickParserControls';
+import { useKeyboardShortcuts } from '../hooks/VerseLightApp/useKeyboardShortcuts';
+import { useSetlistNavigation } from '../hooks/VerseLightApp/useSetlistNavigation';
 import LyricsList from './LyricsList';
 import SearchBar from './SearchBar';
 import OutputSettingsPanel from './OutputSettingsPanel';
-import QuickParserPopover from './LyricDisplayApp/QuickParserPopover';
+import QuickParserPopover from './VerseLightApp/QuickParserPopover';
 import { Tooltip } from '@/components/ui/tooltip';
 import { resolveBackendUrl } from '../utils/network';
 import { prepareLyricTextImport } from '../../shared/documentTextExtraction.js';
@@ -418,11 +418,11 @@ export default function ObsDockLayout() {
         throw new Error(`HTTP ${response.status}`);
       }
 
-      showToast({ title: 'Switching to Desktop Mode', message: 'LyricDisplay is restarting.' });
+      showToast({ title: 'Switching to Desktop Mode', message: 'VerseLight is restarting.' });
     } catch (error) {
       showToast({
         title: 'Could Not Switch Modes',
-        message: 'Use the LyricDisplay tray menu to open or quit Dock Mode.',
+        message: 'Use the VerseLight tray menu to open or quit Dock Mode.',
         variant: 'warn'
       });
     }
@@ -526,7 +526,7 @@ export default function ObsDockLayout() {
           artists: [],
           album: null,
           year: null,
-          origin: 'LyricDisplay Dock',
+          origin: 'VerseLight Dock',
           filePath: null,
         },
       }
@@ -591,7 +591,7 @@ export default function ObsDockLayout() {
       <header className={`flex shrink-0 items-center justify-between gap-2 border-b px-2.5 py-2 ${toolbarClasses}`}>
         <div className="min-w-0">
           <div className="flex min-w-0 items-center gap-1.5">
-            <span className="truncate text-[13px] font-bold">LyricDisplay Dock</span>
+            <span className="truncate text-[13px] font-bold">VerseLight Dock</span>
             <span className="shrink-0 rounded border border-blue-400/40 bg-blue-500/15 px-1.5 py-0.5 text-[9px] font-bold uppercase leading-none text-blue-200">
               Beta
             </span>

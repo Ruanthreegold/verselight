@@ -11,7 +11,7 @@ import {
 
 const makeSandbox = () => {
   const appDataPath = fs.mkdtempSync(path.join(os.tmpdir(), 'lyricdisplay-reset-'));
-  const userDataPath = path.join(appDataPath, 'LyricDisplay');
+  const userDataPath = path.join(appDataPath, 'VerseLight');
   fs.mkdirSync(path.join(userDataPath, 'nested'), { recursive: true });
   fs.writeFileSync(path.join(userDataPath, 'preferences.json'), '{"theme":"dark"}', 'utf8');
   fs.writeFileSync(path.join(userDataPath, 'nested', 'cache.bin'), 'cached', 'utf8');
@@ -64,14 +64,14 @@ test('reset authorization cannot target a different folder', (t) => {
   const request = createAppDataResetRequest({
     appDataPath,
     userDataPath,
-    argv: ['LyricDisplay'],
+    argv: ['VerseLight'],
     createToken: () => '55ed9ac7-3de6-4514-8335-2d5f8a41d93f',
   });
 
   const result = consumeAppDataResetRequest({
     appDataPath,
     userDataPath: unrelatedPath,
-    argv: ['LyricDisplay', request.resetArg],
+    argv: ['VerseLight', request.resetArg],
   });
 
   assert.equal(result.reset, false);
@@ -92,7 +92,7 @@ test('reset request preserves launch arguments, schedules relaunch, and exits af
 
   const result = requestAppDataResetAndRelaunch({
     appApi,
-    argv: ['LyricDisplay', '--headless'],
+    argv: ['VerseLight', '--headless'],
     createToken: () => '03e546f0-da7d-4332-b780-6f32104aad8c',
     scheduleExit: (callback, delay) => {
       calls.push(['schedule', delay]);

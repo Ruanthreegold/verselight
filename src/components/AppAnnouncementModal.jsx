@@ -27,7 +27,7 @@ export default function AppAnnouncementModal({ announcement, darkMode = false, m
             <span className={`inline-flex h-6 w-6 items-center justify-center rounded-lg ${darkMode ? 'bg-violet-400/10' : 'bg-violet-50'}`}>
               <BellRing className="h-3.5 w-3.5" aria-hidden />
             </span>
-            LyricDisplay announcement
+            VerseLight announcement
           </div>
           <h2
             id={`modal-${modalId}-title`}

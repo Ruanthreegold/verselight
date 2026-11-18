@@ -80,7 +80,7 @@ export function performCleanup() {
   try {
     stopObsDockDevServer();
   } catch (error) {
-    console.error('[Cleanup] Error stopping LyricDisplay Dock dev server:', error);
+    console.error('[Cleanup] Error stopping VerseLight Dock dev server:', error);
   }
 
   try {

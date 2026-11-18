@@ -8,7 +8,7 @@ import { spawnSync } from 'node:child_process';
 const projectRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const installerScript = fs.readFileSync(path.join(projectRoot, 'build', 'installer.nsh'), 'utf8');
 const credentialScript = fs.readFileSync(
-  path.join(projectRoot, 'build', 'remove-lyricdisplay-credentials.ps1'),
+  path.join(projectRoot, 'build', 'remove-verselight-credentials.ps1'),
   'utf8'
 );
 
@@ -19,7 +19,7 @@ test('Windows user-data deletion is opt-in and confined to the uninstaller', () 
   assert.match(installerScript, /StrCpy \$DeleteUserDataSelection \$\{BST_UNCHECKED\}/);
   assert.match(
     installerScript,
-    /\$\{If\} \$DeleteUserDataSelection == \$\{BST_CHECKED\}[\s\S]*RMDir \/r "\$APPDATA\\LyricDisplay"/
+    /\$\{If\} \$DeleteUserDataSelection == \$\{BST_CHECKED\}[\s\S]*RMDir \/r "\$APPDATA\\VerseLight"/
   );
   assert.ok(customInstallMacro);
   assert.doesNotMatch(customInstallMacro, /DeleteUserDataSelection/);
@@ -30,7 +30,7 @@ test('Windows upgrades retain electron-builder atomic replacement of the install
 });
 
 test('Windows firewall consent defaults on, preserves navigation state, and skips unattended updates', () => {
-  assert.match(installerScript, /Allow LyricDisplay through Windows Firewall \(recommended\)/);
+  assert.match(installerScript, /Allow VerseLight through Windows Firewall \(recommended\)/);
   assert.match(installerScript, /!macro customInit\s+StrCpy \$FirewallSelection \$\{BST_CHECKED\}/);
   assert.match(installerScript, /\$\{NSD_SetState\} \$FirewallCheckbox \$FirewallSelection/);
   assert.match(installerScript, /\$\{NSD_GetState\} \$FirewallCheckbox \$FirewallSelection/);
@@ -69,22 +69,22 @@ test('Windows firewall rules are scoped to each executable, repeatable, and remo
       param([Parameter(ValueFromPipeline)]$InputObject)
       process { $script:rules = @($script:rules | Where-Object Name -ne $InputObject.Name) }
     }
-    $first = "C:\\Users\\O'Brien\\LyricDisplay\\LyricDisplay.exe"
-    $second = 'C:\\Program Files\\LyricDisplay\\LyricDisplay.exe'
-    Set-LyricDisplayFirewall Add $first
-    Set-LyricDisplayFirewall Add $first.ToUpperInvariant()
+    $first = "C:\\Users\\O'Brien\\VerseLight\\VerseLight.exe"
+    $second = 'C:\\Program Files\\VerseLight\\VerseLight.exe'
+    Set-VerseLightFirewall Add $first
+    Set-VerseLightFirewall Add $first.ToUpperInvariant()
     if ($script:created -ne 2 -or $script:updated -ne 2) { throw 'Repeated install duplicated rules' }
-    Set-LyricDisplayFirewall Add $second
-    Set-LyricDisplayFirewall Remove $first
-    Set-LyricDisplayFirewall Remove $first
+    Set-VerseLightFirewall Add $second
+    Set-VerseLightFirewall Remove $first
+    Set-VerseLightFirewall Remove $first
     if ($script:rules.Count -ne 3 -or @($script:rules | Where-Object Program -eq $second).Count -ne 2) {
       throw 'Cleanup affected another installation'
     }
-    Set-LyricDisplayFirewall Remove $second
+    Set-VerseLightFirewall Remove $second
     if ($script:rules.Count -ne 1 -or $script:rules[0].Name -ne 'Unrelated') { throw 'Cleanup affected unrelated rules' }
     function New-NetFirewallRule { throw 'Simulated firewall policy denial' }
     $failed = $false
-    try { Set-LyricDisplayFirewall Add $first } catch { $failed = $true }
+    try { Set-VerseLightFirewall Add $first } catch { $failed = $true }
     if (-not $failed) { throw 'Firewall failure was suppressed' }
   `;
   const result = spawnSync('powershell.exe', ['-NoLogo', '-NoProfile', '-NonInteractive', '-EncodedCommand',
@@ -95,15 +95,15 @@ test('Windows firewall rules are scoped to each executable, repeatable, and remo
 test('Windows cleanup covers current, legacy, and local application data', () => {
   assert.match(
     installerScript,
-    /\$installMode == "all"[\s\S]*SetShellVarContext current[\s\S]*RMDir \/r "\$APPDATA\\LyricDisplay"[\s\S]*SetShellVarContext all/
+    /\$installMode == "all"[\s\S]*SetShellVarContext current[\s\S]*RMDir \/r "\$APPDATA\\VerseLight"[\s\S]*SetShellVarContext all/
   );
 
   for (const expectedPath of [
-    '$APPDATA\\LyricDisplay',
+    '$APPDATA\\VerseLight',
     '$APPDATA\\lyric-display-app',
     '$APPDATA\\lyricdisplay-ndi',
-    '$LOCALAPPDATA\\LyricDisplay',
-    '$DOCUMENTS\\LyricDisplay',
+    '$LOCALAPPDATA\\VerseLight',
+    '$DOCUMENTS\\VerseLight',
   ]) {
     assert.ok(installerScript.includes(`RMDir /r "${expectedPath}"`), expectedPath);
   }
@@ -116,24 +116,24 @@ test('Windows cleanup explicitly warns before removing app-created documents', (
   );
   assert.match(
     installerScript,
-    /\$\{If\} \$DeleteUserDataSelection == \$\{BST_CHECKED\}[\s\S]*RMDir \/r "\$DOCUMENTS\\LyricDisplay"/
+    /\$\{If\} \$DeleteUserDataSelection == \$\{BST_CHECKED\}[\s\S]*RMDir \/r "\$DOCUMENTS\\VerseLight"/
   );
 });
 
-test('the NSIS uninstaller embeds credential cleanup for every LyricDisplay service', () => {
+test('the NSIS uninstaller embeds credential cleanup for every VerseLight service', () => {
   assert.match(
     installerScript,
-    /File \/oname=\$PLUGINSDIR\\remove-lyricdisplay-credentials\.ps1/
+    /File \/oname=\$PLUGINSDIR\\remove-verselight-credentials\.ps1/
   );
   assert.match(
     installerScript,
-    /powershell\.exe[\s\S]*-File "\$PLUGINSDIR\\remove-lyricdisplay-credentials\.ps1"/
+    /powershell\.exe[\s\S]*-File "\$PLUGINSDIR\\remove-verselight-credentials\.ps1"/
   );
 
   for (const servicePrefix of [
-    'LyricDisplay/',
-    'LyricDisplayAuthTokens/',
-    'LyricDisplayProviderKeys/',
+    'VerseLight/',
+    'VerseLightAuthTokens/',
+    'VerseLightProviderKeys/',
   ]) {
     assert.ok(credentialScript.includes(`'${servicePrefix}'`), servicePrefix);
   }

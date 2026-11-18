@@ -114,7 +114,7 @@ export function relaunchInObsDockHeadlessMode() {
     app.exit(0);
     return { success: true };
   } catch (error) {
-    console.warn('[OBSDockStartup] Failed to relaunch in LyricDisplay Dock headless mode:', error);
+    console.warn('[OBSDockStartup] Failed to relaunch in VerseLight Dock headless mode:', error);
     return { success: false, error: error.message };
   }
 }
@@ -129,7 +129,7 @@ export function relaunchInDesktopMode() {
     app.quit();
     return { success: true };
   } catch (error) {
-    console.warn('[OBSDockStartup] Failed to relaunch LyricDisplay desktop mode:', error);
+    console.warn('[OBSDockStartup] Failed to relaunch VerseLight desktop mode:', error);
     try {
       app.exit(1);
     } catch {

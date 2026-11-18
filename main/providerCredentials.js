@@ -9,7 +9,7 @@ import {
   getRuntimeProfile,
 } from '../shared/runtimeProfile.js';
 
-const BASE_SERVICE_NAME = 'LyricDisplayProviderKeys';
+const BASE_SERVICE_NAME = 'VerseLightProviderKeys';
 const CACHE = new Map();
 let keytarModule;
 let keytarLoadAttempted = false;
@@ -34,16 +34,16 @@ const resolveConfigDir = () => {
 
   if (process.platform === 'win32') {
     const base = process.env.LOCALAPPDATA || path.join(homeDir, 'AppData', 'Local');
-    return path.join(base, getProfiledName('LyricDisplay'), 'providers');
+    return path.join(base, getProfiledName('VerseLight'), 'providers');
   }
 
   if (process.platform === 'darwin') {
     const base = path.join(homeDir, 'Library', 'Application Support');
-    return path.join(base, getProfiledName('LyricDisplay'), 'providers');
+    return path.join(base, getProfiledName('VerseLight'), 'providers');
   }
 
   const base = process.env.XDG_CONFIG_HOME || path.join(homeDir, '.config');
-  return path.join(base, getProfiledName('LyricDisplay').toLowerCase(), 'providers');
+  return path.join(base, getProfiledName('VerseLight').toLowerCase(), 'providers');
 };
 
 const ensureDirectory = async (dirPath) => {

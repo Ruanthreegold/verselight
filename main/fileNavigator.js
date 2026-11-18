@@ -47,7 +47,7 @@ const IGNORED_DIRECTORIES = new Set([
 ]);
 
 let initializedPromise = null;
-// The song library: Documents/LyricDisplay/Lyrics, always indexed and the default save home.
+// The song library: Documents/VerseLight/Lyrics, always indexed and the default save home.
 let libraryPath = null;
 let roots = [];
 let records = new Map();
@@ -232,7 +232,7 @@ const isLibraryRoot = (rootPath) => Boolean(libraryPath)
 async function ensureSongLibraryRoot() {
   try {
     const target = getSongLibraryFolderPath();
-    await ensureNavigatorDirectory(path.dirname(target), 'The LyricDisplay Documents folder');
+    await ensureNavigatorDirectory(path.dirname(target), 'The VerseLight Documents folder');
     await ensureNavigatorDirectory(target, 'The song library');
     libraryPath = await fs.realpath(target);
   } catch (error) {
@@ -850,7 +850,7 @@ export async function getFileNavigatorSaveDestinations(preferredDirectory = null
     seen.add(key);
     destinations.push({
       ...root,
-      detail: root.library ? 'LyricDisplay song library' : 'Indexed lyrics folder',
+      detail: root.library ? 'VerseLight song library' : 'Indexed lyrics folder',
       preferred: false,
     });
   }
@@ -993,10 +993,10 @@ export async function addFileNavigatorRoot(rootPath) {
 
 export async function createFileNavigatorLyricsFolder() {
   const documentsPath = app.getPath('documents');
-  const appDocumentsPath = path.join(documentsPath, 'LyricDisplay');
+  const appDocumentsPath = path.join(documentsPath, 'VerseLight');
   const lyricsFolderPath = path.join(appDocumentsPath, 'Lyrics');
   await ensureNavigatorDirectory(documentsPath, 'Your Documents folder');
-  await ensureNavigatorDirectory(appDocumentsPath, 'The LyricDisplay Documents folder');
+  await ensureNavigatorDirectory(appDocumentsPath, 'The VerseLight Documents folder');
   const folderCreated = await ensureNavigatorDirectory(lyricsFolderPath, 'The Lyrics folder');
   const resolvedLyricsFolderPath = await fs.realpath(lyricsFolderPath);
   const result = await addFileNavigatorRoots([resolvedLyricsFolderPath]);
@@ -1026,7 +1026,7 @@ export async function removeFileNavigatorRoot(rootPath) {
     try {
       const normalized = normalizeComparisonPath(normalizeLyricPath(rootPath));
       if (isLibraryRoot(rootPath)) {
-        throw new Error('The LyricDisplay song library is always indexed and cannot be removed.');
+        throw new Error('The VerseLight song library is always indexed and cannot be removed.');
       }
       // Removing a folder that contained the library hands indexing back to the library itself.
       roots = arrangeRootsWithLibrary(

@@ -25,7 +25,7 @@ test('storage capacity failures are normalized for user-facing write errors', ()
   assert.equal(getStorageCapacityErrorCode(nestedError), 'ENOSPC');
   assert.deepEqual(toStorageWriteFailure(nestedError, { subject: 'this file' }), {
     code: 'STORAGE_FULL',
-    error: 'LyricDisplay could not save this file because the drive is full. Free some disk space and try again.',
+    error: 'VerseLight could not save this file because the drive is full. Free some disk space and try again.',
     systemCode: 'ENOSPC',
   });
 });
@@ -116,7 +116,7 @@ test('create authorization cannot be used to replace a file', async () => {
     assert.equal(validateLyricWrite(filePath, 'lyrics', { collisionPolicy: 'create' }).valid, true);
     assert.deepEqual(validateLyricWrite(filePath, 'lyrics', { collisionPolicy: 'replace' }), {
       valid: false,
-      error: 'File replacement was not confirmed by a LyricDisplay file workflow',
+      error: 'File replacement was not confirmed by a VerseLight file workflow',
     });
 
     grantLyricWritePath(filePath, { collisionPolicy: 'replace' });

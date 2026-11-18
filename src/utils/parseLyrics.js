@@ -1,4 +1,4 @@
-// Project: LyricDisplay App
+// Project: VerseLight App
 // File: src/utils/parseLyrics.js
 
 import { isStructureTag } from '../../shared/lyricsParsing/structureTags.js';

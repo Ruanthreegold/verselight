@@ -208,7 +208,7 @@ const SongEditor = () => {
   const songMetadataForSave = useMemo(() => ({
     ...ldsongDocument.metadata,
     artists: ldsongDocument.metadata.artists || [],
-    origin: 'LyricDisplay Song',
+    origin: 'VerseLight Song',
     filePath: currentFilePath || null,
   }), [currentFilePath, ldsongDocument.metadata]);
 
@@ -689,7 +689,7 @@ const SongEditor = () => {
     if (isContentEmpty && isTitleEmpty) return `Choose a song title and add lyrics content to ${action}`;
     if (isTitleEmpty) return `Replace Untitled Lyrics with a song title to ${action}`;
     if (isContentEmpty) return `Add lyrics content to ${action}`;
-    return action === 'save' ? 'Save as a LyricDisplay Song (.ldsong)' : 'Save and load into the control panel';
+    return action === 'save' ? 'Save as a VerseLight Song (.ldsong)' : 'Save and load into the control panel';
   };
   const toolbarGhostClass = darkMode
     ? 'bg-transparent text-gray-300 hover:bg-blue-500/10 hover:text-blue-300 active:bg-blue-500/15 focus-visible:bg-blue-500/10 focus-visible:text-blue-300 focus-visible:ring-1 focus-visible:ring-blue-500/60'

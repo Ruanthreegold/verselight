@@ -56,7 +56,7 @@ test('development secrets use isolated fallback and credential-vault namespaces'
     await manager.saveSecrets(createSecrets());
 
     assert.ok(calls.length > 0);
-    assert.ok(calls.every((call) => call.service === 'LyricDisplay-Dev'));
+    assert.ok(calls.every((call) => call.service === 'VerseLight-Dev'));
     assert.match(getDefaultConfigDir('development'), /lyricdisplay-dev/i);
     assert.doesNotMatch(getDefaultConfigDir('production'), /lyricdisplay-dev/i);
     assert.equal(

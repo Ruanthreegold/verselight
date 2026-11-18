@@ -154,7 +154,7 @@ function attachMainWindowLifecycle(win) {
               { label: 'Cancel', value: 0, variant: 'outline', autoFocus: true },
               { label: 'Close', value: 1, variant: 'destructive' }
             ],
-            body: 'Are you sure you want to close LyricDisplay? This will discard any ongoing lyric operations or unsaved changes.',
+            body: 'Are you sure you want to close VerseLight? This will discard any ongoing lyric operations or unsaved changes.',
             dismissible: true,
             allowBackdropClose: false
           },
@@ -167,7 +167,7 @@ function attachMainWindowLifecycle(win) {
                 defaultId: 0,
                 cancelId: 0,
                 title: 'Confirm Close',
-                message: 'Are you sure you want to close LyricDisplay?',
+                message: 'Are you sure you want to close VerseLight?',
                 detail: 'We just want to be sure you mean this, as closing the app will discard any ongoing lyric operations or unsaved changes.'
               });
               return fallbackChoice;
@@ -287,8 +287,8 @@ const confirmHeadlessRelaunchFromProtocol = async () => {
 
     const choice = await requestRendererModal({
       title: 'Switch to Dock Mode?',
-      description: 'LyricDisplay Dock requested control from OBS.',
-      body: 'LyricDisplay will close the desktop window and continue running for the OBS dock. Save any unsaved work before continuing.',
+      description: 'VerseLight Dock requested control from OBS.',
+      body: 'VerseLight will close the desktop window and continue running for the OBS dock. Save any unsaved work before continuing.',
       variant: 'warn',
       size: 'sm',
       actions: [
@@ -304,8 +304,8 @@ const confirmHeadlessRelaunchFromProtocol = async () => {
           defaultId: 0,
           cancelId: 0,
           title: 'Switch to Dock Mode?',
-          message: 'LyricDisplay Dock requested control from OBS.',
-          detail: 'LyricDisplay will close the desktop window and continue running for the OBS dock. Save any unsaved work before continuing.',
+          message: 'VerseLight Dock requested control from OBS.',
+          detail: 'VerseLight will close the desktop window and continue running for the OBS dock. Save any unsaved work before continuing.',
         });
         return fallbackChoice.response === 1 ? 'start-headless' : 'cancel';
       },
@@ -316,7 +316,7 @@ const confirmHeadlessRelaunchFromProtocol = async () => {
       return;
     }
   } catch (error) {
-    console.warn('[Main] Failed to handle LyricDisplay Dock headless protocol request:', error);
+    console.warn('[Main] Failed to handle VerseLight Dock headless protocol request:', error);
   } finally {
     headlessProtocolRelaunchInProgress = false;
   }
@@ -433,7 +433,7 @@ setBackendMessageHandler((message) => {
   if (message?.type === 'storage-write-failed') {
     requestRendererModal({
       title: 'Storage is full',
-      description: message.error || 'LyricDisplay cannot save changes because the drive containing its data folder is full.',
+      description: message.error || 'VerseLight cannot save changes because the drive containing its data folder is full.',
       body: 'The current session can continue in memory, but new changes may be lost when the app closes. Free some disk space, then make another change to retry saving.',
       variant: 'error',
       dedupeKey: 'user-data-storage-full',
@@ -443,8 +443,8 @@ setBackendMessageHandler((message) => {
       fallback: () => dialog.showMessageBox({
         type: 'error',
         title: 'Storage is full',
-        message: message.error || 'LyricDisplay cannot save changes because the drive is full.',
-        detail: 'Free some disk space before closing LyricDisplay to avoid losing current-session changes.',
+        message: message.error || 'VerseLight cannot save changes because the drive is full.',
+        detail: 'Free some disk space before closing VerseLight to avoid losing current-session changes.',
       }),
     }).catch((error) => {
       console.error('[Storage] Failed to show storage capacity alert:', error);
@@ -487,14 +487,14 @@ setBackendStatusHandler((status) => {
 
   requestRendererModal({
     title: 'Backend service stopped',
-    description: 'LyricDisplay could not recover its local backend after repeated attempts. Browser Sources and control synchronization may now be stale.',
+    description: 'VerseLight could not recover its local backend after repeated attempts. Browser Sources and control synchronization may now be stale.',
     body: `Reason: ${status.reason || 'unknown'} · Attempts: ${status.attempts || 0}/${status.maxAttempts || 0}`,
     variant: 'error',
     dedupeKey: 'backend-restart-exhausted',
     dismissible: true,
     actions: [
       { label: 'Dismiss', value: 'dismiss', variant: 'outline' },
-      { label: 'Restart LyricDisplay', value: 'restart', variant: 'destructive', autoFocus: true },
+      { label: 'Restart VerseLight', value: 'restart', variant: 'destructive', autoFocus: true },
     ],
   }, {
     timeout: false,
@@ -514,8 +514,8 @@ app.whenReady().then(async () => {
   if (appDataResetResult?.requested && appDataResetResult.error) {
     await dialog.showMessageBox({
       type: 'error',
-      title: 'LyricDisplay Reset Failed',
-      message: 'LyricDisplay could not clear its user-data folder.',
+      title: 'VerseLight Reset Failed',
+      message: 'VerseLight could not clear its user-data folder.',
       detail: appDataResetResult.error,
     });
   }

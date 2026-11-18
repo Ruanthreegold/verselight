@@ -620,7 +620,7 @@ const OutputSettingsPanel = ({
       showToast({
         type: 'error',
         message: 'Template could not be applied',
-        description: 'This file does not contain output settings LyricDisplay Dock can use.'
+        description: 'This file does not contain output settings VerseLight Dock can use.'
       });
       return;
     }

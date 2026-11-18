@@ -50,7 +50,7 @@ const formatMetadata = (metadata) => {
 
 const formatExport = (entries) => {
   const lines = [
-    'LyricDisplay Operator Action Log',
+    'VerseLight Operator Action Log',
     `Exported: ${new Date().toLocaleString()}`,
     '',
   ];

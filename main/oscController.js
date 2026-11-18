@@ -1,6 +1,6 @@
 /**
  * OSC Controller Module
- * Handles OSC (Open Sound Control) input/output for external control of LyricDisplay
+ * Handles OSC (Open Sound Control) input/output for external control of VerseLight
  */
 
 import { EventEmitter } from 'events';

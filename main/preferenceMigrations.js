@@ -33,7 +33,7 @@ export function migratePreferences(input) {
     return {
       success: false,
       futureVersion: true,
-      error: `Preferences schema ${sourceVersion} requires a newer LyricDisplay version`,
+      error: `Preferences schema ${sourceVersion} requires a newer VerseLight version`,
       preferences,
     };
   }

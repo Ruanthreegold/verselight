@@ -17,10 +17,10 @@ function getTrayIconCandidates() {
   return [
     path.join(appRoot, 'public', `favicon.${extension}`),
     path.join(resourcesPath, 'app.asar', 'public', `favicon.${extension}`),
-    path.join(executableDir, 'LyricDisplay-icon.ico'),
-    path.join(executableDir, 'LyricDisplay-icon.png'),
-    path.join(appRoot, 'public', 'LyricDisplay-icon.png'),
-    path.join(resourcesPath, 'app.asar', 'public', 'LyricDisplay-icon.png'),
+    path.join(executableDir, 'VerseLight-icon.ico'),
+    path.join(executableDir, 'VerseLight-icon.png'),
+    path.join(appRoot, 'public', 'VerseLight-icon.png'),
+    path.join(resourcesPath, 'app.asar', 'public', 'VerseLight-icon.png'),
   ];
 }
 
@@ -121,7 +121,7 @@ function startWindowsTrayHost({ isHeadlessMode = false } = {}) {
     '-ParentPid', String(process.pid),
     '-ExePath', process.execPath,
     '-BaseUrl', `http://127.0.0.1:${getBackendPort()}`,
-    '-Tooltip', isHeadlessMode ? 'LyricDisplay Dock Mode' : 'LyricDisplay',
+    '-Tooltip', isHeadlessMode ? 'VerseLight Dock Mode' : 'VerseLight',
     '-Mode', isHeadlessMode ? 'dock' : 'desktop',
   ];
 
@@ -168,19 +168,19 @@ export function createAppTray({
 
   const icon = createTrayIcon();
   appTray = new Tray(icon);
-  appTray.setToolTip(isHeadlessMode ? 'LyricDisplay Dock Mode' : 'LyricDisplay');
+  appTray.setToolTip(isHeadlessMode ? 'VerseLight Dock Mode' : 'VerseLight');
 
   console.log('[Tray] Creating tray', { isHeadlessMode });
 
   const showMainWindow = () => {
-    console.log(isHeadlessMode ? '[Tray] Open LyricDisplay desktop requested' : '[Tray] Open LyricDisplay requested');
+    console.log(isHeadlessMode ? '[Tray] Open VerseLight desktop requested' : '[Tray] Open VerseLight requested');
     if (typeof openMainWindow === 'function') {
       openMainWindow();
     }
   };
 
   const handleQuit = () => {
-    console.log(isHeadlessMode ? '[Tray] Quit LyricDisplay Dock Mode requested' : '[Tray] Quit LyricDisplay requested');
+    console.log(isHeadlessMode ? '[Tray] Quit VerseLight Dock Mode requested' : '[Tray] Quit VerseLight requested');
     if (typeof quitApp === 'function') {
       quitApp();
       return;
@@ -191,12 +191,12 @@ export function createAppTray({
 
   appTrayMenu = Menu.buildFromTemplate([
     {
-      label: isHeadlessMode ? 'Open LyricDisplay Desktop' : 'Open LyricDisplay',
+      label: isHeadlessMode ? 'Open VerseLight Desktop' : 'Open VerseLight',
       click: showMainWindow,
     },
     { type: 'separator' },
     {
-      label: isHeadlessMode ? 'Quit LyricDisplay Dock Mode' : 'Quit LyricDisplay',
+      label: isHeadlessMode ? 'Quit VerseLight Dock Mode' : 'Quit VerseLight',
       click: handleQuit,
     },
   ]);
