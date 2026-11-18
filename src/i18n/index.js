@@ -4,7 +4,7 @@
 // - 默认中文（zh-CN），可在设置里切换（setLocale 会持久化到 localStorage）
 
 import { create } from 'zustand';
-import zhCN from './zh-CN.json';
+import zhCN from './zh-CN.json' with { type: 'json' };
 
 export const SUPPORTED_LOCALES = ['zh-CN', 'en'];
 export const DEFAULT_LOCALE = 'zh-CN';
