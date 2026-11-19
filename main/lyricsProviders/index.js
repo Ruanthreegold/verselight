@@ -2,6 +2,7 @@ import { TTLCache } from './cache.js';
 import * as lyricsOvh from './providers/lyricsOvh.js';
 import * as openHymnal from './providers/openHymnal.js';
 import * as lrclib from './providers/lrclib.js';
+import * as netease from './providers/netease.js';
 import { deleteProviderKey, getProviderKey, listProviderKeys, setProviderKey } from '../providerCredentials.js';
 import { mergeResults } from './searchAlgorithm.js';
 import fs from 'fs';
@@ -23,6 +24,7 @@ const { app } = electron || {};
 const providers = [
   openHymnal,
   lrclib,
+  netease,
   lyricsOvh,
 ];
 

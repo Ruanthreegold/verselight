@@ -1016,6 +1016,8 @@ export function mergeResults(chunks, options = {}) {
         providerPenalties = null,
         includeDedupDroppped = false,
         includeDedupDropped = includeDedupDroppped,
+        // 每个来源至少保留几条，避免打分高的来源占满整个列表
+        minPerProvider = 2,
     } = options;
 
     const queryAnalysis = analyzeQuery(query);
@@ -1103,6 +1105,24 @@ export function mergeResults(chunks, options = {}) {
     if (filtered.length === 0 && scoredResults.length > 0) {
         filtered = scoredResults;
         mergeMeta.fallbackApplied = true;
+    }
+
+    // Provider diversity pass: seed a couple of results per source first, so a
+    // high-scoring provider (typically LRCLIB) cannot crowd out the others
+    // (for example NetEase results for Chinese songs).
+    if (minPerProvider > 0 && filtered.length > 0) {
+        const seededPerProvider = new Map();
+        for (const scored of filtered) {
+            if (merged.length >= limit) break;
+            const providerId = scored.item?.provider || 'unknown';
+            const seeded = seededPerProvider.get(providerId) || 0;
+            if (seeded >= minPerProvider) continue;
+            const dedupKey = buildDedupKey(scored.item);
+            if (seen.has(dedupKey)) continue;
+            seen.set(dedupKey, scored);
+            merged.push(scored.item);
+            seededPerProvider.set(providerId, seeded + 1);
+        }
     }
 
     for (const scored of filtered) {

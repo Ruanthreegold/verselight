@@ -281,3 +281,30 @@ test('mergeResults recognizes instrumental version signals from metadata', () =>
 
   assert.equal(top.metadata.instrumental, true);
 });
+
+test('mergeResults keeps results from every provider instead of letting one source fill the list', () => {
+  const chunks = [
+    {
+      provider: { id: 'lrclib', displayName: 'LRCLIB' },
+      results: Array.from({ length: 6 }, (_, index) => ({
+        provider: 'lrclib',
+        title: `Oceans ${index}`,
+        artist: 'Hillsong United',
+      })),
+    },
+    {
+      provider: { id: 'netease', displayName: 'NetEase' },
+      results: [
+        { provider: 'netease', title: 'Oceans', artist: 'Hillsong United' },
+      ],
+    },
+  ];
+
+  const merged = mergeResults(chunks, { query: 'Oceans Hillsong United', limit: 5 });
+
+  assert.equal(merged.length, 5);
+  assert.ok(
+    merged.some((item) => item.provider === 'netease'),
+    'the secondary provider should still be represented',
+  );
+});
