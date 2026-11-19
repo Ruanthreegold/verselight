@@ -102,6 +102,10 @@ function sendJson(urlString, payload, redirectsRemaining = 2) {
   });
 }
 
+// VerseLight 自用分支：关闭向原作者服务器的匿名统计上报。
+// 想恢复时把它改成 true（并确保偏好设置里已同意上报）。
+export const TELEMETRY_ENABLED = false;
+
 export async function recordSuccessfulAppLaunch({
   enabled = false,
   isPackaged = app?.isPackaged === true,
@@ -111,7 +115,7 @@ export async function recordSuccessfulAppLaunch({
   endpoint = process.env.LYRICDISPLAY_TELEMETRY_URL || DEFAULT_TELEMETRY_URL,
   sender = sendJson,
 } = {}) {
-  if (!enabled || !isPackaged || process.env.LYRICDISPLAY_TELEMETRY_DISABLED === '1') {
+  if (!TELEMETRY_ENABLED || !enabled || !isPackaged || process.env.LYRICDISPLAY_TELEMETRY_DISABLED === '1') {
     return { skipped: true };
   }
   if (!userDataPath || !currentVersion) return { skipped: true };

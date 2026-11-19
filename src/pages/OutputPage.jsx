@@ -19,6 +19,16 @@ import {
 } from '../../shared/transitionSettings.js';
 import { KINETIC_TRANSITION, resolveKineticSection } from '../../shared/kineticTypography.js';
 
+// 输出页底色：只有真的配置了背景（背景不透明度 > 0，或用了背景图/视频）时才铺黑底，
+// 否则保持透明，方便 OBS / vMix / NDI 直接叠加到画面上。
+const hasConfiguredOutputBackground = (settings) => {
+  if (!settings) return false;
+  if (settings.backgroundMedia || settings.fullScreenBackgroundMedia) return true;
+  if (Number(settings.backgroundOpacity ?? 0) > 0) return true;
+  if (settings.fullScreenMode && Number(settings.fullScreenBackgroundOpacity ?? 0) > 0) return true;
+  return false;
+};
+
 const SONG_CREDITS_POSITION_CLASSES = {
   'bottom-left': 'bottom-0 left-0 text-left',
   'bottom-center': 'bottom-0 inset-x-0 text-center',
@@ -113,10 +123,12 @@ export function OutputFrame({
     visible: { opacity: 1 },
   };
 
+  const outputBaseBackground = hasConfiguredOutputBackground(outputSettings) ? '#000000' : 'transparent';
+
   return (
     <div
       className={className}
-      style={{ background: isProjectionMode ? '#000000' : 'transparent' }}
+      style={{ background: outputBaseBackground }}
     >
       {keepFullScreenBackgroundVisible && (
         <LyricVisualFrame
@@ -226,11 +238,26 @@ const OutputPage = ({ outputId }) => {
     return () => window.clearInterval(interval);
   }, [isAuthenticated, isConnected, isPreviewMode, publishOutputMetrics]);
 
+  useEffect(() => {
+    // 输出页自身负责底色，html/body 必须透明，否则 OBS 浏览器源会带出不透明白底。
+    const html = document.documentElement;
+    const body = document.body;
+    const previousHtmlBackground = html.style.background;
+    const previousBodyBackground = body.style.background;
+    html.style.background = 'transparent';
+    body.style.background = 'transparent';
+
+    return () => {
+      html.style.background = previousHtmlBackground;
+      body.style.background = previousBodyBackground;
+    };
+  }, []);
+
   if (!isDefaultOutput && !isOutputAvailable) {
     return (
       <div
         className="h-screen w-screen overflow-hidden"
-        style={{ background: isProjectionMode ? '#000000' : 'transparent' }}
+        style={{ background: 'transparent' }}
         aria-hidden="true"
       />
     );

@@ -289,6 +289,98 @@ const VERSION_TERMS = {
 
 const VERSION_TERM_ORDER = Object.keys(VERSION_TERMS);
 
+// 中文曲库里很常见的翻唱/演绎标记
+const COVER_PATTERNS = [
+    /翻唱/,
+    /翻自/,
+    /翻唱版/,
+    /女声版/,
+    /男声版/,
+    /童声/,
+    /钢琴版/,
+    /吉他版/,
+    /器乐版/,
+    /伴奏/,
+    /纯音乐/,
+    /合唱版/,
+    /改编版/,
+    /串烧/,
+    /片段/,
+    /原唱\s*[:：]/,
+    /现场版/,
+    /抖音/,
+    /cover/i,
+    /instrumental/i,
+    /karaoke/i,
+    /karaoke/i,
+    /ktv/i,
+    /remix/i,
+    /dj\s*版?/i,
+];
+
+/** 结果是否明显是翻唱/伴奏/演绎版本 */
+export function isCoverLikeResult(item) {
+    const text = `${item?.title || ''} ${item?.album || ''} ${item?.snippet || ''}`;
+    if (!text.trim()) return false;
+    if (item?.metadata?.instrumental) return true;
+    return COVER_PATTERNS.some((pattern) => pattern.test(text));
+}
+
+/**
+ * 目标歌手：优先用查询解析结果；解析不出来时，看结果里有没有哪个歌手的名字
+ * 直接出现在查询里（"不能说的秘密 周杰伦" 这种中文写法很常见），取出现次数最多的那个。
+ */
+function resolveTargetArtist(queryAnalysis, scoredResults, rawQuery) {
+    const inferred = normalizeText(queryAnalysis?.inferredArtist || '');
+    if (inferred) return inferred;
+
+    const normalizedQuery = queryAnalysis?.normalizedQuery || normalizeText(rawQuery || '');
+    if (!normalizedQuery) return '';
+
+    const counts = new Map();
+    for (const scored of scoredResults) {
+        const artistNorm = normalizeText(scored?.item?.artist || '');
+        if (artistNorm.length < 2) continue;
+        if (!normalizedQuery.includes(artistNorm)) continue;
+        counts.set(artistNorm, (counts.get(artistNorm) || 0) + 1);
+    }
+
+    if (counts.size === 0) return '';
+    return Array.from(counts.entries()).sort((a, b) => b[1] - a[1])[0][0];
+}
+
+function applyOriginalPreference(scored, { artistTarget, titleTarget, queryAsksVersion = false }) {
+    const item = scored?.item || {};
+    const titleNorm = normalizeText(item.title || '');
+    const artistNorm = normalizeText(item.artist || '');
+    let score = Number.isFinite(scored?.score) ? scored.score : 0;
+
+    if (!queryAsksVersion && isCoverLikeResult(item)) {
+        // 翻唱/演绎版本整体压到明显靠后，避免原唱被挤下去
+        score *= 0.45;
+    }
+
+    const artistMatches = Boolean(
+        artistTarget && artistNorm && (artistNorm.includes(artistTarget) || artistTarget.includes(artistNorm))
+    );
+
+    if (artistMatches) {
+        score += 0.2;
+    } else if (artistTarget && artistNorm) {
+        // 标题对得上但歌手不是同一个人：多半是翻唱或上传者乱写的艺人名
+        score -= 0.25;
+    }
+
+    if (titleTarget && titleNorm) {
+        const core = titleNorm.replace(/\b(feat|ft)\b.*$/, '').trim();
+        if (core === titleTarget || core.startsWith(titleTarget) || titleTarget.startsWith(core)) {
+            score += 0.06;
+        }
+    }
+
+    return clampScore(score);
+}
+
 /**
  * Extract meaningful words
  */
@@ -461,6 +553,30 @@ export function bigramSimilarity(str1, str2) {
  * @param {number} options.wordMatchThreshold - Minimum similarity for word-to-artist matching (default: 0.75)
  * @returns {Object} Query analysis with inferred artist and title
  */
+/**
+ * 中文查询常写成「歌名 歌手」且没有分隔符。查询末尾若是已知艺人，
+ * 就把前半段当歌名，这样「不能说的秘密 周杰伦」也能识别出原唱。
+ */
+function findKnownArtistSuffixTitle(normalizedQuery) {
+    const knownArtists = ensureNormalizedArtists();
+    if (!knownArtists.length || !normalizedQuery) return null;
+
+    let best = null;
+    for (const artist of knownArtists) {
+        if (!artist || artist.length < 2) continue;
+        if (!normalizedQuery.endsWith(artist)) continue;
+        if (normalizedQuery.length - artist.length < 2) continue;
+
+        const titlePart = normalizedQuery.slice(0, normalizedQuery.length - artist.length).trim();
+        if (titlePart.length < 2) continue;
+        if (!best || artist.length > best.artist.length) {
+            best = { artist, title: titlePart };
+        }
+    }
+
+    return best;
+}
+
 export function analyzeQuery(query, options = {}) {
     const {
         artistMatchThreshold = 0.65,
@@ -596,6 +712,22 @@ export function analyzeQuery(query, options = {}) {
                     score: confidence,
                 });
             }
+        }
+    }
+
+    if (!inferredArtist && normalized) {
+        const suffixMatch = findKnownArtistSuffixTitle(normalized);
+        if (suffixMatch) {
+            inferredArtist = suffixMatch.artist;
+            inferredTitle = suffixMatch.title;
+            confidence = Math.max(confidence, 0.62);
+            addInterpretation(interpretations, {
+                inferredTitle,
+                inferredArtist,
+                confidence,
+                source: 'known_artist_suffix',
+                score: confidence,
+            });
         }
     }
 
@@ -1063,6 +1195,17 @@ export function mergeResults(chunks, options = {}) {
             });
         });
     });
+
+    // 原版优先：翻唱/伴奏/各种版本演绎降权，艺人命中与标题精确命中加权。
+    // 中文歌词站的翻唱非常多（女声版、钢琴版、DJ 版…），只按打分容易把原唱挤下去。
+    const artistTarget = resolveTargetArtist(queryAnalysis, scoredResults, query);
+    const titleTarget = normalizeText(queryAnalysis?.inferredTitle || '');
+    if (artistTarget || titleTarget) {
+        const queryAsksVersion = isCoverLikeResult({ title: query, album: '', snippet: '' });
+        for (const scored of scoredResults) {
+            scored.score = applyOriginalPreference(scored, { artistTarget, titleTarget, queryAsksVersion });
+        }
+    }
 
     scoredResults.sort(compareScoredResults);
     mergeMeta.ranking.totalCandidates = scoredResults.length;

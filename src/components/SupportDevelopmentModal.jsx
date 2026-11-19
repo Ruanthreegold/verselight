@@ -7,6 +7,9 @@ import { REQUEST_MODAL_CLOSE_EVENT } from '@/constants/modalEvents';
 
 const animationDuration = 220;
 
+const ALIPAY_QR_SRC = '/support/alipay-qr.png';
+const SUPPORT_NAME = '阮三金';
+
 export function SupportDevelopmentModal({ isOpen, onClose, isDark = false }) {
   const [entering, setEntering] = useState(true);
   const [exiting, setExiting] = useState(false);
@@ -57,10 +60,6 @@ export function SupportDevelopmentModal({ isOpen, onClose, isDark = false }) {
     return () => window.removeEventListener(REQUEST_MODAL_CLOSE_EVENT, registerCloseCandidate);
   }, [handleClose, isOpen]);
 
-  const handleDonate = () => {
-    window.open('https://lyricdisplay.app/donate', '_blank');
-  };
-
   if (!isOpen) return null;
 
   const overlayStateClass = entering || exiting ? 'opacity-0' : 'opacity-100';
@@ -93,7 +92,7 @@ export function SupportDevelopmentModal({ isOpen, onClose, isDark = false }) {
       <div
         className={cn(
           'relative transform rounded-2xl border shadow-2xl transition-all duration-200 overflow-hidden',
-          'w-full max-w-4xl',
+          'w-full max-w-md',
           isDark
             ? 'bg-gray-900 text-gray-50 border-white/10'
             : 'bg-white text-gray-900 border-black/10',
@@ -101,97 +100,73 @@ export function SupportDevelopmentModal({ isOpen, onClose, isDark = false }) {
         )}
         style={{ maxHeight: 'calc(100vh - 80px)' }}
       >
-        <div className="flex h-full" style={{ minHeight: '500px', maxHeight: '600px' }}>
-          {/* Left Half - Image */}
-          <div className="w-1/2 relative overflow-hidden">
+        <div className="absolute top-3 right-3 z-10">
+          <button
+            type="button"
+            className={cn(
+              'rounded-full p-2 transition-colors',
+              isDark
+                ? 'text-gray-400 hover:text-gray-200 hover:bg-white/10'
+                : 'text-gray-500 hover:text-gray-700 hover:bg-black/5'
+            )}
+            onClick={handleClose}
+            aria-label="关闭"
+          >
+            <X className="h-5 w-5" />
+          </button>
+        </div>
+
+        <div className="flex flex-col items-center px-8 pt-8 pb-6 text-center">
+          <div
+            className={cn(
+              'mb-3 inline-flex h-11 w-11 items-center justify-center rounded-full',
+              isDark ? 'bg-rose-500/15 text-rose-400' : 'bg-rose-50 text-rose-500'
+            )}
+          >
+            <Heart className="h-6 w-6 fill-current" />
+          </div>
+
+          <h2 id="support-dev-modal-title" className="text-xl font-bold tracking-tight">
+            支持 VerseLight 继续更新
+          </h2>
+
+          <p className={cn('mt-2 text-sm leading-relaxed', isDark ? 'text-gray-300' : 'text-gray-600')}>
+            VerseLight 是我业余时间维护的免费项目，没有广告也没有内购。
+            如果它帮到了你的服侍或演出，欢迎扫码支持一下，你的每一份心意都会变成下一次更新。
+          </p>
+
+          <div
+            className={cn(
+              'mt-5 w-full max-w-[260px] overflow-hidden rounded-xl border',
+              isDark ? 'border-white/10 bg-white' : 'border-black/10 bg-white'
+            )}
+          >
             <img
-              src="/images/support-dev.jpg"
-              alt="Support Development"
-              className="absolute inset-0 w-full h-full object-cover"
+              src={ALIPAY_QR_SRC}
+              alt="支付宝收款码"
+              className="block h-auto w-full"
+              draggable={false}
             />
           </div>
 
-          {/* Right Half - Content */}
-          <div className="w-1/2 flex flex-col">
-            {/* Close Button */}
-            <div className="absolute top-4 right-4 z-10">
-              <button
-                type="button"
-                className={cn(
-                  'rounded-full p-2 transition-colors',
-                  isDark
-                    ? 'text-gray-400 hover:text-gray-200 hover:bg-white/10'
-                    : 'text-gray-500 hover:text-gray-700 hover:bg-black/5'
-                )}
-                onClick={handleClose}
-                aria-label="Close dialog"
-              >
-                <X className="h-5 w-5" />
-              </button>
-            </div>
+          <p className={cn('mt-4 text-sm font-medium', isDark ? 'text-gray-200' : 'text-gray-700')}>
+            打开支付宝「扫一扫」即可
+          </p>
+          <p className={cn('mt-1 text-xs', isDark ? 'text-gray-500' : 'text-gray-400')}>
+            收款人：{SUPPORT_NAME}
+          </p>
 
-            {/* Content Container */}
-            <div className="flex-1 flex flex-col justify-center px-10 py-12">
-              <div className="space-y-6">
-                {/* Header */}
-                <div className="space-y-3">
-                  <h2
-                    id="support-dev-modal-title"
-                    className="text-3xl font-bold tracking-tight"
-                  >
-                    Keep VerseLight Free
-                  </h2>
+          <Button
+            onClick={handleClose}
+            variant="outline"
+            className="mt-6 w-full"
+          >
+            关闭
+          </Button>
 
-                  {/* Description */}
-                  <p
-                    className={cn(
-                      'text-sm leading-relaxed',
-                      isDark ? 'text-gray-300' : 'text-gray-600'
-                    )}
-                  >
-                    VerseLight is a passion project built to serve church media groups, worship teams and content creators worldwide.
-                    Your donation helps us maintain absolute security, develop new features and keep all functionality
-                    completely free for everyone.
-                  </p>
-
-                  <p
-                    className={cn(
-                      'text-sm leading-relaxed',
-                      isDark ? 'text-gray-300' : 'text-gray-600'
-                    )}
-                  >
-                    Every contribution, no matter the size, makes a real difference in sustaining this project
-                    and ensuring it remains accessible to all who need it.
-                  </p>
-                </div>
-
-                {/* Donate Button */}
-                <div className="pt-4">
-                  <Button
-                    onClick={handleDonate}
-                    className={cn(
-                      'w-full h-12 text-base font-semibold gap-2',
-                      'bg-linear-to-r from-pink-500 to-rose-500 hover:from-pink-600 hover:to-rose-600',
-                      'text-white shadow-lg hover:shadow-xl transition-all duration-200'
-                    )}
-                  >
-                    <Heart className="h-5 w-5 fill-current" />
-                    Support with a Donation
-                  </Button>
-                </div>
-
-                {/* Footer Note */}
-                <p
-                  className={cn(
-                    'text-xs text-center pt-2',
-                    isDark ? 'text-gray-500' : 'text-gray-400'
-                  )}
-                >
-                  Thank you for supporting VerseLight!
-                </p>
-              </div>
-            </div>
-          </div>
+          <p className={cn('mt-4 text-xs', isDark ? 'text-gray-500' : 'text-gray-400')}>
+            谢谢你的支持 ❤️
+          </p>
         </div>
       </div>
     </div>

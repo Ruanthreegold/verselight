@@ -463,8 +463,9 @@ export function createWindow(route = '/', options = {}) {
     show: false,
     icon: path.join(appRoot, 'public', 'favicon.ico'),
     frame: projection ? false : (isControlWindow ? false : true),
-    transparent: false,
-    backgroundColor: defaultBackground,
+    // 投影/输出窗口走透明通道：页面本身决定画什么底色（无背景时透明，方便 OBS/vMix 叠加）
+    transparent: projection,
+    backgroundColor: projection ? '#00000000' : defaultBackground,
     titleBarStyle: isControlWindow && process.platform === 'darwin' ? 'hiddenInset' : 'default',
     thickFrame: true,
     autoHideMenuBar: true,

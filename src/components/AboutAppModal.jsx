@@ -2,12 +2,14 @@ import React from 'react';
 import { RefreshCw } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
-const Link = ({ href, children }) => (
+const Link = ({ href, onClick, children }) => (
   <a
     href={href}
-    target="_blank"
-    rel="noopener noreferrer"
-    className="font-medium text-sky-300 transition-colors hover:text-sky-200"
+    onClick={onClick}
+    target={href ? '_blank' : undefined}
+    rel={href ? 'noopener noreferrer' : undefined}
+    role={href ? undefined : 'button'}
+    className="cursor-pointer font-medium text-sky-300 transition-colors hover:text-sky-200"
   >
     {children}
   </a>
@@ -61,7 +63,7 @@ export function AboutAppModal({ version = '1.0.0', onClose }) {
 
             <div className="min-w-0 space-y-1.5">
               <p className="text-xs font-medium text-slate-100">
-                &copy; {new Date().getFullYear()} VerseLight Technologies. Trademarks reserved.
+                &copy; {new Date().getFullYear()} VerseLight · 个人自建分支（基于 LyricDisplay 二次开发）
               </p>
               <p className="text-[10px] leading-relaxed text-slate-400">
                 Designed and developed by <span className="font-medium text-slate-300">Peter Alakembi</span> and{' '}
@@ -71,11 +73,11 @@ export function AboutAppModal({ version = '1.0.0', onClose }) {
                 Thank you to every church, studio, and volunteer who has run VerseLight through its first year.
               </p>
               <p className="text-xs leading-relaxed text-slate-400">
-                <Link href="https://lyricdisplay.app">Our Website</Link>
+                <Link href="https://github.com/Ruanthreegold/verselight">项目主页</Link>
                 <span className="mx-3" aria-hidden="true">&middot;</span>
-                <Link href="https://lyricdisplay.app/donate">Donate</Link>
+                <Link onClick={() => window.dispatchEvent(new Event('open-support-dev-modal'))}>赞助作者</Link>
                 <span className="mx-3" aria-hidden="true">&middot;</span>
-                <Link href="https://peteralakembi.design">About the Author</Link>
+                <Link href="https://github.com/Ruanthreegold">开发者的 GitHub</Link>
               </p>
             </div>
           </div>

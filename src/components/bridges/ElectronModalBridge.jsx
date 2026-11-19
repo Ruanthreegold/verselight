@@ -1,6 +1,32 @@
 import { useEffect } from 'react';
 import useModal from '@/hooks/useModal';
 import useToast from '@/hooks/useToast';
+import { t } from '@/i18n';
+
+// 主进程发来的弹窗文案是英文字面量，这里统一过一遍词典，
+// 这样关闭确认、错误提示之类的原生弹窗也能显示中文（切英文时自动回退）。
+const translateText = (value) => (typeof value === 'string' && value ? t(value) : value);
+
+const localizeModalConfig = (config) => {
+  if (!config || typeof config !== 'object') return config;
+
+  return {
+    ...config,
+    title: translateText(config.title),
+    message: translateText(config.message),
+    body: translateText(config.body),
+    detail: translateText(config.detail),
+    description: translateText(config.description),
+    placeholder: translateText(config.placeholder),
+    confirmLabel: translateText(config.confirmLabel),
+    cancelLabel: translateText(config.cancelLabel),
+    actions: Array.isArray(config.actions)
+      ? config.actions.map((action) => (action && typeof action === 'object'
+        ? { ...action, label: translateText(action.label) }
+        : action))
+      : config.actions,
+  };
+};
 
 export default function ElectronModalBridge() {
   const { showModal } = useModal();
@@ -19,9 +45,10 @@ export default function ElectronModalBridge() {
       }
       try {
         if (presentation === 'toast') {
+          const localized = localizeModalConfig(config);
           showToast({
-            ...config,
-            actions: (config.actions || []).map(({ label, modal }) => ({
+            ...localized,
+            actions: (localized.actions || []).map(({ label, modal }) => ({
               label,
               onClick: () => {
                 if (modal) {
@@ -39,12 +66,12 @@ export default function ElectronModalBridge() {
         }
         if (component) {
           const result = await showModal({
-            ...config,
+            ...localizeModalConfig(config),
             component,
           });
           await api.resolveModalRequest(id, result ?? {});
         } else {
-          const result = await showModal(config);
+          const result = await showModal(localizeModalConfig(config));
           await api.resolveModalRequest(id, result ?? {});
         }
       } catch (error) {

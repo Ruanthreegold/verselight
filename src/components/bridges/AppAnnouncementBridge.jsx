@@ -9,6 +9,8 @@ import {
 import { readPersistentStorageItem, writePersistentStorageItem } from '@/utils/persistentStorage';
 
 const ANNOUNCEMENT_URL = 'https://lyricdisplay.app/.netlify/functions/app-announcement';
+// VerseLight 自用分支：关闭向原作者服务器拉取公告。
+const ANNOUNCEMENTS_ENABLED = false;
 const SEEN_ANNOUNCEMENTS_KEY = 'lyricdisplay.seen-announcement-ids';
 const STARTUP_DELAY_MS = 10_000;
 const STARTUP_JITTER_MS = 5_000;
@@ -100,6 +102,7 @@ export default function AppAnnouncementBridge() {
   }, [surfaceAnnouncement]);
 
   const checkForAnnouncement = useCallback(async ({ manual = false } = {}) => {
+    if (!ANNOUNCEMENTS_ENABLED) return;
     if (activeCheck.current) {
       if (manual) {
         showToast({
