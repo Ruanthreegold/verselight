@@ -235,7 +235,8 @@ test('LRC splitting preserves one cue timestamp and leaves oversized cues atomic
 
 test('main lines followed by translations remain atomic in TXT and LRC parsing', () => {
   const main = 'This deliberately extended lyric sentence carries enough carefully chosen words to split near the configured boundary';
-  const translation = '[A translated lyric remains attached to the complete source line]';
+  const translationText = 'A translated lyric remains attached to the complete source line';
+  const translation = `[${translationText}]`;
   const txt = parseTxtContent(`${main}\n${translation}`, SPLIT_GROUPING_OPTIONS);
   const lrc = parseLrcContent(`[00:01.00]${main}\n[00:01.00]${translation}`, SPLIT_GROUPING_OPTIONS);
 
@@ -243,7 +244,8 @@ test('main lines followed by translations remain atomic in TXT and LRC parsing',
     assert.equal(parsed.processedLines.length, 1);
     assert.equal(parsed.processedLines[0].type, 'group');
     assert.equal(parsed.processedLines[0].mainLine, main);
-    assert.equal(parsed.processedLines[0].translation, translation);
+    // 译文行两侧的括号只是标记，解析后应去掉，界面上只显示译文本身
+    assert.equal(parsed.processedLines[0].translation, translationText);
   }
   assert.deepEqual(lrc.timestamps, [100]);
 });
@@ -904,4 +906,16 @@ test('song credits show on the first and last lyric lines according to the outpu
   assert.equal(shouldShowSongCredits({ mode: 'first-last', lyrics, selectedLine: 2 }), false);
   assert.equal(shouldShowSongCredits({ mode: 'always', lyrics, selectedLine: null }), false);
   assert.equal(shouldShowSongCredits({ mode: 'always', lyrics, selectedLine: 5 }), false);
+});
+
+test('parseLrcContent strips brackets from translation lines', () => {
+  const { processedLines } = parseLrcContent(
+    '[00:01.00]Hello world\n[00:01.00](你好，世界)',
+    { enableSplitting: false },
+  );
+
+  const group = processedLines.find((line) => line.type === 'group');
+  assert.equal(group.mainLine, 'Hello world');
+  assert.equal(group.translation, '你好，世界');
+  assert.equal(group.displayText, 'Hello world\n你好，世界');
 });

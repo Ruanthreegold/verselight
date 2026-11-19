@@ -54,17 +54,19 @@ test('netease search reports provider error codes instead of throwing', async ()
   assert.match(errors[0], /50000005/);
 });
 
-test('netease getLyrics returns synced content and translation flag', async () => {
+test('netease getLyrics merges translations beside their original lines', async () => {
   const fetchImpl = async () => jsonResponse({
     lrc: { lyric: '[00:01.00]line one\n[00:02.00]line two' },
-    tlyric: { lyric: '[00:01.00]第一行' },
+    tlyric: { lyric: '[00:01.00]第一行\n[00:02.00]line two' },
   });
 
   const lyric = await netease.getLyrics({ payload: { id: '186016', title: '晴天', artist: '周杰伦' } }, { fetchImpl });
 
-  assert.match(lyric.content, /line one/);
+  // 第一行有译文 → 紧跟一行括号译文；第二行译文与原文相同 → 不重复插入
+  assert.equal(lyric.content, '[00:01.00]line one\n[00:01.00](第一行)\n[00:02.00]line two');
   assert.equal(lyric.metadata.hasSyncedLyrics, true);
   assert.equal(lyric.metadata.hasTranslation, true);
+  assert.equal(lyric.metadata.translation, '[00:01.00]第一行\n[00:02.00]line two');
   assert.equal(lyric.title, '晴天');
   assert.match(lyric.sourceUrl, /song\?id=186016/);
 });

@@ -7,7 +7,7 @@ import {
   setRuntimeGroupingConfig
 } from './runtimeConfig.js';
 import { isStructureTag } from './structureTags.js';
-import { isNormalGroupCandidate, isTranslationLine } from './lineClassification.js';
+import { isNormalGroupCandidate, isTranslationLine, stripTranslationBrackets } from './lineClassification.js';
 import { extractLrcSongMetadata } from './songMetadata.js';
 import { createNormalGroup } from './grouping.js';
 import { deriveSectionsFromProcessedLines } from './sections.js';
@@ -213,8 +213,8 @@ export function parseLrcContent(rawText = '', options = {}) {
           type: 'group',
           id: `lrc_group_${i}`,
           mainLine: main.text,
-          translation: next.text,
-          displayText: `${main.text}\n${next.text}`,
+          translation: stripTranslationBrackets(next.text),
+          displayText: `${main.text}\n${stripTranslationBrackets(next.text)}`,
           searchText: `${main.text} ${next.text}`,
           originalIndex: i,
         });

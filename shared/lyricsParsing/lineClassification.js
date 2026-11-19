@@ -51,6 +51,25 @@ export function isTranslationLine(line) {
 /**
  * Check if a line is eligible for normal grouping (not bracketed, within character limit).
  */
+/**
+ * Remove one wrapping bracket pair from a translation line so the UI and the
+ * outputs show the translated text itself rather than the markup around it.
+ */
+export function stripTranslationBrackets(line) {
+  if (!line || typeof line !== 'string') return line;
+  const trimmed = line.trim();
+  if (trimmed.length <= 2) return line;
+
+  for (const [open, close] of BRACKET_PAIRS) {
+    if (trimmed.startsWith(open) && trimmed.endsWith(close)) {
+      const inner = trimmed.slice(open.length, trimmed.length - close.length).trim();
+      return inner || trimmed;
+    }
+  }
+
+  return line;
+}
+
 export function isNormalGroupCandidate(line, config = null) {
   if (!line || typeof line !== 'string') return false;
 

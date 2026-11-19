@@ -1,6 +1,6 @@
 import { getEffectiveGroupingConfig, sanitizeMaxLinesPerGroup } from './runtimeConfig.js';
 import { isStructureTag } from './structureTags.js';
-import { isNormalGroupCandidate, isTranslationLine, isVisuallyBlankLine } from './lineClassification.js';
+import { isNormalGroupCandidate, isTranslationLine, isVisuallyBlankLine, stripTranslationBrackets } from './lineClassification.js';
 import { isSongSeparator } from './repeatableSections.js';
 
 // Protected lines stay standalone through cross-blank merging: split segments, and lines
@@ -54,8 +54,8 @@ export function flattenClusters(clusters) {
         type: 'group',
         id: `group_${clusterIndex}_${cluster[0].originalIndex}`,
         mainLine: cluster[0].line,
-        translation: cluster[1].line,
-        displayText: `${cluster[0].line}\n${cluster[1].line}`,
+        translation: stripTranslationBrackets(cluster[1].line),
+        displayText: `${cluster[0].line}\n${stripTranslationBrackets(cluster[1].line)}`,
         searchText: `${cluster[0].line} ${cluster[1].line}`,
         originalIndex: cluster[0].originalIndex,
       });
@@ -121,8 +121,8 @@ export function flattenClusters(clusters) {
             type: 'group',
             id: `group_${clusterIndex}_${currentItem.originalIndex}`,
             mainLine: currentItem.line,
-            translation: nextItem.line,
-            displayText: `${currentItem.line}\n${nextItem.line}`,
+            translation: stripTranslationBrackets(nextItem.line),
+            displayText: `${currentItem.line}\n${stripTranslationBrackets(nextItem.line)}`,
             searchText: `${currentItem.line} ${nextItem.line}`,
             originalIndex: currentItem.originalIndex,
           });
