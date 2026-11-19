@@ -8,6 +8,7 @@ const providerLogoMap = {
   openHymnal: '/logos/openhymnal-logo.png',
   lrclib: '/logos/lrclib-logo.png',
   netease: '/logos/netease-logo.png',
+  qqmusic: '/logos/qqmusic-logo.png',
 };
 
 const providerIconMap = {
@@ -15,6 +16,7 @@ const providerIconMap = {
   lyricsOvh: '/logos/lyricsovh-icon.png',
   lrclib: '/logos/lrclib-icon.png',
   netease: '/logos/netease-icon.png',
+  qqmusic: '/logos/qqmusic-icon.png',
 };
 
 const FeaturedLibraries = ({ compact = false, darkMode, providerDefinitions }) => {

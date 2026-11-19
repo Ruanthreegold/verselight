@@ -1,4 +1,4 @@
-﻿<p align="center">
+<p align="center">
   <img src="public/logos/VerseLight%20logo.png" alt="VerseLight" width="420">
 </p>
 
@@ -37,7 +37,7 @@ Prepare lyrics, cue lines and style independent outputs — entirely on your own
 | **Structured songs** | Portable `.ldsong` files whose sections and slides render identically everywhere; classic text canvas retained |
 | **Imports** | TXT, LRC, Markdown, RTF, DOCX; `.ldset` setlists and `.ldsch` schedules |
 | **Local file management** | Keyboard-first file navigator with indexed folder search, lyric previews and recent files |
-| **Lyric tooling** | Online providers (LRCLIB / Lyrics.ovh / OpenHymnal), translation grouping, timestamps, autoplay, lyric video export |
+| **Lyric tooling** | Online providers (LRCLIB / NetEase Cloud Music / QQ Music / Lyrics.ovh / OpenHymnal), translation grouping, timestamps, autoplay, lyric video export |
 | **Live control** | Presentation clickers, `Shift + letter` section jumps, live tally, current/next status bar |
 | **Reusable parts** | Write a chorus or bridge once and reference it with a bare marker; setlists can repeat a song |
 | **Credits per output** | Title, writers, copyright, CCLI song number and licence number |

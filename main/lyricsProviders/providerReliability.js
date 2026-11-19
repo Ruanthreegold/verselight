@@ -5,6 +5,7 @@ export const SEARCH_TIMEOUTS_MS = {
     lrclib: 12000,
     lyricsOvh: 2500,
     netease: 4000,
+    qqmusic: 4000,
   },
   full: {
     default: 6000,
@@ -12,6 +13,7 @@ export const SEARCH_TIMEOUTS_MS = {
     lrclib: 15000,
     lyricsOvh: 5000,
     netease: 8000,
+    qqmusic: 8000,
   },
 };
 

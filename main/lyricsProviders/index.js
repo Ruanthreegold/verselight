@@ -3,6 +3,7 @@ import * as lyricsOvh from './providers/lyricsOvh.js';
 import * as openHymnal from './providers/openHymnal.js';
 import * as lrclib from './providers/lrclib.js';
 import * as netease from './providers/netease.js';
+import * as qqmusic from './providers/qqmusic.js';
 import { deleteProviderKey, getProviderKey, listProviderKeys, setProviderKey } from '../providerCredentials.js';
 import { mergeResults } from './searchAlgorithm.js';
 import fs from 'fs';
@@ -25,6 +26,7 @@ const providers = [
   openHymnal,
   lrclib,
   netease,
+  qqmusic,
   lyricsOvh,
 ];
 

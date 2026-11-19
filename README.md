@@ -1,4 +1,4 @@
-﻿<p align="center">
+<p align="center">
   <img src="public/logos/VerseLight%20logo.png" alt="VerseLight" width="420">
 </p>
 
@@ -48,7 +48,7 @@
 | **结构化歌单** | `.ldsong` 结构化歌曲文件，段落/分页在任何电脑上显示一致；也保留经典文本画布 |
 | **多种导入** | TXT、LRC、Markdown、RTF、DOCX；歌单 `.ldset`、日程 `.ldsch` |
 | **本地文件管理** | 键盘优先的文件浏览器，支持索引文件夹搜索、歌词预览、最近文件 |
-| **歌词工具** | 在线歌词源（LRCLIB / Lyrics.ovh / OpenHymnal）、翻译分组、时间戳、自动播放、歌词视频导出 |
+| **歌词工具** | 在线歌词源（LRCLIB / 网易云音乐 / QQ 音乐 / Lyrics.ovh / OpenHymnal）、翻译分组、时间戳、自动播放、歌词视频导出 |
 | **现场控制** | 演示翻页器、`Shift + 字母` 段落跳转、直播态指示灯、当前/下一行状态栏 |
 | **可复用段落** | 主歌/副歌/桥段只写一次，用标记反复引用；歌单可重复同一首歌 |
 | **输出署名** | 每路输出显示歌名、作者、版权、CCLI 歌曲编号与授权号 |
