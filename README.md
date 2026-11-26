@@ -114,6 +114,8 @@ http://localhost:4000/output1
 | `npm run check:static` | 语法、冲突标记与接口契约检查 |
 | `npm run test:unit` | 单元测试 |
 
+> 想接手二次开发？先看 [`README.dev.md`](README.dev.md)（构建、打包、i18n、歌词源开发指南）和 [`HANDOFF.md`](HANDOFF.md)（当前进度、待办与已知坑）。
+
 目录结构：
 
 ```text
@@ -137,7 +139,7 @@ public/        图标、背景、图片等静态资源
   - 覆盖 JSX 文本、`placeholder`/`title`/`label`/`message` 等属性、JSX 子表达式里的三元字符串、这些键的对象值
   - **不碰**比较运算、`includes()` 参数、对象键、类名、路径、事件回调内的字符串
 - `src/i18n/index.js`：运行时按当前语言查表，**查不到自动回退英文**
-- `src/i18n/zh-CN.json`：英文 → 中文对照表，当前 **3,700+ 条，覆盖率约 95%**
+- `src/i18n/zh-CN.json`：英文 → 中文对照表，当前 **3,828 条**（含主进程弹窗、MIDI/OSC 指令说明）
 - 语言选择保存在 `localStorage`，默认 `zh-CN`；在 **偏好设置 → 常规 → Language / 界面语言** 中切换
 - 每次构建会生成 `.i18n-keys.json`（所有待翻译原文），可与字典比对找出漏译项
 
