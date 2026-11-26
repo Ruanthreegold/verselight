@@ -259,6 +259,7 @@ const SongCanvasHeader = ({
   handleBack,
   editorSwitcher = null,
   handleCleanup,
+  handleConvertToSimplified,
   handleChangeSelectionCase,
   handleCopy,
   handleCopyActiveLine,
@@ -471,6 +472,22 @@ const SongCanvasHeader = ({
               <IconAction onClick={handleCleanup} disabled={isContentEmpty} title="Clean up and format lyrics" toolbarGhostClass={toolbarGhostClass} darkMode={darkMode}>
                 <Wand2 className="h-4 w-4" />
               </IconAction>
+              {handleConvertToSimplified && (
+                <Tooltip content="Convert Traditional Chinese to Simplified" side="bottom">
+                  <Button
+                    type="button"
+                    onClick={handleConvertToSimplified}
+                    disabled={isContentEmpty}
+                    variant="ghost"
+                    size="sm"
+                    className={`control-group-item-squircle h-8 shrink-0 px-2 text-xs font-medium ${toolbarGhostClass}`}
+                    title="Convert Traditional Chinese to Simplified"
+                    aria-label="Convert Traditional Chinese to Simplified"
+                  >
+                    繁→简
+                  </Button>
+                </Tooltip>
+              )}
             </ActionGroup>
             <ActionGroup darkMode={darkMode}>
               <ToolbarDropdown

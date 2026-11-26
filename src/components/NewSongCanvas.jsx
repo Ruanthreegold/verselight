@@ -41,6 +41,7 @@ import CanvasSearchPanel from './NewSongCanvas/CanvasSearchPanel';
 import SongCanvasHeader from './NewSongCanvas/SongCanvasHeader';
 import EditorModeSwitcher from './SongEditor/EditorModeSwitcher';
 import { writePreferredSongEditor } from '../utils/songDocumentEditing.js';
+import { toSimplified } from '../../shared/zhConvert.js';
 
 const NewSongCanvas = () => {
   const navigate = useNavigate();
@@ -489,6 +490,40 @@ const NewSongCanvas = () => {
     return nextContent;
   }, [handleContentPaste, handlePaste]);
 
+  const handleConvertToSimplified = useCallback(() => {
+    const nextContent = toSimplified(content);
+    const nextTitle = isUsableLyricsTitle(title) ? toSimplified(title) : title;
+    const contentChanged = nextContent !== content;
+    const titleChanged = nextTitle !== title;
+
+    if (!contentChanged && !titleChanged) {
+      showToast({
+        title: 'Already Simplified',
+        message: 'No Traditional Chinese characters found.',
+        variant: 'info',
+      });
+      return;
+    }
+
+    if (contentChanged) {
+      const textarea = textareaRef.current;
+      setContent(nextContent, {
+        selectionStart: textarea?.selectionStart ?? 0,
+        selectionEnd: textarea?.selectionEnd ?? 0,
+        scrollTop: textarea?.scrollTop ?? 0,
+        timestamp: Date.now(),
+      });
+    }
+    if (titleChanged) {
+      setTitle(nextTitle);
+    }
+    showToast({
+      title: 'Converted to Simplified Chinese',
+      message: 'Traditional Chinese characters were converted. Undo with Ctrl+Z.',
+      variant: 'success',
+    });
+  }, [content, setContent, showToast, title]);
+
   const handleChangeSelectionCase = useCallback((casing) => {
     const textarea = textareaRef.current;
     if (!textarea) return;
@@ -669,6 +704,7 @@ const NewSongCanvas = () => {
         handleAddTranslationAtActiveLine={handleAddTranslationAtActiveLine}
         handleBack={handleBack}
         handleCleanup={handleCleanup}
+        handleConvertToSimplified={handleConvertToSimplified}
         handleChangeSelectionCase={handleChangeSelectionCase}
         handleCopy={handleCopy}
         handleCopyActiveLine={handleCopyActiveLine}

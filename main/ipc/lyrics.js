@@ -8,6 +8,7 @@ import {
   searchAllProviders 
 } from '../lyricsProviders/index.js';
 import { createAbortError } from '../lyricsProviders/providerReliability.js';
+import { getPreference } from '../userPreferences.js';
 
 const activeLyricsSearches = new Map();
 
@@ -111,7 +112,8 @@ export function registerLyricsHandlers() {
   ipcMain.handle('lyrics:fetch', async (_event, { providerId, payload } = {}) => {
     try {
       if (!providerId) throw new Error('providerId is required');
-      const lyric = await fetchLyricsByProvider(providerId, payload);
+      const convertToSimplified = getPreference('general.autoConvertTraditionalToSimplified') ?? true;
+      const lyric = await fetchLyricsByProvider(providerId, payload, { convertToSimplified });
       return { success: true, lyric };
     } catch (error) {
       console.error('Lyrics fetch failed:', error);

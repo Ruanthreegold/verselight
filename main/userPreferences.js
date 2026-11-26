@@ -38,6 +38,7 @@ const preferencesStore = new Store({
       ccliLicenseNumber: '',
       startMinimized: false,
       minimizeToTray: false,
+      autoConvertTraditionalToSimplified: true,
     },
 
     // Lyrics Parsing Settings

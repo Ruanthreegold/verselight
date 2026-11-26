@@ -1,3 +1,5 @@
+import { toSimplified } from '../../shared/zhConvert.js';
+
 let knownArtistsList = [];
 let knownArtistsLoaded = false;
 let normalizedKnownArtists = [];
@@ -32,7 +34,7 @@ function normalizeText(text) {
         return normalizationCache.get(text);
     }
 
-    const normalized = text
+    const normalized = toSimplified(text)
         .toLowerCase()
         .trim()
         .normalize('NFD')

@@ -16,6 +16,7 @@ import { buildSongSectionOptions } from '../constants/songCanvas';
 import { formatLyrics } from '../utils/lyricsFormat';
 import { applyTextCasing } from '../utils/textCasing';
 import { isStructureTag } from '../../shared/lyricsParsing/structureTags.js';
+import { toSimplified } from '../../shared/zhConvert.js';
 import {
   isLdsongContent,
   ldsongDocumentToLyrics,
@@ -489,6 +490,38 @@ const SongEditor = () => {
     });
   }, [commit, document, showToast]);
 
+  const handleConvertToSimplified = useCallback(() => {
+    let changed = false;
+    const nextDocument = mapEditorLines(document, (line) => {
+      if (!line.text) return line;
+      const converted = toSimplified(line.text);
+      if (converted !== line.text) {
+        changed = true;
+        return { ...line, text: converted };
+      }
+      return line;
+    });
+    const nextTitle = isUsableLyricsTitle(title) ? toSimplified(title) : title;
+    const titleChanged = nextTitle !== title;
+
+    if (!changed && !titleChanged) {
+      showToast({
+        title: 'Already Simplified',
+        message: 'No Traditional Chinese characters found.',
+        variant: 'info',
+      });
+      return;
+    }
+
+    if (changed) commit(nextDocument);
+    if (titleChanged) setTitle(nextTitle);
+    showToast({
+      title: 'Converted to Simplified Chinese',
+      message: 'Traditional Chinese characters were converted. Undo with Ctrl+Z.',
+      variant: 'success',
+    });
+  }, [commit, document, showToast, title]);
+
   const handleChangeSelectionCase = useCallback((casing) => {
     if (!activeLine) return;
     const input = inputRefs.current.get(activeLine.id);
@@ -720,6 +753,7 @@ const SongEditor = () => {
         handleAddTranslationAtActiveLine={() => activeLine && handleAddLine(activeLine.id, 'translation')}
         handleBack={handleBack}
         handleCleanup={handleCleanup}
+        handleConvertToSimplified={handleConvertToSimplified}
         handleChangeSelectionCase={handleChangeSelectionCase}
         handleCopy={handleCopy}
         handleCopyActiveLine={() => activeLine && writeClipboard(activeLine.text)}

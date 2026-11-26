@@ -9,6 +9,7 @@ import {
 } from '../shared/lyricsParsing/preferenceOptions.js';
 import { expandRepeatableSectionReferences } from '../shared/lyricsParsing/repeatableSections.js';
 import { applySongMetadataHeader, formatSongCreditLines } from '../shared/lyricsParsing/songMetadata.js';
+import { convertLyricToSimplified, hasTraditionalChars, toSimplified } from '../shared/zhConvert.js';
 import { isStructureTag } from '../shared/lyricsParsing/structureTags.js';
 import {
   extractExplicitGroupingDirective,
@@ -918,4 +919,84 @@ test('parseLrcContent strips brackets from translation lines', () => {
   assert.equal(group.mainLine, 'Hello world');
   assert.equal(group.translation, '你好，世界');
   assert.equal(group.displayText, 'Hello world\n你好，世界');
+});
+
+test('toSimplified converts Traditional Chinese lyrics and polyphonic characters accurately', () => {
+  const cases = [
+    ['周杰倫', '周杰伦'],
+    ['時間', '时间'],
+    ['臺北', '台北'],
+    ['臺灣', '台湾'],
+    ['乾燥', '干燥'],
+    ['後來', '后来'],
+    ['心裡', '心里'],
+    ['夢裏', '梦里'],
+    ['看著你', '看着你'],
+    ['一隻蝴蝶', '一只蝴蝶'],
+    ['頭髮', '头发'],
+    ['奮鬥', '奋斗'],
+    ['不能說的秘密', '不能说的秘密'],
+    ['最美的不是下雨天，是曾與你躲過雨的屋簷', '最美的不是下雨天，是曾与你躲过雨的屋檐'],
+    ['從前從前有個人愛你很久', '从前从前有个人爱你很久'],
+    ['故事的小黃花，從出生那年就飄著', '故事的小黄花，从出生那年就飘着'],
+    ['吹著前奏望著天空，我想起花瓣試著掉落', '吹着前奏望着天空，我想起花瓣试着掉落'],
+    ['當你孤單你會想起誰', '当你孤单你会想起谁'],
+    ['讚美之泉 敬拜禱告', '赞美之泉 敬拜祷告'],
+    ['聖靈運行在我們當中', '圣灵运行在我们当中'],
+    ['榮耀歸於至高真神', '荣耀归于至高真神'],
+    ['讓世界聽見這首歌', '让世界听见这首歌'],
+  ];
+
+  for (const [trad, simp] of cases) {
+    assert.equal(toSimplified(trad), simp, `Expected "${trad}" -> "${simp}"`);
+    assert.equal(hasTraditionalChars(trad), true, `Expected hasTraditionalChars("${trad}") === true`);
+    assert.equal(toSimplified(simp), simp, `Simplified text "${simp}" must stay unchanged`);
+  }
+
+  // Simplified inputs remain untouched (never Simplified -> Traditional)
+  assert.equal(toSimplified('周杰伦 晴天 干杯 后悔 里面 看着 一只 头发 奋斗'), '周杰伦 晴天 干杯 后悔 里面 看着 一只 头发 奋斗');
+  assert.equal(hasTraditionalChars('周杰伦 晴天'), false);
+});
+
+test('toSimplified preserves LRC timestamps and metadata tag syntax', () => {
+  const lrc = [
+    '[ti:不能說的秘密]',
+    '[ar:周杰倫]',
+    '[al:不能說的秘密 電影原聲帶]',
+    '[offset:0]',
+    '[00:12.34]冷咖啡離開了杯墊',
+    '[00:16.78]我忍住的情緒在很後面',
+  ].join('\n');
+
+  const expected = [
+    '[ti:不能说的秘密]',
+    '[ar:周杰伦]',
+    '[al:不能说的秘密 电影原声带]',
+    '[offset:0]',
+    '[00:12.34]冷咖啡离开了杯垫',
+    '[00:16.78]我忍住的情绪在很后面',
+  ].join('\n');
+
+  assert.equal(toSimplified(lrc), expected);
+});
+
+test('convertLyricToSimplified respects the auto-convert toggle', () => {
+  const sample = {
+    provider: 'lrclib',
+    title: '不能說的秘密',
+    artist: '周杰倫',
+    content: '[00:01.00]冷咖啡離開了杯墊',
+    sourceUrl: 'https://lrclib.net/api/get/1',
+  };
+
+  const converted = convertLyricToSimplified(sample, { convertToSimplified: true });
+  assert.equal(converted.title, '不能说的秘密');
+  assert.equal(converted.artist, '周杰伦');
+  assert.equal(converted.content, '[00:01.00]冷咖啡离开了杯垫');
+  assert.equal(converted.sourceUrl, sample.sourceUrl);
+
+  const raw = convertLyricToSimplified(sample, { convertToSimplified: false });
+  assert.equal(raw.title, '不能說的秘密');
+  assert.equal(raw.artist, '周杰倫');
+  assert.equal(raw.content, '[00:01.00]冷咖啡離開了杯墊');
 });

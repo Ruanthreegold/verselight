@@ -3826,5 +3826,12 @@
   "Select Line 22 (A5)": "选择第 22 行（A5）",
   "Select Line 23 (A#5)": "选择第 23 行（A#5）",
   "Select Line 24 (B5)": "选择第 24 行（B5）",
-  "Select Line 25 (C6)": "选择第 25 行（C6）"
+  "Select Line 25 (C6)": "选择第 25 行（C6）",
+  "Auto-Convert Traditional Chinese to Simplified": "在线歌词自动繁转简",
+  "Automatically convert Traditional Chinese online lyrics to Simplified Chinese": "获取在线歌词时自动将繁体字转换为简体字",
+  "Convert Traditional Chinese to Simplified": "繁体转简体",
+  "Converted to Simplified Chinese": "已转为简体中文",
+  "Traditional Chinese characters were converted. Undo with Ctrl+Z.": "已将歌词中的繁体字转为简体，可按 Ctrl+Z 撤销。",
+  "Already Simplified": "已是简体",
+  "No Traditional Chinese characters found.": "当前歌词中未检测到繁体字。"
 }

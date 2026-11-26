@@ -308,3 +308,18 @@ test('mergeResults keeps results from every provider instead of letting one sour
     'the secondary provider should still be represented',
   );
 });
+
+test('mergeResults matches Traditional Chinese queries against Simplified Chinese tracks', () => {
+  const chunks = [{
+    provider: { id: 'netease', displayName: '网易云音乐' },
+    results: [
+      { provider: 'netease', title: '晴天 (女声版)', artist: '翻唱歌手' },
+      { provider: 'netease', title: '晴天', artist: '周杰伦' },
+    ],
+  }];
+
+  const [top] = mergeResults(chunks, { query: '周杰倫 晴天', limit: 5 });
+
+  assert.equal(top.title, '晴天');
+  assert.equal(top.artist, '周杰伦');
+});

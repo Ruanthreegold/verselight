@@ -6,6 +6,7 @@ import * as netease from './providers/netease.js';
 import * as qqmusic from './providers/qqmusic.js';
 import { deleteProviderKey, getProviderKey, listProviderKeys, setProviderKey } from '../providerCredentials.js';
 import { mergeResults } from './searchAlgorithm.js';
+import { convertLyricToSimplified, hasTraditionalChars, toSimplified } from '../../shared/zhConvert.js';
 import fs from 'fs';
 import path from 'path';
 import electron from 'electron';
@@ -186,6 +187,8 @@ export const searchAllProviders = async (query, { limit = 10, skipCache = false,
   }
 
   const perProviderLimit = Math.min(Math.max(limit, 5), 15);
+  const simplifiedQuery = hasTraditionalChars(trimmed) ? toSimplified(trimmed) : trimmed;
+  const searchQueries = simplifiedQuery !== trimmed ? [trimmed, simplifiedQuery] : [trimmed];
   const completedChunks = [];
   let partialMerged = [];
   let mergeMeta = null;
@@ -231,7 +234,45 @@ export const searchAllProviders = async (query, { limit = 10, skipCache = false,
     const timed = createTimedAbortController(signal, timeoutMs);
 
     try {
-      const result = await mod.search(trimmed, { limit: perProviderLimit, signal: timed.signal, timeoutMs });
+      let mergedProviderResults = [];
+      let mergedProviderErrors = [];
+
+      if (searchQueries.length === 1) {
+        const result = await mod.search(trimmed, { limit: perProviderLimit, signal: timed.signal, timeoutMs });
+        mergedProviderResults = Array.isArray(result?.results) ? result.results : [];
+        mergedProviderErrors = Array.isArray(result?.errors) ? result.errors : [];
+      } else {
+        const variantSettled = await Promise.allSettled(
+          searchQueries.map((q) => mod.search(q, { limit: perProviderLimit, signal: timed.signal, timeoutMs })),
+        );
+        const seenIds = new Set();
+        let anySucceeded = false;
+        const collectedErrors = [];
+
+        for (const entry of variantSettled) {
+          if (entry.status === 'fulfilled') {
+            anySucceeded = true;
+            const list = Array.isArray(entry.value?.results) ? entry.value.results : [];
+            for (const item of list) {
+              const dedupId = item?.id ?? `${item?.provider || ''}|${item?.title || ''}|${item?.artist || ''}`;
+              if (seenIds.has(dedupId)) continue;
+              seenIds.add(dedupId);
+              mergedProviderResults.push(item);
+            }
+            if (Array.isArray(entry.value?.errors) && entry.value.errors.length > 0) {
+              collectedErrors.push(...entry.value.errors);
+            }
+          } else if (entry.reason?.name !== 'AbortError') {
+            collectedErrors.push(entry.reason?.message || 'Unknown provider error');
+          }
+        }
+
+        if (!anySucceeded && signal?.aborted) {
+          throw signal.reason || createAbortError();
+        }
+        mergedProviderErrors = mergedProviderResults.length > 0 ? [] : collectedErrors;
+      }
+
       const duration = Date.now() - startTime;
 
       if (duration > 3000) {
@@ -242,10 +283,8 @@ export const searchAllProviders = async (query, { limit = 10, skipCache = false,
 
       const chunk = {
         provider: mod.definition,
-        results: Array.isArray(result?.results)
-          ? result.results.map(r => ({ ...r, searchQuery: trimmed }))
-          : [],
-        errors: Array.isArray(result?.errors) ? result.errors : [],
+        results: mergedProviderResults.map((r) => ({ ...r, searchQuery: trimmed })),
+        errors: mergedProviderErrors,
         duration,
       };
 
@@ -362,11 +401,13 @@ export const fetchLyricsByProvider = async (providerId, payload, options = {}) =
     }
   }
 
+  const { convertToSimplified = true, ...providerOptions } = options || {};
+
   try {
     const start = Date.now();
-    const result = await mod.getLyrics({ payload }, options);
+    const result = await mod.getLyrics({ payload }, providerOptions);
     updateProviderHealth(providerId, { duration: Date.now() - start, errors: [] });
-    return result;
+    return convertLyricToSimplified(result, { convertToSimplified });
   } catch (error) {
     updateProviderHealth(providerId, { duration: null, errors: [error?.message || 'lyrics fetch failed'] });
     throw error;

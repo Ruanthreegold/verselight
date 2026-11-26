@@ -567,6 +567,19 @@ const UserPreferencesModal = ({ darkMode, onClose, initialCategory }) => {
 
             <div className={preferenceToggleRowClass}>
               <div className={preferenceToggleTextClass}>
+                <label className={`text-sm font-medium ${labelClass}`}>Auto-Convert Traditional Chinese to Simplified</label>
+                <p className={`text-xs ${mutedClass}`}>Automatically convert Traditional Chinese online lyrics to Simplified Chinese</p>
+              </div>
+              <Switch
+                checked={preferences.general?.autoConvertTraditionalToSimplified ?? true}
+                onCheckedChange={(checked) => updatePreference('general', 'autoConvertTraditionalToSimplified', checked)}
+                size="medium"
+                variant="control"
+              />
+            </div>
+
+            <div className={preferenceToggleRowClass}>
+              <div className={preferenceToggleTextClass}>
                 <label className={`text-sm font-medium ${labelClass}`}>Toast Sounds</label>
                 <p className={`text-xs ${mutedClass}`}>Play notification sounds when toast messages appear</p>
               </div>
