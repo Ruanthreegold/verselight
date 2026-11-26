@@ -1,4 +1,7 @@
 import { toSimplified } from '../../shared/zhConvert.js';
+import { isCoverLikeResult } from '../../shared/lyricsSearchFilter.js';
+
+export { isCoverLikeResult };
 
 let knownArtistsList = [];
 let knownArtistsLoaded = false;
@@ -290,43 +293,6 @@ const VERSION_TERMS = {
 };
 
 const VERSION_TERM_ORDER = Object.keys(VERSION_TERMS);
-
-// 中文曲库里很常见的翻唱/演绎标记
-const COVER_PATTERNS = [
-    /翻唱/,
-    /翻自/,
-    /翻唱版/,
-    /女声版/,
-    /男声版/,
-    /童声/,
-    /钢琴版/,
-    /吉他版/,
-    /器乐版/,
-    /伴奏/,
-    /纯音乐/,
-    /合唱版/,
-    /改编版/,
-    /串烧/,
-    /片段/,
-    /原唱\s*[:：]/,
-    /现场版/,
-    /抖音/,
-    /cover/i,
-    /instrumental/i,
-    /karaoke/i,
-    /karaoke/i,
-    /ktv/i,
-    /remix/i,
-    /dj\s*版?/i,
-];
-
-/** 结果是否明显是翻唱/伴奏/演绎版本 */
-export function isCoverLikeResult(item) {
-    const text = `${item?.title || ''} ${item?.album || ''} ${item?.snippet || ''}`;
-    if (!text.trim()) return false;
-    if (item?.metadata?.instrumental) return true;
-    return COVER_PATTERNS.some((pattern) => pattern.test(text));
-}
 
 /**
  * 目标歌手：优先用查询解析结果；解析不出来时，看结果里有没有哪个歌手的名字

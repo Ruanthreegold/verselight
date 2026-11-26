@@ -3833,5 +3833,8 @@
   "Converted to Simplified Chinese": "已转为简体中文",
   "Traditional Chinese characters were converted. Undo with Ctrl+Z.": "已将歌词中的繁体字转为简体，可按 Ctrl+Z 撤销。",
   "Already Simplified": "已是简体",
-  "No Traditional Chinese characters found.": "当前歌词中未检测到繁体字。"
+  "No Traditional Chinese characters found.": "当前歌词中未检测到繁体字。",
+  "Originals only": "只看原唱",
+  "Only found {count} original results, showing all results": "只找到 {count} 条原唱，已显示全部结果",
+  "Filtered {count} cover/version results": "已过滤 {count} 条翻唱/演绎版本"
 }

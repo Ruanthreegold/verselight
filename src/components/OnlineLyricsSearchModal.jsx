@@ -2,7 +2,10 @@ import React, { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useSta
 import { AlertTriangle, ExternalLink, Globe2, HelpCircle, Library, Search, Wifi, WifiOff, X } from 'lucide-react';
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { Switch } from "@/components/ui/switch";
 import { Tooltip } from "@/components/ui/tooltip";
+import { t } from '@/i18n';
+import { filterOriginals } from '../../shared/lyricsSearchFilter.js';
 import useToast from '../hooks/useToast';
 import OnlineLyricsWelcomeSplash from './OnlineLyricsWelcomeSplash';
 import useNetworkStatus from '../hooks/OnlineLyricsSearchModal/useNetworkStatus';
@@ -46,6 +49,14 @@ const OnlineLyricsSearchModal = ({ isOpen, onClose, darkMode, onImportLyrics }) 
   const [lastError, setLastError] = useState(null);
   const [, setRetrying] = useState(false);
   const [advancedExpanded, setAdvancedExpanded] = useState(false);
+  const [originalsOnly, setOriginalsOnly] = useState(() => {
+    try {
+      const saved = readPersistentStorageItem('verselight_originalsOnly');
+      return saved === null ? true : saved === 'true';
+    } catch {
+      return true;
+    }
+  });
   const isOnline = useNetworkStatus();
 
   const { showToast } = useToast();
@@ -320,9 +331,38 @@ const OnlineLyricsSearchModal = ({ isOpen, onClose, darkMode, onImportLyrics }) 
     handleCloseModal();
   };
 
-  const combinedFullResults = showFullResults
-    ? (showingLowQuality ? [...fullResults, ...lowQualityResults] : fullResults)
-    : fullResults;
+  const handleToggleOriginalsOnly = useCallback((checked) => {
+    setOriginalsOnly(checked);
+    try {
+      writePersistentStorageItem('verselight_originalsOnly', String(checked));
+    } catch (err) {
+      console.warn('Failed to persist originals-only preference:', err);
+    }
+  }, []);
+
+  const combinedFullResults = useMemo(() => (
+    showFullResults
+      ? (showingLowQuality ? [...fullResults, ...lowQualityResults] : fullResults)
+      : fullResults
+  ), [fullResults, lowQualityResults, showFullResults, showingLowQuality]);
+
+  const filteredSuggestions = useMemo(
+    () => filterOriginals(suggestionResults, { enabled: originalsOnly }),
+    [suggestionResults, originalsOnly],
+  );
+
+  const filteredFullResults = useMemo(
+    () => filterOriginals(combinedFullResults, { enabled: originalsOnly }),
+    [combinedFullResults, originalsOnly],
+  );
+
+  const suggestionsFallbackNotice = filteredSuggestions.fallbackApplied
+    ? t('Only found {count} original results, showing all results').replace('{count}', String(filteredSuggestions.originalCount))
+    : null;
+
+  const fullResultsFallbackNotice = filteredFullResults.fallbackApplied
+    ? t('Only found {count} original results, showing all results').replace('{count}', String(filteredFullResults.originalCount))
+    : null;
 
   const performFullSearch = async () => {
     if (!query.trim() || !hasElectronBridge) return;
@@ -446,8 +486,8 @@ const OnlineLyricsSearchModal = ({ isOpen, onClose, darkMode, onImportLyrics }) 
     isOpen: isOpen && visible,
     activeTab,
     showFullResults,
-    suggestionResults,
-    fullResults: combinedFullResults,
+    suggestionResults: filteredSuggestions.items,
+    fullResults: filteredFullResults.items,
     onSelectResult: handleSelectResult,
     onPerformFullSearch: performFullSearch,
     onGoogleSearch: handleGoogleSearch,
@@ -627,9 +667,10 @@ const OnlineLyricsSearchModal = ({ isOpen, onClose, darkMode, onImportLyrics }) 
                     {isLibrariesMode && hasElectronBridge && !showFullResults && (
                       <SuggestionsList
                         darkMode={darkMode}
+                        fallbackNotice={suggestionsFallbackNotice}
                         handleSelectResult={handleSelectResult}
                         isSearchFocused={isSearchFocused}
-                        items={suggestionResults}
+                        items={filteredSuggestions.items}
                         popover
                         providerMap={providerMap}
                         query={query}
@@ -651,6 +692,27 @@ const OnlineLyricsSearchModal = ({ isOpen, onClose, darkMode, onImportLyrics }) 
                   </Button>
                 </div>
               </div>
+              {isLibrariesMode && hasElectronBridge && (
+                <div className="mt-3 flex items-center justify-between gap-3">
+                  <label className="inline-flex cursor-pointer items-center gap-2 select-none">
+                    <Switch
+                      checked={originalsOnly}
+                      onCheckedChange={handleToggleOriginalsOnly}
+                      size="small"
+                      variant="control"
+                      aria-label="Originals only"
+                    />
+                    <span className={`text-xs font-medium ${darkMode ? 'text-gray-300' : 'text-gray-700'}`}>
+                      Originals only
+                    </span>
+                  </label>
+                  {showFullResults && originalsOnly && filteredFullResults.filteredOutCount > 0 && (
+                    <span className={`text-xs ${darkMode ? 'text-gray-500' : 'text-gray-400'}`}>
+                      {t('Filtered {count} cover/version results').replace('{count}', String(filteredFullResults.filteredOutCount))}
+                    </span>
+                  )}
+                </div>
+              )}
             </div>
 
             <div
@@ -726,10 +788,11 @@ const OnlineLyricsSearchModal = ({ isOpen, onClose, darkMode, onImportLyrics }) 
                   {showFullResults && (
                     <FullResultsList
                       darkMode={darkMode}
+                      fallbackNotice={fullResultsFallbackNotice}
                       fullResultsRef={fullResultsRef}
                       handleSelectResult={handleSelectResult}
                       handleShowLowQuality={handleShowLowQuality}
-                      items={combinedFullResults}
+                      items={filteredFullResults.items}
                       lastError={lastError}
                       loadingFullResults={loadingFullResults}
                       lowQualityResults={lowQualityResults}

@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
-import { analyzeQuery, calculateRelevanceScore, mergeResults } from '../main/lyricsProviders/searchAlgorithm.js';
+import { analyzeQuery, calculateRelevanceScore, isCoverLikeResult, mergeResults } from '../main/lyricsProviders/searchAlgorithm.js';
+import { filterOriginals } from '../shared/lyricsSearchFilter.js';
 
 test('analyzeQuery supports artist dash title order', () => {
   const analysis = analyzeQuery('John Newton - Amazing Grace');
@@ -322,4 +323,53 @@ test('mergeResults matches Traditional Chinese queries against Simplified Chines
 
   assert.equal(top.title, '晴天');
   assert.equal(top.artist, '周杰伦');
+});
+
+test('filterOriginals hides covers/instrumentals when enabled and preserves them when disabled', () => {
+  const sample = [
+    { id: '1', title: '晴天', artist: '周杰伦', provider: 'netease' },
+    { id: '2', title: '晴天', artist: '周杰伦', provider: 'qqmusic' },
+    { id: '3', title: '晴天', artist: '周杰伦', provider: 'lrclib' },
+    { id: '4', title: '晴天 (女声版)', artist: '某歌手', provider: 'netease' },
+    { id: '5', title: '晴天 (钢琴版)', artist: '纯音乐', provider: 'qqmusic' },
+    { id: '6', title: '晴天 翻唱', artist: '翻唱达人', provider: 'netease' },
+    { id: '7', title: '晴天 (伴奏)', artist: '周杰伦', provider: 'qqmusic' },
+    { id: '8', title: '晴天 DJ版', artist: 'DJ小王', provider: 'netease' },
+    { id: '9', title: '晴天', artist: '周杰伦', provider: 'lrclib', metadata: { instrumental: true } },
+  ];
+
+  assert.equal(isCoverLikeResult(sample[0]), false);
+  assert.equal(isCoverLikeResult(sample[3]), true);
+  assert.equal(isCoverLikeResult(sample[4]), true);
+  assert.equal(isCoverLikeResult(sample[5]), true);
+  assert.equal(isCoverLikeResult(sample[6]), true);
+  assert.equal(isCoverLikeResult(sample[7]), true);
+  assert.equal(isCoverLikeResult(sample[8]), true);
+
+  const filtered = filterOriginals(sample, { enabled: true });
+  assert.equal(filtered.items.length, 3);
+  assert.equal(filtered.originalCount, 3);
+  assert.equal(filtered.fallbackApplied, false);
+  assert.equal(filtered.filteredOutCount, 6);
+  assert.deepEqual(filtered.items.map((item) => item.id), ['1', '2', '3']);
+
+  const unfiltered = filterOriginals(sample, { enabled: false });
+  assert.equal(unfiltered.items.length, 9);
+  assert.equal(unfiltered.fallbackApplied, false);
+  assert.equal(unfiltered.filteredOutCount, 0);
+});
+
+test('filterOriginals relaxes automatically when fewer than 3 originals remain', () => {
+  const sample = [
+    { id: '1', title: '晴天', artist: '周杰伦', provider: 'netease' },
+    { id: '2', title: '晴天', artist: '周杰伦', provider: 'qqmusic' },
+    { id: '3', title: '晴天 (女声版)', artist: '某歌手', provider: 'netease' },
+    { id: '4', title: '晴天 (钢琴版)', artist: '纯音乐', provider: 'qqmusic' },
+  ];
+
+  const relaxed = filterOriginals(sample, { enabled: true });
+  assert.equal(relaxed.fallbackApplied, true);
+  assert.equal(relaxed.originalCount, 2);
+  assert.equal(relaxed.items.length, 4);
+  assert.equal(relaxed.filteredOutCount, 0);
 });

@@ -67,6 +67,7 @@ const ResultBadges = ({ darkMode, item }) => {
 
 export const SuggestionsList = ({
   darkMode,
+  fallbackNotice = null,
   handleSelectResult,
   isSearchFocused,
   items,
@@ -102,6 +103,11 @@ export const SuggestionsList = ({
       ref={suggestionListRef}
       className={`${containerClassName} max-h-64 overflow-y-auto ${popover ? (darkMode ? 'bg-[linear-gradient(135deg,rgba(255,255,255,0.025)_0,rgba(255,255,255,0)_36%)]' : 'bg-[linear-gradient(135deg,rgba(15,23,42,0.025)_0,rgba(15,23,42,0)_36%)]') : ''}`}
     >
+      {fallbackNotice && (
+        <div className={`border-b px-4 py-2 text-xs ${darkMode ? 'border-amber-500/20 bg-amber-500/10 text-amber-200' : 'border-amber-200 bg-amber-50 text-amber-800'}`}>
+          {fallbackNotice}
+        </div>
+      )}
       {items.map((item, index) => {
         const providerName = providerMap.get(item.provider)?.displayName || item.provider;
         const isLoading = selectionLoadingId === item.id;
@@ -140,6 +146,7 @@ export const SuggestionsList = ({
 
 export const FullResultsList = ({
   darkMode,
+  fallbackNotice = null,
   fullResultsRef,
   handleSelectResult,
   handleShowLowQuality,
@@ -195,6 +202,11 @@ export const FullResultsList = ({
       ref={fullResultsRef}
       className="mt-2 overflow-y-auto"
     >
+      {fallbackNotice && (
+        <div className={`mb-2 rounded-md border px-3 py-2 text-xs ${darkMode ? 'border-amber-500/30 bg-amber-500/10 text-amber-200' : 'border-amber-200 bg-amber-50 text-amber-800'}`}>
+          {fallbackNotice}
+        </div>
+      )}
       {items.map((item, index) => {
         const provider = providerMap.get(item.provider);
         const providerName = provider?.displayName || item.provider;
